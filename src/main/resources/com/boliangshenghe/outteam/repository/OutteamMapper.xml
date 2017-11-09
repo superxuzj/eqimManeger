@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boliangshenghe.outteam.repository.OutteamMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.outteam.entity.Outteam" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="eqid" property="eqid" jdbcType="INTEGER" />
+    <result column="eqname" property="eqname" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="outtype" property="outtype" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="flight" property="flight" jdbcType="VARCHAR" />
+    <result column="lid" property="lid" jdbcType="INTEGER" />
+    <result column="duty" property="duty" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="hit" property="hit" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="operatetime" property="operatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, eqid, eqname, cid, company, outtype, state, count, fid, flight, lid, duty, summary, 
+    hit, creator, createtime, operator, operatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_outteam
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_outteam
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boliangshenghe.outteam.entity.Outteam" >
+    insert into t_outteam (ID, eqid, eqname, 
+      cid, company, outtype, 
+      state, count, fid, 
+      flight, lid, duty, 
+      summary, hit, creator, 
+      createtime, operator, operatetime
+      )
+    values (#{id,jdbcType=INTEGER}, #{eqid,jdbcType=INTEGER}, #{eqname,jdbcType=VARCHAR}, 
+      #{cid,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{outtype,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, 
+      #{flight,jdbcType=VARCHAR}, #{lid,jdbcType=INTEGER}, #{duty,jdbcType=VARCHAR}, 
+      #{summary,jdbcType=VARCHAR}, #{hit,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, #{operatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boliangshenghe.outteam.entity.Outteam" >
+    insert into t_outteam
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="eqid != null" >
+        eqid,
+      </if>
+      <if test="eqname != null" >
+        eqname,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="outtype != null" >
+        outtype,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="flight != null" >
+        flight,
+      </if>
+      <if test="lid != null" >
+        lid,
+      </if>
+      <if test="duty != null" >
+        duty,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="hit != null" >
+        hit,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="operatetime != null" >
+        operatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eqid != null" >
+        #{eqid,jdbcType=INTEGER},
+      </if>
+      <if test="eqname != null" >
+        #{eqname,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="outtype != null" >
+        #{outtype,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="flight != null" >
+        #{flight,jdbcType=VARCHAR},
+      </if>
+      <if test="lid != null" >
+        #{lid,jdbcType=INTEGER},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="hit != null" >
+        #{hit,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatetime != null" >
+        #{operatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.outteam.entity.Outteam" >
+    update t_outteam
+    <set >
+      <if test="eqid != null" >
+        eqid = #{eqid,jdbcType=INTEGER},
+      </if>
+      <if test="eqname != null" >
+        eqname = #{eqname,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="outtype != null" >
+        outtype = #{outtype,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="flight != null" >
+        flight = #{flight,jdbcType=VARCHAR},
+      </if>
+      <if test="lid != null" >
+        lid = #{lid,jdbcType=INTEGER},
+      </if>
+      <if test="duty != null" >
+        duty = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="hit != null" >
+        hit = #{hit,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatetime != null" >
+        operatetime = #{operatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.outteam.entity.Outteam" >
+    update t_outteam
+    set eqid = #{eqid,jdbcType=INTEGER},
+      eqname = #{eqname,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      outtype = #{outtype,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER},
+      flight = #{flight,jdbcType=VARCHAR},
+      lid = #{lid,jdbcType=INTEGER},
+      duty = #{duty,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      hit = #{hit,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      operatetime = #{operatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 新加   -->
+   <select id="selectOutteamList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.outteam.entity.Outteam">
+   	    select 
+    <include refid="Base_Column_List" />
+    from t_outteam
+    <where>
+        <if test="eqname != null">
+            AND eqname like '%${eqname}%' 
+        </if>
+         <if test="company != null">
+            AND company like '%${company}%' 
+        </if>
+        <if test="eqid != null">
+            AND eqid = #{eqid,jdbcType=INTEGER}
+        </if>
+        
+        <if test="cid != null">
+            AND cid = #{cid,jdbcType=INTEGER}
+        </if>
+        <if test="hit != null">
+            AND hit = #{hit,jdbcType=VARCHAR}
+        </if>
+    </where>
+   	    <if test="start != null and limit != null"> 
+			LIMIT #{start} ,#{limit}
+		</if>
+   	</select>
+   	
+   	<!-- 新加   -->
+   <select id="selectOutteamCount" resultType="java.lang.Integer"  parameterType="com.boliangshenghe.outteam.entity.Outteam">
+   	    select 
+    count(1)
+    from t_outteam
+    <where>
+        <if test="eqid != null">
+            AND eqid = #{eqid,jdbcType=INTEGER}
+        </if>
+    </where>
+   	</select>
+   	
+   <!-- 新加   -->
+   <select id="selectDistinctEqIDByCid" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.outteam.entity.Outteam">
+   	 select 
+    DISTINCT eqid
+    from t_outteam where cid=#{cid,jdbcType=INTEGER} and hit=1
+   	</select>
+   	
+   <select id="selectOutteamListForLeave" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.outteam.entity.Outteam">
+       SELECT * from (
+		select * FROM t_outteam WHERE eqid IN 
+		<foreach collection="eqids" index="index" item="item" open="(" separator="," close=")">
+	               ${item}
+	      </foreach> 
+	      AND cid!=#{cid,jdbcType=INTEGER} and hit=2
+		UNION ALL 
+		select * FROM t_outteam WHERE cid=#{cid,jdbcType=INTEGER} and hit=2
+		) a 
+		
+		<where>
+        <if test="eqname != null">
+            AND eqname like '%${eqname}%' 
+        </if>
+         <if test="company != null">
+            AND company like '%${company}%' 
+        </if>
+        
+    </where>
+		group by eqid,cid
+       <if test="start != null and limit != null"> 
+			LIMIT #{start} ,#{limit}
+		</if>
+		</select>
+</mapper>

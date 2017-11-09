@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boliangshenghe.outteam.repository.FlightMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.outteam.entity.Flight" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="flight" property="flight" jdbcType="VARCHAR" />
+    <result column="depcity" property="depcity" jdbcType="VARCHAR" />
+    <result column="arrcity" property="arrcity" jdbcType="VARCHAR" />
+    <result column="arrPort" property="arrport" jdbcType="VARCHAR" />
+    <result column="depPort" property="depport" jdbcType="VARCHAR" />
+    <result column="depterminal" property="depterminal" jdbcType="VARCHAR" />
+    <result column="arrterminal" property="arrterminal" jdbcType="VARCHAR" />
+    <result column="depscheduled" property="depscheduled" jdbcType="VARCHAR" />
+    <result column="arrscheduled" property="arrscheduled" jdbcType="VARCHAR" />
+    <result column="depactual" property="depactual" jdbcType="VARCHAR" />
+    <result column="arractual" property="arractual" jdbcType="VARCHAR" />
+    <result column="flightState" property="flightstate" jdbcType="VARCHAR" />
+    <result column="depdate" property="depdate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, flight, depcity, arrcity, arrPort, depPort, depterminal, arrterminal, depscheduled, 
+    arrscheduled, depactual, arractual, flightState, depdate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_flight
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_flight
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boliangshenghe.outteam.entity.Flight" >
+    insert into t_flight (id, flight, depcity, 
+      arrcity, arrPort, depPort, 
+      depterminal, arrterminal, depscheduled, 
+      arrscheduled, depactual, arractual, 
+      flightState, depdate)
+    values (#{id,jdbcType=INTEGER}, #{flight,jdbcType=VARCHAR}, #{depcity,jdbcType=VARCHAR}, 
+      #{arrcity,jdbcType=VARCHAR}, #{arrport,jdbcType=VARCHAR}, #{depport,jdbcType=VARCHAR}, 
+      #{depterminal,jdbcType=VARCHAR}, #{arrterminal,jdbcType=VARCHAR}, #{depscheduled,jdbcType=VARCHAR}, 
+      #{arrscheduled,jdbcType=VARCHAR}, #{depactual,jdbcType=VARCHAR}, #{arractual,jdbcType=VARCHAR}, 
+      #{flightstate,jdbcType=VARCHAR}, #{depdate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boliangshenghe.outteam.entity.Flight" >
+	  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+				SELECT LAST_INSERT_ID()
+	  	</selectKey>
+    insert into t_flight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="flight != null" >
+        flight,
+      </if>
+      <if test="depcity != null" >
+        depcity,
+      </if>
+      <if test="arrcity != null" >
+        arrcity,
+      </if>
+      <if test="arrport != null" >
+        arrPort,
+      </if>
+      <if test="depport != null" >
+        depPort,
+      </if>
+      <if test="depterminal != null" >
+        depterminal,
+      </if>
+      <if test="arrterminal != null" >
+        arrterminal,
+      </if>
+      <if test="depscheduled != null" >
+        depscheduled,
+      </if>
+      <if test="arrscheduled != null" >
+        arrscheduled,
+      </if>
+      <if test="depactual != null" >
+        depactual,
+      </if>
+      <if test="arractual != null" >
+        arractual,
+      </if>
+      <if test="flightstate != null" >
+        flightState,
+      </if>
+      <if test="depdate != null" >
+        depdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="flight != null" >
+        #{flight,jdbcType=VARCHAR},
+      </if>
+      <if test="depcity != null" >
+        #{depcity,jdbcType=VARCHAR},
+      </if>
+      <if test="arrcity != null" >
+        #{arrcity,jdbcType=VARCHAR},
+      </if>
+      <if test="arrport != null" >
+        #{arrport,jdbcType=VARCHAR},
+      </if>
+      <if test="depport != null" >
+        #{depport,jdbcType=VARCHAR},
+      </if>
+      <if test="depterminal != null" >
+        #{depterminal,jdbcType=VARCHAR},
+      </if>
+      <if test="arrterminal != null" >
+        #{arrterminal,jdbcType=VARCHAR},
+      </if>
+      <if test="depscheduled != null" >
+        #{depscheduled,jdbcType=VARCHAR},
+      </if>
+      <if test="arrscheduled != null" >
+        #{arrscheduled,jdbcType=VARCHAR},
+      </if>
+      <if test="depactual != null" >
+        #{depactual,jdbcType=VARCHAR},
+      </if>
+      <if test="arractual != null" >
+        #{arractual,jdbcType=VARCHAR},
+      </if>
+      <if test="flightstate != null" >
+        #{flightstate,jdbcType=VARCHAR},
+      </if>
+      <if test="depdate != null" >
+        #{depdate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.outteam.entity.Flight" >
+    update t_flight
+    <set >
+      <if test="flight != null" >
+        flight = #{flight,jdbcType=VARCHAR},
+      </if>
+      <if test="depcity != null" >
+        depcity = #{depcity,jdbcType=VARCHAR},
+      </if>
+      <if test="arrcity != null" >
+        arrcity = #{arrcity,jdbcType=VARCHAR},
+      </if>
+      <if test="arrport != null" >
+        arrPort = #{arrport,jdbcType=VARCHAR},
+      </if>
+      <if test="depport != null" >
+        depPort = #{depport,jdbcType=VARCHAR},
+      </if>
+      <if test="depterminal != null" >
+        depterminal = #{depterminal,jdbcType=VARCHAR},
+      </if>
+      <if test="arrterminal != null" >
+        arrterminal = #{arrterminal,jdbcType=VARCHAR},
+      </if>
+      <if test="depscheduled != null" >
+        depscheduled = #{depscheduled,jdbcType=VARCHAR},
+      </if>
+      <if test="arrscheduled != null" >
+        arrscheduled = #{arrscheduled,jdbcType=VARCHAR},
+      </if>
+      <if test="depactual != null" >
+        depactual = #{depactual,jdbcType=VARCHAR},
+      </if>
+      <if test="arractual != null" >
+        arractual = #{arractual,jdbcType=VARCHAR},
+      </if>
+      <if test="flightstate != null" >
+        flightState = #{flightstate,jdbcType=VARCHAR},
+      </if>
+      <if test="depdate != null" >
+        depdate = #{depdate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.outteam.entity.Flight" >
+    update t_flight
+    set flight = #{flight,jdbcType=VARCHAR},
+      depcity = #{depcity,jdbcType=VARCHAR},
+      arrcity = #{arrcity,jdbcType=VARCHAR},
+      arrPort = #{arrport,jdbcType=VARCHAR},
+      depPort = #{depport,jdbcType=VARCHAR},
+      depterminal = #{depterminal,jdbcType=VARCHAR},
+      arrterminal = #{arrterminal,jdbcType=VARCHAR},
+      depscheduled = #{depscheduled,jdbcType=VARCHAR},
+      arrscheduled = #{arrscheduled,jdbcType=VARCHAR},
+      depactual = #{depactual,jdbcType=VARCHAR},
+      arractual = #{arractual,jdbcType=VARCHAR},
+      flightState = #{flightstate,jdbcType=VARCHAR},
+      depdate = #{depdate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <!-- 新加   -->
+   <select id="selectFlightByRecord" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.outteam.entity.Flight">
+   	    select 
+    <include refid="Base_Column_List" />
+    from t_flight
+    <where>
+        <if test="depdate != null">
+            AND depdate = #{depdate,jdbcType=VARCHAR}
+        </if>
+        <if test="flight != null">
+            AND flight = #{flight,jdbcType=VARCHAR}
+        </if>
+    </where>
+   	</select>
+</mapper>

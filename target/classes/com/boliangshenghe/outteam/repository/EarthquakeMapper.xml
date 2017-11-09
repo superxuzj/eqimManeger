@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boliangshenghe.outteam.repository.EarthquakeMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.outteam.entity.Earthquake" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="eqname" property="eqname" jdbcType="VARCHAR" />
+    <result column="eventid" property="eventid" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="magnitude" property="magnitude" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="eqdate" property="eqdate" jdbcType="VARCHAR" />
+    <result column="eqtime" property="eqtime" jdbcType="VARCHAR" />
+    <result column="depth" property="depth" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="responseid" property="responseid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, eqname, eventid, cid, province, area, location, magnitude, longitude, latitude, 
+    eqdate, eqtime, depth, state, responseid, createtime, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_earthquake
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_earthquake
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boliangshenghe.outteam.entity.Earthquake" >
+    insert into t_earthquake (ID, eqname, eventid, 
+      cid, province, area, 
+      location, magnitude, longitude, 
+      latitude, eqdate, eqtime, 
+      depth, state, responseid, 
+      createtime, creator)
+    values (#{id,jdbcType=INTEGER}, #{eqname,jdbcType=VARCHAR}, #{eventid,jdbcType=VARCHAR}, 
+      #{cid,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{magnitude,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{eqdate,jdbcType=VARCHAR}, #{eqtime,jdbcType=VARCHAR}, 
+      #{depth,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{responseid,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boliangshenghe.outteam.entity.Earthquake" >
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+    insert into t_earthquake
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="eqname != null" >
+        eqname,
+      </if>
+      <if test="eventid != null" >
+        eventid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="magnitude != null" >
+        magnitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="eqdate != null" >
+        eqdate,
+      </if>
+      <if test="eqtime != null" >
+        eqtime,
+      </if>
+      <if test="depth != null" >
+        depth,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="responseid != null" >
+        responseid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eqname != null" >
+        #{eqname,jdbcType=VARCHAR},
+      </if>
+      <if test="eventid != null" >
+        #{eventid,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="magnitude != null" >
+        #{magnitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="eqdate != null" >
+        #{eqdate,jdbcType=VARCHAR},
+      </if>
+      <if test="eqtime != null" >
+        #{eqtime,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        #{depth,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="responseid != null" >
+        #{responseid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.outteam.entity.Earthquake" >
+    update t_earthquake
+    <set >
+      <if test="eqname != null" >
+        eqname = #{eqname,jdbcType=VARCHAR},
+      </if>
+      <if test="eventid != null" >
+        eventid = #{eventid,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="magnitude != null" >
+        magnitude = #{magnitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="eqdate != null" >
+        eqdate = #{eqdate,jdbcType=VARCHAR},
+      </if>
+      <if test="eqtime != null" >
+        eqtime = #{eqtime,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        depth = #{depth,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="responseid != null" >
+        responseid = #{responseid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.outteam.entity.Earthquake" >
+    update t_earthquake
+    set eqname = #{eqname,jdbcType=VARCHAR},
+      eventid = #{eventid,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      magnitude = #{magnitude,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      eqdate = #{eqdate,jdbcType=VARCHAR},
+      eqtime = #{eqtime,jdbcType=VARCHAR},
+      depth = #{depth,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      responseid = #{responseid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <!-- 新加   -->
+   <select id="selectEarthquakeList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.outteam.entity.Earthquake">
+   	    select 
+    <include refid="Base_Column_List" />
+    from t_earthquake
+    <where>
+        <if test="eqname != null">
+            AND eqname like '%${eqname}%' 
+        </if>
+         <if test="province != null">
+            AND province like '%${province}%' 
+        </if>
+    </where>
+   	    <if test="start != null and limit != null"> 
+			LIMIT #{start} ,#{limit}
+		</if>
+   	</select>
+  
+</mapper>

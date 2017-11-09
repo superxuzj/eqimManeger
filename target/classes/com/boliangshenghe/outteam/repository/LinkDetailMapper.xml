@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boliangshenghe.outteam.repository.LinkDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.outteam.entity.LinkDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="linkid" property="linkid" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, linkid, cid, company, count, state, createtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_link_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_link_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boliangshenghe.outteam.entity.LinkDetail" >
+    insert into t_link_detail (id, linkid, cid, 
+      company, count, state, 
+      createtime)
+    values (#{id,jdbcType=INTEGER}, #{linkid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, 
+      #{company,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boliangshenghe.outteam.entity.LinkDetail" >
+    insert into t_link_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="linkid != null" >
+        linkid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="linkid != null" >
+        #{linkid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.outteam.entity.LinkDetail" >
+    update t_link_detail
+    <set >
+      <if test="linkid != null" >
+        linkid = #{linkid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.outteam.entity.LinkDetail" >
+    update t_link_detail
+    set linkid = #{linkid,jdbcType=INTEGER},
+      cid = #{cid,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <!-- 新加   -->
+   <select id="selectLinkDetailList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.outteam.entity.LinkDetail">
+   	    select 
+    <include refid="Base_Column_List" />
+    from t_link_detail
+    <where>
+        <if test="linkid != null">
+            AND linkid = #{linkid,jdbcType=INTEGER}
+        </if>
+    </where>
+   	    <if test="start != null and limit != null"> 
+			LIMIT #{start} ,#{limit}
+		</if>
+   	</select>
+   	
+   	<delete id="deleteByLinkDetail" parameterType="com.boliangshenghe.outteam.entity.LinkDetail" >
+    delete from t_link_detail
+    where linkid = #{linkid,jdbcType=INTEGER}
+  </delete>
+</mapper>

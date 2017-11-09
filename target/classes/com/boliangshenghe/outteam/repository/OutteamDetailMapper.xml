@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boliangshenghe.outteam.repository.OutteamDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.outteam.entity.OutteamDetail" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="iscontact" property="iscontact" jdbcType="VARCHAR" />
+    <result column="ismeet" property="ismeet" jdbcType="VARCHAR" />
+    <result column="islead" property="islead" jdbcType="VARCHAR" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="eqid" property="eqid" jdbcType="INTEGER" />
+    <result column="eqname" property="eqname" jdbcType="VARCHAR" />
+    <result column="duty" property="duty" jdbcType="VARCHAR" />
+    <result column="otid" property="otid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="isdel" property="isdel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, userid, name, cid, company, phone, iscontact, ismeet, islead, fid, eqid, eqname, 
+    duty, otid, createtime, endtime, isdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_outteam_detail
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_outteam_detail
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boliangshenghe.outteam.entity.OutteamDetail" >
+    insert into t_outteam_detail (ID, userid, name, 
+      cid, company, phone, 
+      iscontact, ismeet, islead, 
+      fid, eqid, eqname, 
+      duty, otid, createtime, 
+      endtime, isdel)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{cid,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{iscontact,jdbcType=VARCHAR}, #{ismeet,jdbcType=VARCHAR}, #{islead,jdbcType=VARCHAR}, 
+      #{fid,jdbcType=INTEGER}, #{eqid,jdbcType=INTEGER}, #{eqname,jdbcType=VARCHAR}, 
+      #{duty,jdbcType=VARCHAR}, #{otid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{isdel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boliangshenghe.outteam.entity.OutteamDetail" >
+    insert into t_outteam_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="iscontact != null" >
+        iscontact,
+      </if>
+      <if test="ismeet != null" >
+        ismeet,
+      </if>
+      <if test="islead != null" >
+        islead,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="eqid != null" >
+        eqid,
+      </if>
+      <if test="eqname != null" >
+        eqname,
+      </if>
+      <if test="duty != null" >
+        duty,
+      </if>
+      <if test="otid != null" >
+        otid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="iscontact != null" >
+        #{iscontact,jdbcType=VARCHAR},
+      </if>
+      <if test="ismeet != null" >
+        #{ismeet,jdbcType=VARCHAR},
+      </if>
+      <if test="islead != null" >
+        #{islead,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="eqid != null" >
+        #{eqid,jdbcType=INTEGER},
+      </if>
+      <if test="eqname != null" >
+        #{eqname,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="otid != null" >
+        #{otid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.outteam.entity.OutteamDetail" >
+    update t_outteam_detail
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="iscontact != null" >
+        iscontact = #{iscontact,jdbcType=VARCHAR},
+      </if>
+      <if test="ismeet != null" >
+        ismeet = #{ismeet,jdbcType=VARCHAR},
+      </if>
+      <if test="islead != null" >
+        islead = #{islead,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="eqid != null" >
+        eqid = #{eqid,jdbcType=INTEGER},
+      </if>
+      <if test="eqname != null" >
+        eqname = #{eqname,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        duty = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="otid != null" >
+        otid = #{otid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.outteam.entity.OutteamDetail" >
+    update t_outteam_detail
+    set userid = #{userid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      iscontact = #{iscontact,jdbcType=VARCHAR},
+      ismeet = #{ismeet,jdbcType=VARCHAR},
+      islead = #{islead,jdbcType=VARCHAR},
+      fid = #{fid,jdbcType=INTEGER},
+      eqid = #{eqid,jdbcType=INTEGER},
+      eqname = #{eqname,jdbcType=VARCHAR},
+      duty = #{duty,jdbcType=VARCHAR},
+      otid = #{otid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      isdel = #{isdel,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 新加   -->
+   <select id="selectOutteamDetailList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.outteam.entity.OutteamDetail">
+   	    select 
+    <include refid="Base_Column_List" />
+    from t_outteam_detail
+    <where>
+        AND isdel is null
+        <if test="name != null">
+            AND name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="cid != null">
+            AND cid = #{cid,jdbcType=INTEGER}
+        </if>
+        <if test="eqid != null">
+            AND eqid = #{eqid,jdbcType=INTEGER}
+        </if>
+    </where>
+   	    <if test="start != null and limit != null"> 
+			LIMIT #{start} ,#{limit}
+		</if>
+   	</select>
+   	
+   <delete id="updateByOutteamDetail" parameterType="com.boliangshenghe.outteam.entity.OutteamDetail" >
+    	UPDATE t_outteam_detail SET isdel=1
+	   		where cid = #{cid,jdbcType=INTEGER}
+       		AND eqid = #{eqid,jdbcType=INTEGER}
+  </delete>
+  
+</mapper>
