@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boliangshenghe.eqim.repository.CatalogMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.eqim.entity.Catalog" >
+    <id column="Cata_id" property="cataId" jdbcType="VARCHAR" />
+    <result column="Event_id" property="eventId" jdbcType="VARCHAR" />
+    <result column="Operator" property="operator" jdbcType="VARCHAR" />
+    <result column="Save_time" property="saveTime" jdbcType="TIMESTAMP" />
+    <result column="Eq_type" property="eqType" jdbcType="CHAR" />
+    <result column="O_time" property="oTime" jdbcType="TIMESTAMP" />
+    <result column="O_time_ns" property="oTimeNs" jdbcType="INTEGER" />
+    <result column="Lat" property="lat" jdbcType="DOUBLE" />
+    <result column="Lon" property="lon" jdbcType="DOUBLE" />
+    <result column="Depth" property="depth" jdbcType="DOUBLE" />
+    <result column="Ml" property="ml" jdbcType="DOUBLE" />
+    <result column="Ms" property="ms" jdbcType="DOUBLE" />
+    <result column="Md" property="md" jdbcType="DOUBLE" />
+    <result column="Mb" property="mb" jdbcType="DOUBLE" />
+    <result column="mmB" property="mmb" jdbcType="DOUBLE" />
+    <result column="Mw" property="mw" jdbcType="DOUBLE" />
+    <result column="M" property="m" jdbcType="DOUBLE" />
+    <result column="Dmin" property="dmin" jdbcType="DOUBLE" />
+    <result column="Gap_azi" property="gapAzi" jdbcType="DOUBLE" />
+    <result column="Rms" property="rms" jdbcType="DOUBLE" />
+    <result column="Erh" property="erh" jdbcType="DOUBLE" />
+    <result column="Erz" property="erz" jdbcType="DOUBLE" />
+    <result column="Qloc" property="qloc" jdbcType="VARCHAR" />
+    <result column="Qnet" property="qnet" jdbcType="VARCHAR" />
+    <result column="Qcom" property="qcom" jdbcType="VARCHAR" />
+    <result column="Sum_stn" property="sumStn" jdbcType="INTEGER" />
+    <result column="Used_stn" property="usedStn" jdbcType="INTEGER" />
+    <result column="Sum_pha" property="sumPha" jdbcType="INTEGER" />
+    <result column="Used_pha" property="usedPha" jdbcType="INTEGER" />
+    <result column="Explosion_flag" property="explosionFlag" jdbcType="VARCHAR" />
+    <result column="Epic_id" property="epicId" jdbcType="VARCHAR" />
+    <result column="Source_id" property="sourceId" jdbcType="VARCHAR" />
+    <result column="Location_cname" property="locationCname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Cata_id, Event_id, Operator, Save_time, Eq_type, O_time, O_time_ns, Lat, Lon, Depth, 
+    Ml, Ms, Md, Mb, mmB, Mw, M, Dmin, Gap_azi, Rms, Erh, Erz, Qloc, Qnet, Qcom, Sum_stn, 
+    Used_stn, Sum_pha, Used_pha, Explosion_flag, Epic_id, Source_id, Location_cname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from catalog
+    where Cata_id = #{cataId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from catalog
+    where Cata_id = #{cataId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boliangshenghe.eqim.entity.Catalog" >
+    insert into catalog (Cata_id, Event_id, Operator, 
+      Save_time, Eq_type, O_time, 
+      O_time_ns, Lat, Lon, Depth, 
+      Ml, Ms, Md, Mb, 
+      mmB, Mw, M, Dmin, 
+      Gap_azi, Rms, Erh, Erz, 
+      Qloc, Qnet, Qcom, Sum_stn, 
+      Used_stn, Sum_pha, Used_pha, 
+      Explosion_flag, Epic_id, Source_id, 
+      Location_cname)
+    values (#{cataId,jdbcType=VARCHAR}, #{eventId,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{saveTime,jdbcType=TIMESTAMP}, #{eqType,jdbcType=CHAR}, #{oTime,jdbcType=TIMESTAMP}, 
+      #{oTimeNs,jdbcType=INTEGER}, #{lat,jdbcType=DOUBLE}, #{lon,jdbcType=DOUBLE}, #{depth,jdbcType=DOUBLE}, 
+      #{ml,jdbcType=DOUBLE}, #{ms,jdbcType=DOUBLE}, #{md,jdbcType=DOUBLE}, #{mb,jdbcType=DOUBLE}, 
+      #{mmb,jdbcType=DOUBLE}, #{mw,jdbcType=DOUBLE}, #{m,jdbcType=DOUBLE}, #{dmin,jdbcType=DOUBLE}, 
+      #{gapAzi,jdbcType=DOUBLE}, #{rms,jdbcType=DOUBLE}, #{erh,jdbcType=DOUBLE}, #{erz,jdbcType=DOUBLE}, 
+      #{qloc,jdbcType=VARCHAR}, #{qnet,jdbcType=VARCHAR}, #{qcom,jdbcType=VARCHAR}, #{sumStn,jdbcType=INTEGER}, 
+      #{usedStn,jdbcType=INTEGER}, #{sumPha,jdbcType=INTEGER}, #{usedPha,jdbcType=INTEGER}, 
+      #{explosionFlag,jdbcType=VARCHAR}, #{epicId,jdbcType=VARCHAR}, #{sourceId,jdbcType=VARCHAR}, 
+      #{locationCname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boliangshenghe.eqim.entity.Catalog" >
+    insert into catalog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cataId != null" >
+        Cata_id,
+      </if>
+      <if test="eventId != null" >
+        Event_id,
+      </if>
+      <if test="operator != null" >
+        Operator,
+      </if>
+      <if test="saveTime != null" >
+        Save_time,
+      </if>
+      <if test="eqType != null" >
+        Eq_type,
+      </if>
+      <if test="oTime != null" >
+        O_time,
+      </if>
+      <if test="oTimeNs != null" >
+        O_time_ns,
+      </if>
+      <if test="lat != null" >
+        Lat,
+      </if>
+      <if test="lon != null" >
+        Lon,
+      </if>
+      <if test="depth != null" >
+        Depth,
+      </if>
+      <if test="ml != null" >
+        Ml,
+      </if>
+      <if test="ms != null" >
+        Ms,
+      </if>
+      <if test="md != null" >
+        Md,
+      </if>
+      <if test="mb != null" >
+        Mb,
+      </if>
+      <if test="mmb != null" >
+        mmB,
+      </if>
+      <if test="mw != null" >
+        Mw,
+      </if>
+      <if test="m != null" >
+        M,
+      </if>
+      <if test="dmin != null" >
+        Dmin,
+      </if>
+      <if test="gapAzi != null" >
+        Gap_azi,
+      </if>
+      <if test="rms != null" >
+        Rms,
+      </if>
+      <if test="erh != null" >
+        Erh,
+      </if>
+      <if test="erz != null" >
+        Erz,
+      </if>
+      <if test="qloc != null" >
+        Qloc,
+      </if>
+      <if test="qnet != null" >
+        Qnet,
+      </if>
+      <if test="qcom != null" >
+        Qcom,
+      </if>
+      <if test="sumStn != null" >
+        Sum_stn,
+      </if>
+      <if test="usedStn != null" >
+        Used_stn,
+      </if>
+      <if test="sumPha != null" >
+        Sum_pha,
+      </if>
+      <if test="usedPha != null" >
+        Used_pha,
+      </if>
+      <if test="explosionFlag != null" >
+        Explosion_flag,
+      </if>
+      <if test="epicId != null" >
+        Epic_id,
+      </if>
+      <if test="sourceId != null" >
+        Source_id,
+      </if>
+      <if test="locationCname != null" >
+        Location_cname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cataId != null" >
+        #{cataId,jdbcType=VARCHAR},
+      </if>
+      <if test="eventId != null" >
+        #{eventId,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="saveTime != null" >
+        #{saveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eqType != null" >
+        #{eqType,jdbcType=CHAR},
+      </if>
+      <if test="oTime != null" >
+        #{oTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oTimeNs != null" >
+        #{oTimeNs,jdbcType=INTEGER},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lon != null" >
+        #{lon,jdbcType=DOUBLE},
+      </if>
+      <if test="depth != null" >
+        #{depth,jdbcType=DOUBLE},
+      </if>
+      <if test="ml != null" >
+        #{ml,jdbcType=DOUBLE},
+      </if>
+      <if test="ms != null" >
+        #{ms,jdbcType=DOUBLE},
+      </if>
+      <if test="md != null" >
+        #{md,jdbcType=DOUBLE},
+      </if>
+      <if test="mb != null" >
+        #{mb,jdbcType=DOUBLE},
+      </if>
+      <if test="mmb != null" >
+        #{mmb,jdbcType=DOUBLE},
+      </if>
+      <if test="mw != null" >
+        #{mw,jdbcType=DOUBLE},
+      </if>
+      <if test="m != null" >
+        #{m,jdbcType=DOUBLE},
+      </if>
+      <if test="dmin != null" >
+        #{dmin,jdbcType=DOUBLE},
+      </if>
+      <if test="gapAzi != null" >
+        #{gapAzi,jdbcType=DOUBLE},
+      </if>
+      <if test="rms != null" >
+        #{rms,jdbcType=DOUBLE},
+      </if>
+      <if test="erh != null" >
+        #{erh,jdbcType=DOUBLE},
+      </if>
+      <if test="erz != null" >
+        #{erz,jdbcType=DOUBLE},
+      </if>
+      <if test="qloc != null" >
+        #{qloc,jdbcType=VARCHAR},
+      </if>
+      <if test="qnet != null" >
+        #{qnet,jdbcType=VARCHAR},
+      </if>
+      <if test="qcom != null" >
+        #{qcom,jdbcType=VARCHAR},
+      </if>
+      <if test="sumStn != null" >
+        #{sumStn,jdbcType=INTEGER},
+      </if>
+      <if test="usedStn != null" >
+        #{usedStn,jdbcType=INTEGER},
+      </if>
+      <if test="sumPha != null" >
+        #{sumPha,jdbcType=INTEGER},
+      </if>
+      <if test="usedPha != null" >
+        #{usedPha,jdbcType=INTEGER},
+      </if>
+      <if test="explosionFlag != null" >
+        #{explosionFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="epicId != null" >
+        #{epicId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCname != null" >
+        #{locationCname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.eqim.entity.Catalog" >
+    update catalog
+    <set >
+      <if test="eventId != null" >
+        Event_id = #{eventId,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        Operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="saveTime != null" >
+        Save_time = #{saveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eqType != null" >
+        Eq_type = #{eqType,jdbcType=CHAR},
+      </if>
+      <if test="oTime != null" >
+        O_time = #{oTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oTimeNs != null" >
+        O_time_ns = #{oTimeNs,jdbcType=INTEGER},
+      </if>
+      <if test="lat != null" >
+        Lat = #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lon != null" >
+        Lon = #{lon,jdbcType=DOUBLE},
+      </if>
+      <if test="depth != null" >
+        Depth = #{depth,jdbcType=DOUBLE},
+      </if>
+      <if test="ml != null" >
+        Ml = #{ml,jdbcType=DOUBLE},
+      </if>
+      <if test="ms != null" >
+        Ms = #{ms,jdbcType=DOUBLE},
+      </if>
+      <if test="md != null" >
+        Md = #{md,jdbcType=DOUBLE},
+      </if>
+      <if test="mb != null" >
+        Mb = #{mb,jdbcType=DOUBLE},
+      </if>
+      <if test="mmb != null" >
+        mmB = #{mmb,jdbcType=DOUBLE},
+      </if>
+      <if test="mw != null" >
+        Mw = #{mw,jdbcType=DOUBLE},
+      </if>
+      <if test="m != null" >
+        M = #{m,jdbcType=DOUBLE},
+      </if>
+      <if test="dmin != null" >
+        Dmin = #{dmin,jdbcType=DOUBLE},
+      </if>
+      <if test="gapAzi != null" >
+        Gap_azi = #{gapAzi,jdbcType=DOUBLE},
+      </if>
+      <if test="rms != null" >
+        Rms = #{rms,jdbcType=DOUBLE},
+      </if>
+      <if test="erh != null" >
+        Erh = #{erh,jdbcType=DOUBLE},
+      </if>
+      <if test="erz != null" >
+        Erz = #{erz,jdbcType=DOUBLE},
+      </if>
+      <if test="qloc != null" >
+        Qloc = #{qloc,jdbcType=VARCHAR},
+      </if>
+      <if test="qnet != null" >
+        Qnet = #{qnet,jdbcType=VARCHAR},
+      </if>
+      <if test="qcom != null" >
+        Qcom = #{qcom,jdbcType=VARCHAR},
+      </if>
+      <if test="sumStn != null" >
+        Sum_stn = #{sumStn,jdbcType=INTEGER},
+      </if>
+      <if test="usedStn != null" >
+        Used_stn = #{usedStn,jdbcType=INTEGER},
+      </if>
+      <if test="sumPha != null" >
+        Sum_pha = #{sumPha,jdbcType=INTEGER},
+      </if>
+      <if test="usedPha != null" >
+        Used_pha = #{usedPha,jdbcType=INTEGER},
+      </if>
+      <if test="explosionFlag != null" >
+        Explosion_flag = #{explosionFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="epicId != null" >
+        Epic_id = #{epicId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null" >
+        Source_id = #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCname != null" >
+        Location_cname = #{locationCname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Cata_id = #{cataId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.eqim.entity.Catalog" >
+    update catalog
+    set Event_id = #{eventId,jdbcType=VARCHAR},
+      Operator = #{operator,jdbcType=VARCHAR},
+      Save_time = #{saveTime,jdbcType=TIMESTAMP},
+      Eq_type = #{eqType,jdbcType=CHAR},
+      O_time = #{oTime,jdbcType=TIMESTAMP},
+      O_time_ns = #{oTimeNs,jdbcType=INTEGER},
+      Lat = #{lat,jdbcType=DOUBLE},
+      Lon = #{lon,jdbcType=DOUBLE},
+      Depth = #{depth,jdbcType=DOUBLE},
+      Ml = #{ml,jdbcType=DOUBLE},
+      Ms = #{ms,jdbcType=DOUBLE},
+      Md = #{md,jdbcType=DOUBLE},
+      Mb = #{mb,jdbcType=DOUBLE},
+      mmB = #{mmb,jdbcType=DOUBLE},
+      Mw = #{mw,jdbcType=DOUBLE},
+      M = #{m,jdbcType=DOUBLE},
+      Dmin = #{dmin,jdbcType=DOUBLE},
+      Gap_azi = #{gapAzi,jdbcType=DOUBLE},
+      Rms = #{rms,jdbcType=DOUBLE},
+      Erh = #{erh,jdbcType=DOUBLE},
+      Erz = #{erz,jdbcType=DOUBLE},
+      Qloc = #{qloc,jdbcType=VARCHAR},
+      Qnet = #{qnet,jdbcType=VARCHAR},
+      Qcom = #{qcom,jdbcType=VARCHAR},
+      Sum_stn = #{sumStn,jdbcType=INTEGER},
+      Used_stn = #{usedStn,jdbcType=INTEGER},
+      Sum_pha = #{sumPha,jdbcType=INTEGER},
+      Used_pha = #{usedPha,jdbcType=INTEGER},
+      Explosion_flag = #{explosionFlag,jdbcType=VARCHAR},
+      Epic_id = #{epicId,jdbcType=VARCHAR},
+      Source_id = #{sourceId,jdbcType=VARCHAR},
+      Location_cname = #{locationCname,jdbcType=VARCHAR}
+    where Cata_id = #{cataId,jdbcType=VARCHAR}
+  </update>
+</mapper>
