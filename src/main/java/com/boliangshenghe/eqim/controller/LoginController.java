@@ -17,7 +17,7 @@ public class LoginController extends BaseCommonController{
 	@RequestMapping("")
     public String index(HttpServletRequest request, 
   			HttpServletResponse response) {
-        return "hello";
+        return "index";
     }
 	
 	@RequestMapping("/index")

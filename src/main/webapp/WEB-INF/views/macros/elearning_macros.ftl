@@ -5,7 +5,7 @@
 
 <!--===========================For static start============================================== -->
 
-<#macro s>/outteamstatic</#macro>
+<#macro s>/eqimstatic</#macro>
 
 <!--outteam 状态 -->
 <#macro outteamstate state>
