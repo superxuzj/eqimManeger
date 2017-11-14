@@ -5,7 +5,11 @@ import org.springframework.util.Assert;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
-
+/**
+ * 
+ * @author xuzj
+ *
+ */
 public class DruidDataSourceFactory implements InitializingBean {
 	private DruidDataSource basicDruidDataSource;
 
