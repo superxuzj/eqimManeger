@@ -2,7 +2,7 @@ package com.boliangshenghe.eqim.entity;
 
 import java.util.Date;
 
-public class Catalog {
+public class Catalogcopy {
     private String cataId;
 
     private String eventId;

@@ -2,8 +2,11 @@ package com.boliangshenghe.eqim.repository;
 
 import java.util.List;
 
-import com.boliangshenghe.eqim.entity.Catalog;
+import org.apache.ibatis.annotations.Mapper;
 
+
+import com.boliangshenghe.eqim.entity.Catalog;
+@Mapper
 public interface CatalogMapper {
     int deleteByPrimaryKey(String cataId);
 

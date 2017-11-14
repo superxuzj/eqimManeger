@@ -65,7 +65,62 @@
 		<property name="slowSqlMillis" value="6000" />
 		<property name="logSlowSql" value="true" />
 	</bean>
+	
+	<bean id="druidDataSourceFactory"
+		class="com.boliangshenghe.eqim.common.datasource.DruidDataSourceFactory">
+		<property name="basicDruidDataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="dataSource_2" factory-bean="druidDataSourceFactory"
+		factory-method="makeDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${JDBC_URL_2}" />
+		<property name="username" value="${JDBC_USER_2}" />
+		<property name="password" value="${JDBC_PWD_2}" />
+	</bean>
     
+	<!-- 多数据源定义 -->
+	<bean id="dataSources"
+		class="com.alibaba.cobar.client.datasources.DefaultCobarDataSourceService">
+		<property name="dataSourceDescriptors">
+			<set>
+				<!-- 数据源1 -->
+				<bean
+					class="com.alibaba.cobar.client.datasources.CobarDataSourceDescriptor">
+					<property name="identity" value="main_ds" />
+					<property name="targetDataSource" ref="dataSource" />
+					<property name="targetDetectorDataSource" ref="dataSource" />
+					<property name="standbyDataSource" ref="dataSource" />
+					<property name="standbyDetectorDataSource" ref="dataSource" />
+				</bean>
+				<bean
+					class="com.alibaba.cobar.client.datasources.CobarDataSourceDescriptor">
+					<property name="identity" value="second_ds" />
+					<property name="targetDataSource" ref="dataSource_2" />
+					<property name="targetDetectorDataSource" ref="dataSource_2" />
+					<property name="standbyDataSource" ref="dataSource_2" />
+					<property name="standbyDetectorDataSource" ref="dataSource_2" />
+				</bean>
+				
+			</set>
+		</property>
+		<!-- 热备 -->
+		<property name="haDataSourceCreator">
+			<bean
+				class="com.alibaba.cobar.client.datasources.ha.FailoverHotSwapDataSourceCreator">
+				<property name="detectingSql" value="select 1 " />
+			</bean>
+		</property>
+	</bean>
+	<!-- 路由规则 -->
+	<bean id="internalRouter"
+		class="com.boliangshenghe.eqim.common.datasource.RouterXmlFactoryBean">
+		<property name="configLocations">
+			<list>
+				<value>classpath:config/routing-rules.xml</value>
+			</list>
+		</property>
+	</bean>
+	
 	 <!-- spring和MyBatis整合，不需要mybatis的配置映射文件 -->  
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
         <property name="dataSource" ref="dataSource" />  
@@ -78,16 +133,34 @@
        
      </bean> 
 	
+    <!-- 根据路由条件获取对应数据源 -->
+	<bean id="routerInvoker"
+		class="com.boliangshenghe.eqim.common.datasource.RouterInvoker">
+		<property name="router" ref="internalRouter" />
+		<property name="cobarDataSourceService" ref="dataSources" />
+	</bean>
+	<bean id="sqlSessionTemplate"
+		class="com.boliangshenghe.eqim.common.datasource.MultipleSourceSqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<property name="routerInvoker" ref="routerInvoker" />
+	</bean>
+    
     <!-- 扫描mappers并使其能够autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate" />
 		<!-- 可使用逗号(,)或分号(;)分割多个包声明 -->
 		<property name="basePackage" value="com.boliangshenghe.eqim" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
 	</bean>
     <!-- ********************************** 事务相关控制 ********************************** -->
-	 <bean name="transactionManager"
+	 <!-- <bean name="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
+	</bean> -->
+	
+	<bean name="transactionManager"
+		class="com.boliangshenghe.eqim.common.datasource.MultiDataSourceTransactionManager">
+		<property name="cobarDataSourceService" ref="dataSources"></property>
 	</bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
     <tx:advice id="txAdvice" transaction-manager="transactionManager">

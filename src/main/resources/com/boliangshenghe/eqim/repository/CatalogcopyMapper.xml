@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.boliangshenghe.eqim.repository.CatalogMapper" >
-  <resultMap id="BaseResultMap" type="com.boliangshenghe.eqim.entity.Catalog" >
+<mapper namespace="com.boliangshenghe.eqim.repository.CatalogcopyMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.eqim.entity.Catalogcopy" >
     <id column="Cata_id" property="cataId" jdbcType="VARCHAR" />
     <result column="Event_id" property="eventId" jdbcType="VARCHAR" />
     <result column="Operator" property="operator" jdbcType="VARCHAR" />
@@ -44,15 +44,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from catalog
+    from catalogcopy
     where Cata_id = #{cataId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from catalog
+    delete from catalogcopy
     where Cata_id = #{cataId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.boliangshenghe.eqim.entity.Catalog" >
-    insert into catalog (Cata_id, Event_id, Operator, 
+  <insert id="insert" parameterType="com.boliangshenghe.eqim.entity.Catalogcopy" >
+    insert into catalogcopy (Cata_id, Event_id, Operator, 
       Save_time, Eq_type, O_time, 
       O_time_ns, Lat, Lon, Depth, 
       Ml, Ms, Md, Mb, 
@@ -73,8 +73,8 @@
       #{explosionFlag,jdbcType=VARCHAR}, #{epicId,jdbcType=VARCHAR}, #{sourceId,jdbcType=VARCHAR}, 
       #{locationCname,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.boliangshenghe.eqim.entity.Catalog" >
-    insert into catalog
+  <insert id="insertSelective" parameterType="com.boliangshenghe.eqim.entity.Catalogcopy" >
+    insert into catalogcopy
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cataId != null" >
         Cata_id,
@@ -278,8 +278,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.eqim.entity.Catalog" >
-    update catalog
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.eqim.entity.Catalogcopy" >
+    update catalogcopy
     <set >
       <if test="eventId != null" >
         Event_id = #{eventId,jdbcType=VARCHAR},
@@ -380,8 +380,8 @@
     </set>
     where Cata_id = #{cataId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.eqim.entity.Catalog" >
-    update catalog
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.eqim.entity.Catalogcopy" >
+    update catalogcopy
     set Event_id = #{eventId,jdbcType=VARCHAR},
       Operator = #{operator,jdbcType=VARCHAR},
       Save_time = #{saveTime,jdbcType=TIMESTAMP},
@@ -418,10 +418,10 @@
   </update>
   
    <!-- 新加   -->
-   <select id="selectCatalogList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.eqim.entity.Catalog">
+   <select id="selectCatalogcopyList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.eqim.entity.Catalogcopy">
    	    select 
     <include refid="Base_Column_List" />
-    from catalog
+    from catalogcopy
     <where>
        
         <if test="eventId != null">
@@ -432,5 +432,4 @@
 			LIMIT #{start} ,#{limit}
 		</if>
    	</select>
-  
 </mapper>

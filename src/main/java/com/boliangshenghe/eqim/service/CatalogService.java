@@ -1,5 +1,6 @@
 package com.boliangshenghe.eqim.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,21 @@ public class CatalogService {
     }
     
     public List<Catalog> selectCatalogList(Catalog record){
-    	return catalogMapper.selectCatalogList(record);
+    	List<Catalog> list = catalogMapper.selectCatalogList(record);
+    	for (Catalog catalog : list) {
+			try {
+				catalog.setLocationCname(new String(catalog.getLocationCname().getBytes("ISO-8859-1"), "gbk"));
+			} catch (UnsupportedEncodingException c) {
+				// TODO Auto-generated catch block
+				c.printStackTrace();
+			}
+		}
+    	return list;
     }
     
     public PageBean<Catalog> getCatalogByPage(Catalog record,Integer pageNo) {
         PageHelper.startPage(pageNo,CommonUtils.PAGESIZE);
-        List<Catalog> list = this.catalogMapper.selectCatalogList(record);
+        List<Catalog> list = this.selectCatalogList(record);
         return new PageBean<Catalog>(list);
     }
-    
 }

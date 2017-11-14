@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules>
+	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.CatalogMapper
+		</namespace>
+		<shards>main_ds</shards>
+	</rule>
+	
+	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.CatalogcopyMapper
+		</namespace>
+		<shards>second_ds</shards>
+	</rule>
+	
+</rules>
