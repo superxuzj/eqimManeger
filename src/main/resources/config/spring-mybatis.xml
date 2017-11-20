@@ -23,6 +23,8 @@
         <property name="location" value="classpath:config/jdbc.properties" />  
     </bean>
     
+    <import resource="classpath:/config/spring-activemq.xml" />
+    
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 	init-method="init" destroy-method="close">
 		<!-- 基本属性 url、user、password -->
@@ -77,6 +79,13 @@
 		<property name="username" value="${JDBC_USER_2}" />
 		<property name="password" value="${JDBC_PWD_2}" />
 	</bean>
+	
+	<bean id="dataSource_3" factory-bean="druidDataSourceFactory"
+		factory-method="makeDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${JDBC_URL_3}" />
+		<property name="username" value="${JDBC_USER_3}" />
+		<property name="password" value="${JDBC_PWD_3}" />
+	</bean>
     
 	<!-- 多数据源定义 -->
 	<bean id="dataSources"
@@ -99,6 +108,14 @@
 					<property name="targetDetectorDataSource" ref="dataSource_2" />
 					<property name="standbyDataSource" ref="dataSource_2" />
 					<property name="standbyDetectorDataSource" ref="dataSource_2" />
+				</bean>
+				<bean
+					class="com.alibaba.cobar.client.datasources.CobarDataSourceDescriptor">
+					<property name="identity" value="third_ds" />
+					<property name="targetDataSource" ref="dataSource_3" />
+					<property name="targetDetectorDataSource" ref="dataSource_3" />
+					<property name="standbyDataSource" ref="dataSource_3" />
+					<property name="standbyDetectorDataSource" ref="dataSource_3" />
 				</bean>
 				
 			</set>

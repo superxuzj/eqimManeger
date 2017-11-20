@@ -12,4 +12,40 @@
 		<shards>second_ds</shards>
 	</rule>
 	
+	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.CompanyMapper
+		</namespace>
+		<shards>second_ds</shards>
+	</rule>
+	
+	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.MessagecodeMapper
+		</namespace>
+		<shards>second_ds</shards>
+	</rule>
+	
+	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.QuickcodeMapper
+		</namespace>
+		<shards>second_ds</shards>
+	</rule>
+	
+	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.SmscodeMapper
+		</namespace>
+		<shards>second_ds</shards>
+	</rule>
+	
+	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.UserMapper
+		</namespace>
+		<shards>second_ds</shards>
+	</rule>
+	
+	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.JdataMapper
+		</namespace>
+		<shards>third_ds</shards>
+	</rule>
+	
 </rules>
