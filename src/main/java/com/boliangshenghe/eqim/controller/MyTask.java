@@ -23,7 +23,7 @@ public class MyTask {
 		// linksController.runTask();
 		System.out.println("MyTask start" +new Date());
 		
-		catalogcopyService.insertrecordByTask();
+		//catalogcopyService.insertrecordByTask();
 		
 	}
 }
