@@ -21,4 +21,7 @@ public interface CatalogcopyMapper {
     int updateByPrimaryKey(Catalogcopy record);
     
     List<Catalogcopy> selectCatalogcopyList(Catalogcopy record);
+    
+    List<Catalogcopy> selectCatalogcopyEventIDList(Catalogcopy record);
+    
 }
