@@ -28,6 +28,10 @@ public class Company {
     private String contactphone;
 
     private Integer contactid;
+    
+    private Integer start;
+    
+    private Integer limit;
 
     public Integer getId() {
         return id;
@@ -140,4 +144,20 @@ public class Company {
     public void setContactid(Integer contactid) {
         this.contactid = contactid;
     }
+
+	public Integer getStart() {
+		return start;
+	}
+
+	public void setStart(Integer start) {
+		this.start = start;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
 }

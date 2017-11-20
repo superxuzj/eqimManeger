@@ -11,31 +11,32 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.boliangshenghe.eqim.controller.base.BaseCommonController;
-import com.boliangshenghe.eqim.entity.Quickcode;
-import com.boliangshenghe.eqim.service.QuickcodeService;
+import com.boliangshenghe.eqim.entity.Smscode;
+import com.boliangshenghe.eqim.service.SmscodeService;
+
 /**
- * 快报
+ * 短信震级CODE
  * @author xuzj
  *
  */
 @Controller
-@RequestMapping("/quickcode")
-public class QuickcodeController extends BaseCommonController{
+@RequestMapping("/smscode")
+public class SmscodeController extends BaseCommonController{
 	
 	@Autowired
-	private QuickcodeService quickcodeService;
+	private SmscodeService smscodeService;
 	
 	@RequestMapping
 	public String defaultIndex(){
-		return "redirect:/quickcode/list";
+		return "redirect:/smscode/list";
 	}
 	
 	@RequestMapping("list")
 	public String index(HttpServletRequest request, 
-  			HttpServletResponse response,Quickcode quickcode,Model model){
-		List<Quickcode> list = quickcodeService.selectQuickcodeList(quickcode);
+  			HttpServletResponse response,Smscode quickcode,Model model){
+		List<Smscode> list = smscodeService.selectSmscodeList(quickcode);
 		model.addAttribute("list", list);
-		return "quickcode/list";
+		return "smscode/list";
 	}
 
 	

@@ -1,5 +1,7 @@
 package com.boliangshenghe.eqim.repository;
 
+import java.util.List;
+
 import com.boliangshenghe.eqim.entity.Company;
 
 public interface CompanyMapper {
@@ -14,4 +16,6 @@ public interface CompanyMapper {
     int updateByPrimaryKeySelective(Company record);
 
     int updateByPrimaryKey(Company record);
+    
+    List<Company> selectCompanyList(Company record);
 }
