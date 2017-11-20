@@ -28,21 +28,17 @@ public class CatalogController extends BaseCommonController{
 	@Autowired
 	private CatalogcopyService catalogcopyService;
 	
+	@RequestMapping
+	public String defaultIndex(){
+		return "redirect:/sourcecatalog/list";
+	}
+	
 	@RequestMapping("list")
 	public String index(HttpServletRequest request, 
   			HttpServletResponse response,Catalog catalog,Model model,
   			@RequestParam(defaultValue = "1", value = "pageNo") Integer pageNo){
-		
+		catalog.setEventId("20171113171939.00");
 		PageBean<Catalog> page = catalogService.getCatalogByPage(catalog, pageNo);
-		
-		List<Catalog> list = page.getList();
-		for (Catalog catalog2 : list) {
-			
-			Catalogcopy catalogcopy = new Catalogcopy();
-			catalogcopy.setCataId(catalog2.getCataId());
-			catalogcopy.setEpicId(catalog2.getEpicId());
-			catalogcopyService.insertSelective(catalogcopy);
-		}
 		
 		model.addAttribute("page", page);
 		model.addAttribute("catalog", catalog);
