@@ -11,7 +11,7 @@
 
 <#macro pagination totalCount pageSize pages pageNum>  
     <#--声明一个函数transform 转换uri,在新的uri上pager_offset参数  -->  
-    <#assign transform = "com.boliangshenghe.outteam.common.page.TransformURI"?new()>  
+    <#assign transform = "com.boliangshenghe.eqim.common.page.TransformURI"?new()>  
     <#assign pageCount= pages>  
     <#--得到当前的URI和请求参数,得到当前的页码-->  
     <#if pageCount gt 0>
