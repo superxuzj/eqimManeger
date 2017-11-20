@@ -33,13 +33,14 @@
     <result column="Used_pha" property="usedPha" jdbcType="INTEGER" />
     <result column="Explosion_flag" property="explosionFlag" jdbcType="VARCHAR" />
     <result column="Epic_id" property="epicId" jdbcType="VARCHAR" />
+    <result column="jsonstate" property="jsonstate" jdbcType="VARCHAR" />
     <result column="Source_id" property="sourceId" jdbcType="VARCHAR" />
     <result column="Location_cname" property="locationCname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     Cata_id, Event_id, Operator, Save_time, Eq_type, O_time, O_time_ns, Lat, Lon, Depth, 
     Ml, Ms, Md, Mb, mmB, Mw, M, Dmin, Gap_azi, Rms, Erh, Erz, Qloc, Qnet, Qcom, Sum_stn, 
-    Used_stn, Sum_pha, Used_pha, Explosion_flag, Epic_id, Source_id, Location_cname
+    Used_stn, Sum_pha, Used_pha, Explosion_flag, Epic_id, jsonstate, Source_id, Location_cname
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -60,8 +61,8 @@
       Gap_azi, Rms, Erh, Erz, 
       Qloc, Qnet, Qcom, Sum_stn, 
       Used_stn, Sum_pha, Used_pha, 
-      Explosion_flag, Epic_id, Source_id, 
-      Location_cname)
+      Explosion_flag, Epic_id, jsonstate, 
+      Source_id, Location_cname)
     values (#{cataId,jdbcType=VARCHAR}, #{eventId,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
       #{saveTime,jdbcType=TIMESTAMP}, #{eqType,jdbcType=CHAR}, #{oTime,jdbcType=TIMESTAMP}, 
       #{oTimeNs,jdbcType=INTEGER}, #{lat,jdbcType=DOUBLE}, #{lon,jdbcType=DOUBLE}, #{depth,jdbcType=DOUBLE}, 
@@ -70,8 +71,8 @@
       #{gapAzi,jdbcType=DOUBLE}, #{rms,jdbcType=DOUBLE}, #{erh,jdbcType=DOUBLE}, #{erz,jdbcType=DOUBLE}, 
       #{qloc,jdbcType=VARCHAR}, #{qnet,jdbcType=VARCHAR}, #{qcom,jdbcType=VARCHAR}, #{sumStn,jdbcType=INTEGER}, 
       #{usedStn,jdbcType=INTEGER}, #{sumPha,jdbcType=INTEGER}, #{usedPha,jdbcType=INTEGER}, 
-      #{explosionFlag,jdbcType=VARCHAR}, #{epicId,jdbcType=VARCHAR}, #{sourceId,jdbcType=VARCHAR}, 
-      #{locationCname,jdbcType=VARCHAR})
+      #{explosionFlag,jdbcType=VARCHAR}, #{epicId,jdbcType=VARCHAR}, #{jsonstate,jdbcType=VARCHAR}, 
+      #{sourceId,jdbcType=VARCHAR}, #{locationCname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.boliangshenghe.eqim.entity.Catalogcopy" >
     insert into catalogcopy
@@ -168,6 +169,9 @@
       </if>
       <if test="epicId != null" >
         Epic_id,
+      </if>
+      <if test="jsonstate != null" >
+        jsonstate,
       </if>
       <if test="sourceId != null" >
         Source_id,
@@ -270,6 +274,9 @@
       <if test="epicId != null" >
         #{epicId,jdbcType=VARCHAR},
       </if>
+      <if test="jsonstate != null" >
+        #{jsonstate,jdbcType=VARCHAR},
+      </if>
       <if test="sourceId != null" >
         #{sourceId,jdbcType=VARCHAR},
       </if>
@@ -371,6 +378,9 @@
       <if test="epicId != null" >
         Epic_id = #{epicId,jdbcType=VARCHAR},
       </if>
+      <if test="jsonstate != null" >
+        jsonstate = #{jsonstate,jdbcType=VARCHAR},
+      </if>
       <if test="sourceId != null" >
         Source_id = #{sourceId,jdbcType=VARCHAR},
       </if>
@@ -412,6 +422,7 @@
       Used_pha = #{usedPha,jdbcType=INTEGER},
       Explosion_flag = #{explosionFlag,jdbcType=VARCHAR},
       Epic_id = #{epicId,jdbcType=VARCHAR},
+      jsonstate = #{jsonstate,jdbcType=VARCHAR},
       Source_id = #{sourceId,jdbcType=VARCHAR},
       Location_cname = #{locationCname,jdbcType=VARCHAR}
     where Cata_id = #{cataId,jdbcType=VARCHAR}
@@ -423,13 +434,18 @@
     <include refid="Base_Column_List" />
     from catalogcopy
     <where>
-       
         <if test="eventId != null">
-            AND Event_id = #{eventId,jdbcType=VARCHAR}
+            AND Event_id LIKE '%${eventId}%'
         </if>
     </where>
    	    <if test="start != null and limit != null"> 
 			LIMIT #{start} ,#{limit}
 		</if>
+   	</select>
+   	
+    <select id="selectCatalogcopyEventIDList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.eqim.entity.Catalogcopy">
+   	    select 
+   Cata_id, Event_id
+    from catalogcopy
    	</select>
 </mapper>

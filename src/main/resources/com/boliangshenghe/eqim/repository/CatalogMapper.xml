@@ -425,7 +425,7 @@
     <where>
        
         <if test="eventId != null">
-            AND Event_id = #{eventId,jdbcType=VARCHAR}
+            AND Event_id &gt; #{eventId,jdbcType=VARCHAR}
         </if>
     </where>
    	    <if test="start != null and limit != null"> 

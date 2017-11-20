@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boliangshenghe.eqim.repository.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.eqim.entity.Company" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="smscode" property="smscode" jdbcType="VARCHAR" />
+    <result column="quickcode" property="quickcode" jdbcType="VARCHAR" />
+    <result column="messagecode" property="messagecode" jdbcType="VARCHAR" />
+    <result column="ismessage" property="ismessage" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="liaisonname" property="liaisonname" jdbcType="VARCHAR" />
+    <result column="liaisonphone" property="liaisonphone" jdbcType="VARCHAR" />
+    <result column="liaisonId" property="liaisonid" jdbcType="INTEGER" />
+    <result column="contactname" property="contactname" jdbcType="VARCHAR" />
+    <result column="contactphone" property="contactphone" jdbcType="VARCHAR" />
+    <result column="contactid" property="contactid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, code, smscode, quickcode, messagecode, ismessage, state, liaisonname, liaisonphone, 
+    liaisonId, contactname, contactphone, contactid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_company
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_company
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boliangshenghe.eqim.entity.Company" >
+    insert into t_company (id, name, code, 
+      smscode, quickcode, messagecode, 
+      ismessage, state, liaisonname, 
+      liaisonphone, liaisonId, contactname, 
+      contactphone, contactid)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{smscode,jdbcType=VARCHAR}, #{quickcode,jdbcType=VARCHAR}, #{messagecode,jdbcType=VARCHAR}, 
+      #{ismessage,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{liaisonname,jdbcType=VARCHAR}, 
+      #{liaisonphone,jdbcType=VARCHAR}, #{liaisonid,jdbcType=INTEGER}, #{contactname,jdbcType=VARCHAR}, 
+      #{contactphone,jdbcType=VARCHAR}, #{contactid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boliangshenghe.eqim.entity.Company" >
+    insert into t_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="smscode != null" >
+        smscode,
+      </if>
+      <if test="quickcode != null" >
+        quickcode,
+      </if>
+      <if test="messagecode != null" >
+        messagecode,
+      </if>
+      <if test="ismessage != null" >
+        ismessage,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="liaisonname != null" >
+        liaisonname,
+      </if>
+      <if test="liaisonphone != null" >
+        liaisonphone,
+      </if>
+      <if test="liaisonid != null" >
+        liaisonId,
+      </if>
+      <if test="contactname != null" >
+        contactname,
+      </if>
+      <if test="contactphone != null" >
+        contactphone,
+      </if>
+      <if test="contactid != null" >
+        contactid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="smscode != null" >
+        #{smscode,jdbcType=VARCHAR},
+      </if>
+      <if test="quickcode != null" >
+        #{quickcode,jdbcType=VARCHAR},
+      </if>
+      <if test="messagecode != null" >
+        #{messagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="ismessage != null" >
+        #{ismessage,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="liaisonname != null" >
+        #{liaisonname,jdbcType=VARCHAR},
+      </if>
+      <if test="liaisonphone != null" >
+        #{liaisonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="liaisonid != null" >
+        #{liaisonid,jdbcType=INTEGER},
+      </if>
+      <if test="contactname != null" >
+        #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactphone != null" >
+        #{contactphone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactid != null" >
+        #{contactid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.eqim.entity.Company" >
+    update t_company
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="smscode != null" >
+        smscode = #{smscode,jdbcType=VARCHAR},
+      </if>
+      <if test="quickcode != null" >
+        quickcode = #{quickcode,jdbcType=VARCHAR},
+      </if>
+      <if test="messagecode != null" >
+        messagecode = #{messagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="ismessage != null" >
+        ismessage = #{ismessage,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="liaisonname != null" >
+        liaisonname = #{liaisonname,jdbcType=VARCHAR},
+      </if>
+      <if test="liaisonphone != null" >
+        liaisonphone = #{liaisonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="liaisonid != null" >
+        liaisonId = #{liaisonid,jdbcType=INTEGER},
+      </if>
+      <if test="contactname != null" >
+        contactname = #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactphone != null" >
+        contactphone = #{contactphone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactid != null" >
+        contactid = #{contactid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.eqim.entity.Company" >
+    update t_company
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      smscode = #{smscode,jdbcType=VARCHAR},
+      quickcode = #{quickcode,jdbcType=VARCHAR},
+      messagecode = #{messagecode,jdbcType=VARCHAR},
+      ismessage = #{ismessage,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      liaisonname = #{liaisonname,jdbcType=VARCHAR},
+      liaisonphone = #{liaisonphone,jdbcType=VARCHAR},
+      liaisonId = #{liaisonid,jdbcType=INTEGER},
+      contactname = #{contactname,jdbcType=VARCHAR},
+      contactphone = #{contactphone,jdbcType=VARCHAR},
+      contactid = #{contactid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
