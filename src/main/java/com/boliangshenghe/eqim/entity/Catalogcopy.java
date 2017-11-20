@@ -66,6 +66,7 @@ public class Catalogcopy {
     private String epicId;
 
     private String sourceId;
+    private String jsonstate;
 
     private String locationCname;
     
@@ -351,5 +352,13 @@ public class Catalogcopy {
 
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+
+	public String getJsonstate() {
+		return jsonstate;
+	}
+
+	public void setJsonstate(String jsonstate) {
+		this.jsonstate = jsonstate;
 	}
 }
