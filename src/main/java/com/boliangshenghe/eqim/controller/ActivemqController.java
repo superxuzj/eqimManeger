@@ -4,11 +4,15 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boliangshenghe.eqim.activemq.TopicSender;
 
+/**
+ * 测试activemq调用
+ * @author xuzj
+ *
+ */
 @Controller
 @RequestMapping("/activemq")
 public class ActivemqController {
@@ -34,7 +38,5 @@ public class ActivemqController {
 		}
 		return opt;
 	}
-
-	
 
 }

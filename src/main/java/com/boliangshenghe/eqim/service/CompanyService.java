@@ -1,6 +1,5 @@
 package com.boliangshenghe.eqim.service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
