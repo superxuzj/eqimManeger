@@ -48,9 +48,9 @@ margin-bottom:1px !important;
                        <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="" title="Bootstrap 3 themes generator">
                        	操作<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                         <li><a href="/company/info?id=${company.id }" title="详情">详情</a></li>
+                         <li><a href="/user/info?id=${user.id }" title="详情">详情</a></li>
                          <li class="divider"></li>
-                         <li><a href="/company/goadd?id=${company.id }" title="修改">修改</a></li>
+                         <li><a href="/user/goadd?id=${user.id }" title="修改">修改</a></li>
                          <li class="divider"></li>
                          <li><a href="" title="Bootstrap 3 themes generator">注销</a></li>
                             </ul>
