@@ -15,10 +15,6 @@ public class CommonUtils {
 	
 	public static final String USERID = "sessionuserid";
 	public static final String USERNAME = "sessionusername";
-	public static final String REALNAME = "sessionrealname";
-	public static final String ROLEID = "sessionroleid";
-	public static final String CID = "sessioncid";
-	public static final String COMPANY = "sessioncompany";
 	public static final String ISLOGIN = "islogin";
 	
 	public static final String SEARCH_TIME="20171113102821.00";
