@@ -11,7 +11,7 @@ width:60%;
 			您的位置：
 			<li><a href="/">首页</a>
 			</li>
-			<li>单位管理</li>
+			<li>成员管理</li>
 			<li>
 			<#if company.id??>
 			修改
@@ -28,60 +28,50 @@ width:60%;
 	<div class="col-lg-12">
 		<section class="panel">                                          
            <div class="panel-body bio-graph-info">
-               <form class="form-horizontal" action="/company/save" id="companyForm" method="POST">                                                  
-                   <input type="hidden" id="hiddenid" name="id" value="${company.id}"/>
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">名称</label>
+               <form class="form-horizontal" action="/user/save" id="userForm" method="POST">                                                  
+                   <input type="hidden" id="hiddenid" name="id" value="${user.id}"/>
+                  <div class="form-group">
+                       <label class="col-lg-2 control-label">姓名</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="name" id="name" value="${company.name}"/>
+                           <input type="text" class="form-control" name="name" value="${user.name}"/>
                        </div>
                    </div>
                    <div class="form-group">
-                       <label class="col-lg-2 control-label">联络人</label>
+                       <label class="col-lg-2 control-label">职责</label>
                        <div class="col-lg-6">
-                           <select class="form-control m-bot15" name="area" id="area">
-                       			 <option value="非华北" <#if earthquake.area=='非华北' >selected</#if> >张三</option>
-                                 <option value="华北"  <#if earthquake.area=='华北' >selected</#if> >李四</option>
+                           <input type="text" class="form-control" name="profession" value="${user.profession}" />
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="col-lg-2 control-label">职务</label>
+                       <div class="col-lg-6">
+                           <input type="text" class="form-control" name="job" value="${user.job}"/>
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="col-lg-2 control-label">单位</label>
+                       <div class="col-lg-6">
+                           <select class="form-control m-bot15" name="cid">
+                       		<#list companyList as company>
+                       			 <option value="${company.id }" <#if company.id==user.cid>selected </#if>>${company.name }</option>
+                       			 </#list>
                             </select>
                        </div>
                    </div>
                    <div class="form-group">
-                       <label class="col-lg-2 control-label">联系人</label>
+                       <label class="col-lg-2 control-label">手机</label>
                        <div class="col-lg-6">
-                       		<select class="form-control m-bot15" name="area" id="area">
-                       			 <option value="非华北" <#if earthquake.area=='非华北' >selected</#if> >张三</option>
-                                 <option value="华北"  <#if earthquake.area=='华北' >selected</#if> >李四</option>
+                           <input type="text" class="form-control" name="phone" value="${user.phone}"/>
+                       </div>
+                   </div>
+                   
+                   <div class="form-group">
+                       <label class="col-lg-2 control-label">是否接收短信</label>
+                       <div class="col-lg-6">
+                          <select class="form-control m-bot15" name="ismessage">
+                       			 <option value="1" <#if user.ismessage=='1' >selected</#if> >是</option>
+                                 <option value="2"  <#if user.ismessage=='2' >selected</#if> >否</option>
                             </select>
-                       </div>
-                   </div>
-                   
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">短信震级</label>
-                       <div class="col-lg-6">
-                           <#list smscodelist as sms>
-                           <label><input name="smscode" type="checkbox" value="${sms.id }" <#if company.smscode?contains(sms.id?string)>checked="checked" </#if>/>
-                           ${sms.name }
-                           </label> 
-                           </#list>
-                       </div>
-                   </div>
-                   
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">速报信息</label>
-                       <div class="col-lg-6">
-                      	 <#list quickcodelist as quick>
-                          	<label><input name="quickcode" type="checkbox" value="${quick.id }"  <#if company.quickcode?contains(quick.id?string)>checked="checked" </#if>/>${quick.name } </label> 
-                          </#list>
-                       		
-                       </div>
-                   </div>
-                   
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">灾情信息</label>
-                       <div class="col-lg-6">
-                        <#list messagecodelist as message>
-                          	<label><input name="messagecode" type="checkbox" value="${message.id }" <#if company.messagecode?contains(message.id?string)>checked="checked" </#if>/>${message.name } </label> 
-                          </#list>
                        </div>
                    </div>
                    
@@ -105,7 +95,7 @@ function gohistory(){
 
 
 	function save(){
-		$("#companyForm").submit();
+		$("#userForm").submit();
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.boliangshenghe.eqim.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.boliangshenghe.eqim.common.PageBean;
 import com.boliangshenghe.eqim.controller.base.BaseCommonController;
+import com.boliangshenghe.eqim.entity.Company;
 import com.boliangshenghe.eqim.entity.User;
+import com.boliangshenghe.eqim.service.CompanyService;
 import com.boliangshenghe.eqim.service.UserService;
 
 @Controller
@@ -20,6 +24,9 @@ public class UserController extends BaseCommonController{
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CompanyService companyService;
 	
 	@RequestMapping
 	public String defaultIndex(){
@@ -57,7 +64,8 @@ public class UserController extends BaseCommonController{
 			model.addAttribute("user", user);
 		}
 		
-		
+		List<Company> companyList = companyService.selectCompanyList(new Company());
+		model.addAttribute("companyList", companyList);
 		return "user/addOrEdit";
 	}
 	
@@ -72,6 +80,11 @@ public class UserController extends BaseCommonController{
 	@RequestMapping("save")
 	public String save(HttpServletRequest request, 
   			HttpServletResponse response,User user,Model model){
+		
+		if(user.getCid()!=null){
+			Company company = companyService.selectByPrimaryKey(user.getCid());
+			user.setCompany(company.getName());
+		}
 		
 		if(user.getId()!=null){
 			userService.updateByPrimaryKeySelective(user);

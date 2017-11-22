@@ -18,85 +18,58 @@
 		<section class="panel">                                          
            <div class="panel-body bio-graph-info">
                <form class="form-horizontal" role="form">                                                  
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">ID</label>
-                       <div class="col-lg-6">
-                           <input type="text" class="form-control" name="id" value="${earthquake.id}"/>
-                       </div>
-                   </div>
                   <div class="form-group">
                        <label class="col-lg-2 control-label">名称</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="eqname" value="${earthquake.eqname}"/>
+                           <input type="text" class="form-control" name="name" id="name" value="${company.name}"/>
                        </div>
                    </div>
                    <div class="form-group">
-                       <label class="col-lg-2 control-label">地震唯一标识码</label>
+                       <label class="col-lg-2 control-label">联络人</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="eventid" value="${earthquake.eventid}" />
+                           <select class="form-control m-bot15" name="area" id="area">
+                       			 <option value="非华北" <#if earthquake.area=='非华北' >selected</#if> >张三</option>
+                                 <option value="华北"  <#if earthquake.area=='华北' >selected</#if> >李四</option>
+                            </select>
                        </div>
                    </div>
                    <div class="form-group">
-                       <label class="col-lg-2 control-label">区域</label>
+                       <label class="col-lg-2 control-label">联系人</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="area" value="${earthquake.area}"/>
+                       		<select class="form-control m-bot15" name="area" id="area">
+                       			 <option value="非华北" <#if earthquake.area=='非华北' >selected</#if> >张三</option>
+                                 <option value="华北"  <#if earthquake.area=='华北' >selected</#if> >李四</option>
+                            </select>
                        </div>
                    </div>
+                   
                    <div class="form-group">
-                       <label class="col-lg-2 control-label">省市</label>
+                       <label class="col-lg-2 control-label">短信震级</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="province" value="${earthquake.province}"/>
+                           <#list smscodelist as sms>
+                           <label><input name="smscode" type="checkbox" value="${sms.id }" <#if company.smscode?contains(sms.id?string)>checked="checked" </#if>/>
+                           ${sms.name }
+                           </label> 
+                           </#list>
                        </div>
                    </div>
+                   
                    <div class="form-group">
-                       <label class="col-lg-2 control-label">位置</label>
+                       <label class="col-lg-2 control-label">速报信息</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="location" value="${earthquake.location}"/>
+                      	 <#list quickcodelist as quick>
+                          	<label><input name="quickcode" type="checkbox" value="${quick.id }"  <#if company.quickcode?contains(quick.id?string)>checked="checked" </#if>/>${quick.name } </label> 
+                          </#list>
+                       		
                        </div>
                    </div>
+                   
                    <div class="form-group">
-                       <label class="col-lg-2 control-label">地震等级</label>
+                       <label class="col-lg-2 control-label">灾情信息</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="magnitude" value="${earthquake.magnitude}"/>
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">经度</label>
-                       <div class="col-lg-6">
-                           <input type="text" class="form-control" name="longitude" value="${earthquake.longitude}"/>
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">纬度</label>
-                       <div class="col-lg-6">
-                           <input type="text" class="form-control" name="latitude" value="${earthquake.latitude}"/>
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">发震日期</label>
-                       <div class="col-lg-6">
-                           <input type="text" class="form-control"  value="${earthquake.eqdate}">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">发震时刻</label>
-                       <div class="col-lg-6">
-                           <input type="text" class="form-control"  value="${earthquake.eqtime}">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">震源深度</label>
-                       <div class="col-lg-6">
-                           <input type="text" class="form-control"  value="${earthquake.depth}">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label class="col-lg-2 control-label">响应等级</label>
-                       <div class="col-lg-6">
-                          <select class="form-control m-bot15">
-                                              <option <#if earthquake.responseid==1>selected</#if>>一级响应</option>
-                                              <option <#if earthquake.responseid==2>selected</#if>>二级响应</option>
-                                          </select>
+                        <#list messagecodelist as message>
+                          	<label><input name="messagecode" type="checkbox" value="${message.id }" <#if company.messagecode?contains(message.id?string)>checked="checked" </#if>/>${message.name } </label> 
+                          </#list>
                        </div>
                    </div>
                    

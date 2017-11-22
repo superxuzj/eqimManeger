@@ -20,6 +20,9 @@ margin-bottom:1px !important;
 	</div>
 </div>
  <div class="row">
+	<div class="col-lg-12">
+		<a class="btn btn-primary btn-sm" href="javascript:add();" title="新增">新增</a>
+	</div>
      <div class="col-lg-12">
          <section class="panel">
              <table class="table table-striped table-advance table-hover">
@@ -28,8 +31,9 @@ margin-bottom:1px !important;
                     <th>ID</th>
                     <th>姓名</th>
                     <th>职责</th>
-                    <th>职责</th>
+                    <th>职务</th>
                     <th>单位</th>
+                    <th>手机</th>
                     <th>状态</th>
                     <th>操作</th>
                  </tr>
@@ -70,5 +74,8 @@ margin-bottom:1px !important;
 </div>
 
 <script type="text/javascript">
+function add(){
+	window.location.href = "/user/goadd";
+}
 </script>
 </@override> <@extends name="/base/base.ftl"/>
