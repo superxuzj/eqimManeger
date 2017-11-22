@@ -17,10 +17,12 @@ import com.boliangshenghe.eqim.entity.Company;
 import com.boliangshenghe.eqim.entity.Messagecode;
 import com.boliangshenghe.eqim.entity.Quickcode;
 import com.boliangshenghe.eqim.entity.Smscode;
+import com.boliangshenghe.eqim.entity.User;
 import com.boliangshenghe.eqim.service.CompanyService;
 import com.boliangshenghe.eqim.service.MessagecodeService;
 import com.boliangshenghe.eqim.service.QuickcodeService;
 import com.boliangshenghe.eqim.service.SmscodeService;
+import com.boliangshenghe.eqim.service.UserService;
 
 @Controller
 @RequestMapping("/company")
@@ -28,6 +30,9 @@ public class CompanyController extends BaseCommonController{
 	
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private QuickcodeService quickcodeService;
@@ -70,10 +75,18 @@ public class CompanyController extends BaseCommonController{
 	@RequestMapping("goadd")
 	public String goadd(HttpServletRequest request, 
   			HttpServletResponse response,Integer id,Model model){
+		User user = new User();
 		if(id!=null){
 			Company company = companyService.selectByPrimaryKey(id);
+			user.setCid(id);
+			List<User> userList = userService.selectUserList(user);
+			model.addAttribute("userList", userList);
 			model.addAttribute("company", company);
 		}
+		
+		
+		
+		
 		
 		List<Quickcode> quickcodelist = quickcodeService.selectQuickcodeList(new Quickcode());
 		model.addAttribute("quickcodelist", quickcodelist);

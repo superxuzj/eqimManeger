@@ -145,6 +145,9 @@
     <include refid="Base_Column_List" />
     from t_user
     <where>
+        <if test="cid != null">
+            AND cid = #{cid,jdbcType=INTEGER}
+        </if>
         <if test="name != null">
             AND name = #{name,jdbcType=VARCHAR}
         </if>

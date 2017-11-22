@@ -19,8 +19,6 @@ width:60%;
 			添加
 			</#if>
 			</li>
-			<!-- <li>Dashboard</li>
-						<li>Dashb省道oard</li> -->
 		</ol>
 	</div>
 </div>
