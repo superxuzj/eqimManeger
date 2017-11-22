@@ -43,6 +43,12 @@
 	</rule>
 	
 	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.UserLoginMapper
+		</namespace>
+		<shards>second_ds</shards>
+	</rule>
+	
+	<rule>
 		<namespace>com.boliangshenghe.eqim.repository.JdataMapper
 		</namespace>
 		<shards>third_ds</shards>

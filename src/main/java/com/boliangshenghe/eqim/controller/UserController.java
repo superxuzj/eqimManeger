@@ -95,4 +95,14 @@ public class UserController extends BaseCommonController{
 		return "redirect:/user/list";
 	}
 	
+	@RequestMapping("del")
+	public String del(HttpServletRequest request, 
+  			HttpServletResponse response,Integer id,Model model){
+		if(id!=null){
+			User user = userService.selectByPrimaryKey(id);
+			user.setState("2");
+			userService.updateByPrimaryKeySelective(user);
+		}
+		return "redirect:/user/list";
+	}
 }

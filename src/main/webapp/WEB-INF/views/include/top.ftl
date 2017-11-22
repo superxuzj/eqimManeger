@@ -14,18 +14,15 @@
          <!-- user login dropdown start-->
          <li class="dropdown">
              <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                 <span class="username">${sessionrealname }</span>
+                 <span class="username">${sessionusername }</span>
                  <b class="caret"></b>
              </a>
              <ul class="dropdown-menu extended logout">
                  <div class="log-arrow-up"></div>
-                 <li class="eborder-top">
-                     <a href="/person/info"><i class="icon_profile"></i>我的信息</a>
-                 </li>
-                 <li >
+                 <!--<li >
                      <a href="/person/info"><i class="icon_key_alt"></i>修改密码</a>
                  </li>
-                 <li>
+                 --><li>
                      <a href="#" onclick="loginout()"><i class="icon_key_alt"></i>退出</a>
                  </li>
              </ul>

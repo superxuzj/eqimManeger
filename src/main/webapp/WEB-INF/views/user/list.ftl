@@ -56,7 +56,7 @@ margin-bottom:1px !important;
                          <li class="divider"></li>
                          <li><a href="/user/goadd?id=${user.id }" title="修改">修改</a></li>
                          <li class="divider"></li>
-                         <li><a href="" title="Bootstrap 3 themes generator">注销</a></li>
+                         <li><a href="/user/del?id=${user.id }" title="Bootstrap 3 themes generator">注销</a></li>
                             </ul>
                         </div>
                         </td>

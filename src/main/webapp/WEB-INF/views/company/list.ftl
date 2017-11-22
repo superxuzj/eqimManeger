@@ -46,7 +46,13 @@ margin-bottom:1px !important;
                   <td>${company.liaisonphone }</td>
                   <td>${company.contactname }</td>
                   <td>${company.contactphone }</td>
-                  <td>${company.state }</td>
+                  <td>
+                  <#if company.state==1>
+              		    正常
+                  <#else>
+             		     注销	
+                  </#if>
+                  </td>
                   <td>
                    <div class="btn-group">
                        <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="" title="Bootstrap 3 themes generator">
@@ -56,7 +62,7 @@ margin-bottom:1px !important;
                          <li class="divider"></li>
                          <li><a href="/company/goadd?id=${company.id }" title="修改">修改</a></li>
                          <li class="divider"></li>
-                         <li><a href="" title="Bootstrap 3 themes generator">注销</a></li>
+                         <li><a href="/company/del?id=${company.id }" title="Bootstrap 3 themes generator">注销</a></li>
                             </ul>
                         </div>
                         </td>

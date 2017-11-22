@@ -40,7 +40,7 @@ public class LoginFilter implements Filter{
 		// TODO Auto-generated method stub
 		boolean isExcludedPage = false;
 		//静态资源请求直接放行
-		if(httpRequest.getRequestURI().indexOf("/outteamstatic")!=-1){
+		if(httpRequest.getRequestURI().indexOf("/eqimstatic")!=-1){
 			 chain.doFilter(request, response);
 	          return ;
     	}
@@ -60,7 +60,6 @@ public class LoginFilter implements Filter{
         //没有登录，需要登录
       if (session == null || 
         		session.getAttribute(CommonUtils.ISLOGIN) == null ||
-        		session.getAttribute(CommonUtils.ROLEID)==null||
         		session.getAttribute(CommonUtils.USERID)==null) {
         	
             ((HttpServletResponse) response).sendRedirect(httpRequest.getContextPath()+"/login");

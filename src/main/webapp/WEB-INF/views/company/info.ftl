@@ -1,5 +1,10 @@
 <@override name="head"> </@override> <@override name="body">
-
+<style>
+label{
+margin-left:10px;
+width:60%;
+}
+</style>
 <div class="row">
 	<div class="col-lg-12">
 		<ol class="breadcrumb">
@@ -27,18 +32,20 @@
                    <div class="form-group">
                        <label class="col-lg-2 control-label">联络人</label>
                        <div class="col-lg-6">
-                           <select class="form-control m-bot15" name="area" id="area">
-                       			 <option value="非华北" <#if earthquake.area=='非华北' >selected</#if> >张三</option>
-                                 <option value="华北"  <#if earthquake.area=='华北' >selected</#if> >李四</option>
+                          <select class="form-control m-bot15" name="liaisonid">
+                       		<#list userList as user>
+                       			 <option value="${user.id }" <#if company.liaisonid==user.id>selected </#if>>${user.name }</option>
+                       			 </#list>
                             </select>
                        </div>
                    </div>
                    <div class="form-group">
                        <label class="col-lg-2 control-label">联系人</label>
                        <div class="col-lg-6">
-                       		<select class="form-control m-bot15" name="area" id="area">
-                       			 <option value="非华北" <#if earthquake.area=='非华北' >selected</#if> >张三</option>
-                                 <option value="华北"  <#if earthquake.area=='华北' >selected</#if> >李四</option>
+                         <select class="form-control m-bot15" name="contactid">
+                       		<#list userList as user>
+                       			 <option value="${user.id }" <#if company.contactid==user.id>selected </#if>>${user.name }</option>
+                       			 </#list>
                             </select>
                        </div>
                    </div>

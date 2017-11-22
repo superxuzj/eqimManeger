@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -89,11 +88,7 @@ public class BaseCommonController {
 		return null;
 	}
 	
-	protected Integer getRoleId(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		Integer type = (Integer) session.getAttribute(CommonUtils.ROLEID);
-		return type;
-	}
+	
 	protected Integer getUserId(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		Integer userid = (Integer) session.getAttribute(CommonUtils.USERID);
@@ -103,21 +98,6 @@ public class BaseCommonController {
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute(CommonUtils.USERNAME);
 		return userName;
-	}
-	protected String getName(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		String name = (String) session.getAttribute(CommonUtils.REALNAME);
-		return name;
-	}
-	protected Integer getUserCid(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		Integer cid  = (Integer) session.getAttribute(CommonUtils.CID);
-		return cid;
-	}
-	protected String getUserCompany(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		String company = (String) session.getAttribute(CommonUtils.COMPANY);
-		return company;
 	}
 	
 	protected Date stringToDate(String sourceString){
