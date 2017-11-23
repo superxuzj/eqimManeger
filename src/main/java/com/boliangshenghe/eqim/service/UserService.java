@@ -32,12 +32,32 @@ public class UserService {
     
     public List<User> selectUserList(User record){
     	List<User> list = userMapper.selectUserList(record);
+    	/*for (User user : list) {
+    		user.setPhone(getEncryptValue(user.getPhone()));
+			user.setCompany(getEncryptValue(user.getCompany()));
+			user.setJob(getEncryptValue(user.getJob()));
+			this.updateByPrimaryKeySelective(user);
+		}*/
     	return list;
     }
     
     public PageBean<User> getUserByPage(User record,Integer pageNo) {
         PageHelper.startPage(pageNo,CommonUtils.PAGESIZE);
         List<User> list = this.selectUserList(record);
+        
         return new PageBean<User>(list);
     }
+    
+ /*// 加密数据
+ 	private String getEncryptValue(String value) {
+ 		String returnString = "";
+ 		try {
+ 			DesUtils des = new DesUtils();
+ 			returnString = des.encrypt(value);
+ 		} catch (Exception c) {
+ 			// TODO Auto-generated catch block
+ 			c.printStackTrace();
+ 		}
+ 		return returnString;
+ 	}*/
 }

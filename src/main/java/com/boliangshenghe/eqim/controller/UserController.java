@@ -17,6 +17,7 @@ import com.boliangshenghe.eqim.entity.Company;
 import com.boliangshenghe.eqim.entity.User;
 import com.boliangshenghe.eqim.service.CompanyService;
 import com.boliangshenghe.eqim.service.UserService;
+import com.boliangshenghe.eqim.util.DesUtils;
 
 @Controller
 @RequestMapping("/user")
@@ -38,7 +39,14 @@ public class UserController extends BaseCommonController{
   			HttpServletResponse response,User user,Model model,
   			@RequestParam(defaultValue = "1", value = "pageNo") Integer pageNo){
 		PageBean<User> page = userService.getUserByPage(user, pageNo);
-		
+		List<User> list = page.getList();
+		if(null!=list && list.size()>0){
+			for (User user2 : list) {
+				user2.setPhone(getDecryptValue(user2.getPhone()));
+				user2.setCompany(getDecryptValue(user2.getCompany()));
+				user2.setJob(getDecryptValue(user2.getJob()));
+			}
+		}
 		model.addAttribute("page", page);
 		model.addAttribute("user", user);
 		
@@ -50,6 +58,9 @@ public class UserController extends BaseCommonController{
   			HttpServletResponse response,Integer id,Model model){
 		if(id!=null){
 			User user = userService.selectByPrimaryKey(id);
+			user.setPhone(getDecryptValue(user.getPhone()));
+			user.setCompany(getDecryptValue(user.getCompany()));
+			user.setJob(getDecryptValue(user.getJob()));
 			model.addAttribute("user", user);
 		}
 		return "user/info";
@@ -61,6 +72,11 @@ public class UserController extends BaseCommonController{
   			HttpServletResponse response,Integer id,Model model){
 		if(id!=null){
 			User user = userService.selectByPrimaryKey(id);
+			
+			user.setPhone(getDecryptValue(user.getPhone()));
+			user.setCompany(getDecryptValue(user.getCompany()));
+			user.setJob(getDecryptValue(user.getJob()));
+			
 			model.addAttribute("user", user);
 		}
 		
@@ -80,6 +96,10 @@ public class UserController extends BaseCommonController{
 	@RequestMapping("save")
 	public String save(HttpServletRequest request, 
   			HttpServletResponse response,User user,Model model){
+		
+		user.setPhone(getEncryptValue(user.getPhone()));
+		user.setCompany(getEncryptValue(user.getCompany()));
+		user.setJob(getEncryptValue(user.getJob()));
 		
 		if(user.getCid()!=null){
 			Company company = companyService.selectByPrimaryKey(user.getCid());
@@ -104,5 +124,31 @@ public class UserController extends BaseCommonController{
 			userService.updateByPrimaryKeySelective(user);
 		}
 		return "redirect:/user/list";
+	}
+
+	// 加密数据
+	private String getEncryptValue(String value) {
+		String returnString = "";
+		try {
+			DesUtils des = new DesUtils();
+			returnString = des.encrypt(value);
+		} catch (Exception c) {
+			// TODO Auto-generated catch block
+			c.printStackTrace();
+		}
+		return returnString;
+	}
+	
+	// 解密数据
+	private String getDecryptValue(String value) {
+		String returnString = "";
+		try {
+			DesUtils des = new DesUtils();
+			returnString = des.decrypt(value);
+		} catch (Exception c) {
+			// TODO Auto-generated catch block
+			c.printStackTrace();
+		}
+		return returnString;
 	}
 }
