@@ -20,6 +20,38 @@ margin-bottom:1px !important;
 	</div>
 </div>
  <div class="row">
+ <div class="col-lg-12">
+		<section class="panel">
+			<div class="panel-body">
+				<form class="form-horizontal" role="form" action="/user/list">
+					<div class="form-group col-lg-3">
+						<label for="inputPassword1" class="col-lg-3 control-label">姓名</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" name="name" value="${user.name }">
+						</div>
+					</div>
+					<div class="form-group col-lg-4">
+						<label for="inputPassword1" class="col-lg-3 control-label">单位</label>
+						<div class="col-lg-9">
+							 <select class="form-control m-bot15" name="cid">
+							 <option value="" >全部</option>
+                       		<#list companyList as company>
+                       			 <option value="${company.id }" <#if company.id==user.cid>selected </#if>>${company.name }</option>
+                       			 </#list>
+                            </select>
+						</div>
+					</div>
+					
+					<div class="form-group col-lg-3">
+						<div class="col-lg-offset-2 col-lg-10">
+							<button type="submit" class="btn">搜索</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+
+	</div>
 	<div class="col-lg-12">
 		<a class="btn btn-primary btn-sm" href="javascript:add();" title="新增">新增</a>
 	</div>

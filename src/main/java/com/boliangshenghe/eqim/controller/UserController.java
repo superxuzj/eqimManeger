@@ -47,6 +47,8 @@ public class UserController extends BaseCommonController{
 				user2.setJob(getDecryptValue(user2.getJob()));
 			}
 		}
+		List<Company> companyList = companyService.selectCompanyList(new Company());
+		model.addAttribute("companyList", companyList);
 		model.addAttribute("page", page);
 		model.addAttribute("user", user);
 		

@@ -73,6 +73,12 @@ $('#password').keydown(function(e){
 		login_val();
 	}
 	});
+	
+$('#code').keydown(function(e){
+	if(e.keyCode==13){
+		login_val();
+	}
+	});
 function cancel(){
 	$("#username").val("");
 	$("#password").val("")

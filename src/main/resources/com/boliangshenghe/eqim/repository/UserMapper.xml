@@ -149,7 +149,7 @@
             AND cid = #{cid,jdbcType=INTEGER}
         </if>
         <if test="name != null">
-            AND name = #{name,jdbcType=VARCHAR}
+            AND name like '%${name}%' 
         </if>
     </where>
     order by state asc,id asc
