@@ -5,7 +5,11 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import org.springframework.stereotype.Component;
-
+/**
+ * test
+ * @author xuzj
+ *
+ */
 @Component
 public class TopicReceiver implements MessageListener {
 

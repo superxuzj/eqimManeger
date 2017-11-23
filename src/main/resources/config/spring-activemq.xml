@@ -38,7 +38,7 @@
     </bean>
 	<!-- 定义Topic监听器 -->
     <jms:listener-container destination-type="topic" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
-        <jms:listener destination="test.topic" ref="topicReceiver"/>
+        <jms:listener destination="eqimearthquake.topic" ref="topicReceiver"/>
     </jms:listener-container>
 
 </beans>
