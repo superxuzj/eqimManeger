@@ -1,4 +1,4 @@
-package com.boliangshenghe.eqim.activemq;
+package com.boliangshenghe.eqim.controller.activemq;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -15,7 +15,7 @@ public class TopicReceiver implements MessageListener {
 
 	public void onMessage(Message message) {
 		try {
-			System.out.println("TopicReceiver1接收到消息:"
+			System.out.println("TopicReceiver1接收到消息eqim:"
 					+ ((TextMessage) message).getText());
 		} catch (JMSException e) {
 			e.printStackTrace();

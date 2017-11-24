@@ -27,22 +27,22 @@ margin-bottom:1px !important;
                  <tr>
                     <th>ID</th>
                     <th>event_id</th>
-                    <th>保存时间</th>
                     <th>发生时间</th>
                     <th>深度</th>
+                    <th>震级</th>
                     <th>位置</th>
-                    <th>操作</th>
+                    <!-- <th>操作</th> -->
                  </tr>
                  
                  <#list page.list as catalog>
                  <tr>
                     <td>${catalog.cataId }</td>
                   <td>${catalog.eventId }</td>
-                  <td>${catalog.saveTime }</td>
-                  <td>${catalog.oTime }</td>
+                  <td>${catalog.oTime?string("yyyy-MM-dd HH:mm")}</td>
                   <td>${catalog.depth }</td>
+                  <td>${catalog.m }</td>
                   <td>${catalog.locationCname }</td>
-                  <td>
+                 <!--  <td>
                    <div class="btn-group">
                        <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="" title="Bootstrap 3 themes generator">
                        	操作<span class="caret"></span></a>
@@ -55,11 +55,11 @@ margin-bottom:1px !important;
                          <li class="divider"></li>
                          <li><a href="/earthquake/goadd?id=${earthquake.id }" title="修改">修改</a></li>
                          <!-- <li class="divider"></li>
-                         <li><a href="" title="Bootstrap 3 themes generator">结束</a></li> -->
+                         <li><a href="" title="Bootstrap 3 themes generator">结束</a></li> 
                               </#if>
                             </ul>
                         </div>
-                        </td>
+                        </td> -->
                     </tr>
                    </#list>
                  </tbody>

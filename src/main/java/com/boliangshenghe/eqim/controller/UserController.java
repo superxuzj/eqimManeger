@@ -99,15 +99,14 @@ public class UserController extends BaseCommonController{
 	public String save(HttpServletRequest request, 
   			HttpServletResponse response,User user,Model model){
 		
-		user.setPhone(getEncryptValue(user.getPhone()));
-		user.setCompany(getEncryptValue(user.getCompany()));
-		user.setJob(getEncryptValue(user.getJob()));
-		
 		if(user.getCid()!=null){
 			Company company = companyService.selectByPrimaryKey(user.getCid());
 			user.setCompany(company.getName());
 		}
-		
+		user.setPhone(getEncryptValue(user.getPhone()));
+		user.setCompany(getEncryptValue(user.getCompany()));
+		user.setJob(getEncryptValue(user.getJob()));
+		user.setState("1");
 		if(user.getId()!=null){
 			userService.updateByPrimaryKeySelective(user);
 		}else{

@@ -91,6 +91,10 @@ function login_val(){
 		alert("用户名或密码不能为空！")
 			return false;
 	}
+	if(code==""){
+		alert("请输入验证码！")
+			return false;
+	}
 	$.ajax({
 		url: "/user/validate",
 		data: {"username":username,"password":password,"code":code},

@@ -1,4 +1,4 @@
-package com.boliangshenghe.eqim.activemq;
+package com.boliangshenghe.eqim.controller.activemq;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -23,6 +23,7 @@ public class TopicSender {
     public void send(String topicName,final String message){
         jmsTemplate.send(topicName, new MessageCreator() {
             public Message createMessage(Session session) throws JMSException {
+            	//System.out.println("11111");
                 return session.createTextMessage(message);
             }
         });

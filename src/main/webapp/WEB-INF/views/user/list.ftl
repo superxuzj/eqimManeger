@@ -78,7 +78,13 @@ margin-bottom:1px !important;
                   <td>${user.job }</td>
                   <td>${user.company }</td>
                   <td>${user.phone }</td>
-                  <td>${user.state }</td>
+                  <td>
+                  <#if user.state==1>
+                  	正常
+                  <#else>
+                  	注销
+                  </#if>
+                  </td>
                   <td>
                    <div class="btn-group">
                        <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="" title="Bootstrap 3 themes generator">

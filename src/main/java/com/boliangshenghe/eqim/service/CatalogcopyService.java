@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.boliangshenghe.eqim.activemq.TopicSender;
 import com.boliangshenghe.eqim.common.PageBean;
+import com.boliangshenghe.eqim.controller.activemq.TopicSender;
 import com.boliangshenghe.eqim.entity.Catalog;
 import com.boliangshenghe.eqim.entity.Catalogcopy;
 import com.boliangshenghe.eqim.entity.Jdata;
@@ -137,7 +137,7 @@ public class CatalogcopyService {
     				
     				//消息队列发布
     				String message = JsonUtils.objtoJSONString(catalogcopy);
-    				topicSender.send("test.topic", message);
+    				topicSender.send("eqimearthquake.topic", message);
     				
     			}
     		}
