@@ -1,5 +1,8 @@
 package com.boliangshenghe.eqim.controller;
 import java.awt.Color;
+/**
+ * 验证码
+ */
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
