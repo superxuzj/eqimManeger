@@ -111,11 +111,17 @@
 		window.history.go(-1);
 	}
 	$(document).ready(function(){ 
-		var uri = '${request.requestURI}';
-		if(uri!="" && uri.indexof("messagecode")!=-1){
+		var uris = '${request.requestURI}';
+		console.log(uris);
+		if(uris!="" && uris.indexOf("messagecode")!=-1){
 			$("#tongglehide").trigger("click");
 		}
-		　  
+		if(uris!="" && uris.indexOf("quickcode")!=-1){
+			$("#tongglehide").trigger("click");
+		}
+		if(uris!="" && uris.indexOf("smscode")!=-1){
+			$("#tongglehide").trigger("click");
+		}
 	}); 
 </script>
   </body>

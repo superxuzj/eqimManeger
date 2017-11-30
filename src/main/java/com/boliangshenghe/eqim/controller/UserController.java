@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boliangshenghe.eqim.common.PageBean;
 import com.boliangshenghe.eqim.controller.base.BaseCommonController;
@@ -120,11 +121,37 @@ public class UserController extends BaseCommonController{
 	public String del(HttpServletRequest request, 
   			HttpServletResponse response,Integer id,Model model){
 		if(id!=null){
-			User user = userService.selectByPrimaryKey(id);
+			/*User user = userService.selectByPrimaryKey(id);
 			user.setState("2");
-			userService.updateByPrimaryKeySelective(user);
+			userService.updateByPrimaryKeySelective(user);*/
+			userService.deleteByPrimaryKey(id);
 		}
 		return "redirect:/user/list";
+	}
+	
+	@RequestMapping("valuser")
+	@ResponseBody
+	public String valuser(HttpServletRequest request, 
+  			HttpServletResponse response,Integer id,Model model){
+		if(id!=null){
+			Company contact = new Company();
+			contact.setContactid(id);
+			List<Company> clist = companyService.selectCompanyList(contact);
+			
+			if(null!=clist && clist.size()>0){
+				Company company = clist.get(0);
+				return company.getName();
+			}
+			
+			Company liaison = new Company();
+			liaison.setLiaisonid(id);
+			List<Company> lialist =companyService.selectCompanyList(liaison);
+			if(null!=lialist && lialist.size()>0){
+				Company company = lialist.get(0);
+				return company.getName();
+			}
+		}
+		return "success";
 	}
 
 	// 加密数据

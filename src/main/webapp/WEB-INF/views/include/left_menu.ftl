@@ -15,7 +15,11 @@
                  </a>
              </li>
             
-             
+             <li <#if request.requestURI?index_of("/earthquake")!=-1> class="active" </#if>>
+                 <a class="" href="/earthquake">
+                     <span>模拟地震事件管理</span>
+                 </a>
+             </li>
           
              <li <#if request.requestURI?index_of("/company")!=-1> class="active" </#if>>
                  <a class="" href="/company">

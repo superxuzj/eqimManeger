@@ -203,12 +203,17 @@
     <include refid="Base_Column_List" />
     from t_company
     <where>
-       
         <if test="name != null">
             AND name = #{name,jdbcType=VARCHAR}
         </if>
+         <if test="liaisonid != null">
+            AND liaisonId = #{liaisonid,jdbcType=INTEGER}
+        </if>
+        <if test="contactid != null">
+            AND contactid = #{contactid,jdbcType=INTEGER}
+        </if>
     </where>
-    order by id asc
+    order by state asc,id asc 
    	    <if test="start != null and limit != null"> 
 			LIMIT #{start} ,#{limit}
 		</if>

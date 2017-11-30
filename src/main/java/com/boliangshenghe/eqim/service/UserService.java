@@ -17,7 +17,9 @@ public class UserService {
 	@Autowired
 	UserMapper userMapper;
 		
-	
+	public int deleteByPrimaryKey(Integer id){
+		 return userMapper.deleteByPrimaryKey(id);
+	}
 	public int insertSelective(User User) {
         return userMapper.insertSelective(User);
     }

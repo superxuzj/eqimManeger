@@ -94,7 +94,7 @@ margin-bottom:1px !important;
                          <li class="divider"></li>
                          <li><a href="/user/goadd?id=${user.id }" title="修改">修改</a></li>
                          <li class="divider"></li>
-                         <li><a href="/user/del?id=${user.id }" title="Bootstrap 3 themes generator">注销</a></li>
+                         <li><a href="javascript:void(0)" onclick="del(${user.id })" title="删除">删除</a></li>
                             </ul>
                         </div>
                         </td>
@@ -114,6 +114,31 @@ margin-bottom:1px !important;
 <script type="text/javascript">
 function add(){
 	window.location.href = "/user/goadd";
+}
+
+function del(id){
+	if(window.confirm('你确定要删除吗？')){
+		
+		$.ajax({ 
+	        type: "POST",
+	        url:"/user/valuser",
+	        data:{  
+	            "id" : id
+	        },
+	        scriptCharset: 'utf-8',
+	        success: function(data) {
+	        	if(data=="success"){
+	        		window.location.href = "/outteam/addapplyoutteam?eqid="+eqid;
+	        	}else{
+	        		alert("该成员在"+data+"被设置为联络人或联系人，请修改再删除！");
+	        		return ;
+	        	}
+	        }
+		});
+     }else{
+        //alert("取消");
+        return false;
+    }
 }
 </script>
 </@override> <@extends name="/base/base.ftl"/>
