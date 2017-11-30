@@ -208,7 +208,7 @@
             AND name = #{name,jdbcType=VARCHAR}
         </if>
     </where>
-    order by state asc,id asc
+    order by id asc
    	    <if test="start != null and limit != null"> 
 			LIMIT #{start} ,#{limit}
 		</if>

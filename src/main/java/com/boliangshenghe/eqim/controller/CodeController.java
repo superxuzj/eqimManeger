@@ -51,8 +51,8 @@ public class CodeController {
         gd.setFont(font);  
   
         // 画边框。  
-        //gd.setColor(Color.BLACK);  
-       // gd.drawRect(0, 0, width - 1, height - 1);  
+        gd.setColor(Color.BLACK);  
+        gd.drawRect(0, 0, width - 1, height - 1);  
   
         // 随机产生40条干扰线，使图象中的认证码不易被其它程序探测到。  
         gd.setColor(Color.BLACK);  

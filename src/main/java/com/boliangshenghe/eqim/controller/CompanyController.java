@@ -23,6 +23,7 @@ import com.boliangshenghe.eqim.service.MessagecodeService;
 import com.boliangshenghe.eqim.service.QuickcodeService;
 import com.boliangshenghe.eqim.service.SmscodeService;
 import com.boliangshenghe.eqim.service.UserService;
+import com.boliangshenghe.eqim.util.DesUtils;
 
 @Controller
 @RequestMapping("/company")
@@ -54,7 +55,18 @@ public class CompanyController extends BaseCommonController{
   			HttpServletResponse response,Company company,Model model,
   			@RequestParam(defaultValue = "1", value = "pageNo") Integer pageNo){
 		PageBean<Company> page = companyService.getCompanyByPage(company, pageNo);
-		
+		List<Company> list = page.getList();
+		if(null!=list && list.size()>0){
+			for (Company record : list) {
+				if(null !=record.getLiaisonphone() && !record.getLiaisonphone().trim().equals("")){
+					record.setLiaisonphone(getDecryptValue(record.getLiaisonphone()));
+				}
+				if(null !=record.getContactphone() && !record.getContactphone().trim().equals("")){
+					record.setContactphone(getDecryptValue(record.getContactphone()));
+				}
+				
+			}
+		}
 		model.addAttribute("page", page);
 		model.addAttribute("company", company);
 		
@@ -136,6 +148,7 @@ public class CompanyController extends BaseCommonController{
 		if(company.getId()!=null){
 			companyService.updateByPrimaryKeySelective(company);
 		}else{
+			company.setState("1");
 			companyService.insertSelective(company);
 		}
 		
@@ -152,5 +165,18 @@ public class CompanyController extends BaseCommonController{
 		}
 		return "redirect:/company/list";
 	}
+	
+	// 解密数据
+		private String getDecryptValue(String value) {
+			String returnString = "";
+			try {
+				DesUtils des = new DesUtils();
+				returnString = des.decrypt(value);
+			} catch (Exception c) {
+				// TODO Auto-generated catch block
+				c.printStackTrace();
+			}
+			return returnString;
+		}
 	
 }

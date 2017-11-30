@@ -4,12 +4,12 @@
      <div id="sidebar"  class="nav-collapse ">
          <!-- sidebar menu start-->
          <ul class="sidebar-menu">  
-        	 <li <#if _request.requestURI?index_of("/index")!=-1> class="active" </#if>>
+        	 <li <#if request.requestURI?index_of("/index")!=-1> class="active" </#if>>
                  <a class="" href="/index">
                      <span>首页</span>
                  </a>
              </li>              
-             <li <#if _request.requestURI?index_of("/sourcecatalog")!=-1> class="active" </#if>>
+             <li <#if request.requestURI?index_of("/sourcecatalog")!=-1> class="active" </#if>>
                  <a class="" href="/sourcecatalog">
                      <span>地震事件管理</span>
                  </a>
@@ -17,19 +17,19 @@
             
              
           
-             <li <#if _request.requestURI?index_of("/company")!=-1> class="active" </#if>>
+             <li <#if request.requestURI?index_of("/company")!=-1> class="active" </#if>>
                  <a class="" href="/company">
                      <span>单位管理</span>
                  </a>
              </li>
              
-              <li <#if _request.requestURI?index_of("/user")!=-1> class="active" </#if>>
+              <li <#if request.requestURI?index_of("/user")!=-1> class="active" </#if>>
                  <a class="" href="/user">
                      <span>成员管理</span>
                  </a>
              </li>
             <li class="sub-menu">
-                      <a href="javascript:;" class="" id="tongglehide">
+                      <a href="#" id="tongglehide">
                           <span>规则管理</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>

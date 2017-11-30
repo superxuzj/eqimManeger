@@ -60,5 +60,10 @@ margin-bottom:1px !important;
 </div>
 
 <script type="text/javascript">
+$(document).ready(function(){ 
+	
+	console.log("1");
+	　$("#tongglehide").click();  
+}); 
 </script>
 </@override> <@extends name="/base/base.ftl"/>
