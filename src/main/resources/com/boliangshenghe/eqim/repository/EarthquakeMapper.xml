@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boliangshenghe.eqim.repository.EarthquakeMapper" >
+  <resultMap id="BaseResultMap" type="com.boliangshenghe.eqim.entity.Earthquake" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="eqname" property="eqname" jdbcType="VARCHAR" />
+    <result column="eventid" property="eventid" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="magnitude" property="magnitude" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="eqtime" property="eqtime" jdbcType="TIMESTAMP" />
+    <result column="depth" property="depth" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="weather" property="weather" jdbcType="VARCHAR" />
+    <result column="towncount" property="towncount" jdbcType="VARCHAR" />
+    <result column="peoplesum" property="peoplesum" jdbcType="VARCHAR" />
+    <result column="hazardcount" property="hazardcount" jdbcType="VARCHAR" />
+    <result column="demaver" property="demaver" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, eqname, eventid, location, magnitude, longitude, latitude, eqtime, depth, createtime, 
+    creator, weather, towncount, peoplesum, hazardcount, demaver
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_earthquake
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_earthquake
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boliangshenghe.eqim.entity.Earthquake" >
+    insert into t_earthquake (ID, eqname, eventid, 
+      location, magnitude, longitude, 
+      latitude, eqtime, depth, 
+      createtime, creator, weather, 
+      towncount, peoplesum, hazardcount, 
+      demaver)
+    values (#{id,jdbcType=INTEGER}, #{eqname,jdbcType=VARCHAR}, #{eventid,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{magnitude,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{eqtime,jdbcType=TIMESTAMP}, #{depth,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{weather,jdbcType=VARCHAR}, 
+      #{towncount,jdbcType=VARCHAR}, #{peoplesum,jdbcType=VARCHAR}, #{hazardcount,jdbcType=VARCHAR}, 
+      #{demaver,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boliangshenghe.eqim.entity.Earthquake" >
+    insert into t_earthquake
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="eqname != null" >
+        eqname,
+      </if>
+      <if test="eventid != null" >
+        eventid,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="magnitude != null" >
+        magnitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="eqtime != null" >
+        eqtime,
+      </if>
+      <if test="depth != null" >
+        depth,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="weather != null" >
+        weather,
+      </if>
+      <if test="towncount != null" >
+        towncount,
+      </if>
+      <if test="peoplesum != null" >
+        peoplesum,
+      </if>
+      <if test="hazardcount != null" >
+        hazardcount,
+      </if>
+      <if test="demaver != null" >
+        demaver,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eqname != null" >
+        #{eqname,jdbcType=VARCHAR},
+      </if>
+      <if test="eventid != null" >
+        #{eventid,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="magnitude != null" >
+        #{magnitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="eqtime != null" >
+        #{eqtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depth != null" >
+        #{depth,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="weather != null" >
+        #{weather,jdbcType=VARCHAR},
+      </if>
+      <if test="towncount != null" >
+        #{towncount,jdbcType=VARCHAR},
+      </if>
+      <if test="peoplesum != null" >
+        #{peoplesum,jdbcType=VARCHAR},
+      </if>
+      <if test="hazardcount != null" >
+        #{hazardcount,jdbcType=VARCHAR},
+      </if>
+      <if test="demaver != null" >
+        #{demaver,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boliangshenghe.eqim.entity.Earthquake" >
+    update t_earthquake
+    <set >
+      <if test="eqname != null" >
+        eqname = #{eqname,jdbcType=VARCHAR},
+      </if>
+      <if test="eventid != null" >
+        eventid = #{eventid,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="magnitude != null" >
+        magnitude = #{magnitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="eqtime != null" >
+        eqtime = #{eqtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depth != null" >
+        depth = #{depth,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="weather != null" >
+        weather = #{weather,jdbcType=VARCHAR},
+      </if>
+      <if test="towncount != null" >
+        towncount = #{towncount,jdbcType=VARCHAR},
+      </if>
+      <if test="peoplesum != null" >
+        peoplesum = #{peoplesum,jdbcType=VARCHAR},
+      </if>
+      <if test="hazardcount != null" >
+        hazardcount = #{hazardcount,jdbcType=VARCHAR},
+      </if>
+      <if test="demaver != null" >
+        demaver = #{demaver,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boliangshenghe.eqim.entity.Earthquake" >
+    update t_earthquake
+    set eqname = #{eqname,jdbcType=VARCHAR},
+      eventid = #{eventid,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      magnitude = #{magnitude,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      eqtime = #{eqtime,jdbcType=TIMESTAMP},
+      depth = #{depth,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      weather = #{weather,jdbcType=VARCHAR},
+      towncount = #{towncount,jdbcType=VARCHAR},
+      peoplesum = #{peoplesum,jdbcType=VARCHAR},
+      hazardcount = #{hazardcount,jdbcType=VARCHAR},
+      demaver = #{demaver,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 新加   -->
+   <select id="selectEarthquakeList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.eqim.entity.Earthquake">
+   	    select 
+    <include refid="Base_Column_List" />
+    from t_earthquake
+    <where>
+        <if test="eqname != null">
+            AND eqname like '%${eqname}%' 
+        </if>
+    </where>
+    order by id asc 
+   	    <if test="start != null and limit != null"> 
+			LIMIT #{start} ,#{limit}
+		</if>
+   	</select>
+</mapper>

@@ -4390,9 +4390,9 @@ a.thumbnail:focus {
   color: #218ebd;
 }
 .alert-warning {
-  background-color: #fff0b3;
-  border-color: #ffdda3;
-  color: #ffcc00;
+  background-color: #f0f0f5;
+  border-color: #f0f0f5;
+  color: #6b6b47;
 }
 .alert-warning hr {
   border-top-color: #ffd48a;

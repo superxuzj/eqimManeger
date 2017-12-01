@@ -148,6 +148,9 @@
         <if test="cid != null">
             AND cid = #{cid,jdbcType=INTEGER}
         </if>
+        <if test="state != null">
+            AND state = #{state,jdbcType=VARCHAR}
+        </if>
         <if test="name != null">
             AND name like '%${name}%' 
         </if>
