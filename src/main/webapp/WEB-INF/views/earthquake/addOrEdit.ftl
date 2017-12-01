@@ -33,6 +33,13 @@ margin-bottom:8px !important;
 <div class="alert alert-warning fade in divheng">
 	<strong>速报信息</strong>
  </div>
+ 					<div class="form-group">
+                       <label class="col-lg-2 control-label">名称</label>
+                       <div class="col-lg-6">
+                           <input type="text" class="form-control" name="eqname" id="eqname"
+                           value="${earthquake.eqname}" <#if earthquake??>readonly</#if> />
+                       </div>
+                   </div>
                    <div class="form-group">
                        <label class="col-lg-2 control-label">地震唯一标识码</label>
                        <div class="col-lg-6">
@@ -44,13 +51,17 @@ margin-bottom:8px !important;
                    <div class="form-group">
                        <label class="col-lg-2 control-label">经度</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="longitude" value="${earthquake.longitude}" <#if earthquake??>readonly</#if>/>
+                           <input type="text" class="form-control" name="longitude" id="longitude"
+                            placeholder="必填"
+                            value="${earthquake.longitude}" <#if earthquake??>readonly</#if>/>
                        </div>
                    </div>
                    <div class="form-group">
                        <label class="col-lg-2 control-label">纬度</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="latitude" value="${earthquake.latitude}" <#if earthquake??>readonly</#if>/>
+                           <input type="text" class="form-control" name="latitude" id="latitude"
+                            placeholder="必填"
+                            value="${earthquake.latitude}" <#if earthquake??>readonly</#if>/>
                        </div>
                    </div>
                    <div class="form-group">
@@ -64,8 +75,8 @@ margin-bottom:8px !important;
                    <div class="form-group">
                        <label class="col-lg-2 control-label">发震时刻</label>
                        <div class="col-lg-6">
-                           <input type="text" class="form-control" name="eqtime" id="eqtime"
-                            value="${earthquake.eqdate }" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                           <input type="text" class="form-control" name="eqtime" id="eqtime" <#if earthquake??>readonly</#if>
+                            value="${earthquake.eqtime?string('yyyy-MM-dd HH:mm:ss') }" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
                        </div>
                    </div>
                    <div class="form-group">
@@ -77,7 +88,54 @@ margin-bottom:8px !important;
 <div class="alert alert-warning fade in divheng">
      <strong>灾情信息</strong>
  </div>
-                   
+                   <div class="form-group">
+                       <label class="col-lg-3 control-label">震中100公里近期及历史最大地震及伤亡</label>
+                       <div class="col-lg-6">
+                           <input type="text" class="form-control" name="hazardcount" 
+                           value="${earthquake.hazardcount}" <#if earthquake??>readonly</#if> />
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="col-lg-3 control-label">震区未来3天天气</label>
+                       <div class="col-lg-6">
+                           <input type="text" class="form-control" name="weather" 
+                           value="${earthquake.weather}" <#if earthquake??>readonly</#if> />
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="col-lg-3 control-label">震中20公里范围内乡镇及村庄个数</label>
+                       <div class="col-lg-6">
+                           <input type="text" class="form-control" name="towncount" 
+                           value="${earthquake.towncount}" <#if earthquake??>readonly</#if> />
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="col-lg-3 control-label">震中50公里范围内平均人口密度总数</label>
+                       <div class="col-lg-6">
+                           <input type="text" class="form-control" name="peoplesum" 
+                           value="${earthquake.peoplesum}" <#if earthquake??>readonly</#if> />
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label class="col-lg-3 control-label">震中10公里海拔</label>
+                       <div class="col-lg-6">
+                           <input type="text" class="form-control" name="demaver" 
+                           value="${earthquake.demaver}" <#if earthquake??>readonly</#if> />
+                       </div>
+                   </div>
+<div class="alert alert-warning fade in divheng">
+     <strong>单位信息</strong>
+ </div>
+					<div class="form-group">
+                       <label class="col-lg-2 control-label">选择单位</label>
+                       <div class="col-lg-6">
+                          <select class="form-control m-bot15" name="cid" id="cid">
+                       		<#list companylist as company>
+                       			 <option value="${company.id }"  >${company.name }</option>
+                       		</#list>
+                            </select>
+                       </div>
+                   </div>
                    <div class="form-group">
                        <div class="col-lg-offset-2 col-lg-10">
                            <button type="button" class="btn btn-primary" onclick="save()">保存</button>
@@ -101,6 +159,24 @@ function save(){
 		alert("请输入地震名称！");
 		return false;
 	}
+	
+	if($("#longitude").val()==""){
+		alert("请输入经度！");
+		return false;
+	}
+	if(isNaN($("#longitude").val())){//必须是数字
+   		alert("经度只能填数字");
+   	    return false;
+   	}
+	if($("#latitude").val()==""){
+		alert("请输入纬度！");
+		return false;
+	}
+	if(isNaN($("#latitude").val())){//必须是数字
+   		alert("纬度只能填数字");
+   	    return false;
+   	}
+	
 	if($("#magnitude").val()==""){
 		alert("请输入地震等级！");
 		return false;
@@ -109,83 +185,10 @@ function save(){
    		alert("震级只能填数字");
    	    return false;
    	}
-	if($("#area").val()=="非华北" && $("#responseid").val()==""){
-		alert("请选择响应等级");
-		return false;
-	}
-	var rid=$("#responseid").val();
-	var id = $("#hiddenid").val();
-	//新增
-	if(id==null || id==''){
-		$.ajax({ 
-            type: "POST",
-            url:"/earthquake/savenew",
-            data:$('#earthquakeForm').serialize(),// 你的formid
-            async: false,
-            success: function(data) {
-            	$("#hiddenid").val(data);//返回的地震id赋值给id框
-            	layer.open({
-        			type: 2,
-        		    area: ['780px', '561px'],
-        		    fix: false, //不固定
-        		    title: "出队列表",
-        		    maxmin: true,
-        		    content: '/earthquake/ruleoutteam?id='+data+"&rid="+rid
-        		}); 
-            }
-		});
-	}else{
-		
-		 layer.open({
-			type: 2,
-		    area: ['780px', '561px'],
-		    fix: false, //不固定
-		    title: "出队列表",
-		    maxmin: true,
-		    content: '/earthquake/ruleoutteam?id='+id+"&rid="+rid
-		}); 
-		
-		/* $.ajax({  
-	         type : "POST",  //提交方式  
-	         url : "/earthquake/valCompany",//判断是否已经安排了出队
-	         data:$('#earthquakeForm').serialize(),// 你的formid
-	         success : function(result) {//返回数据根据结果进行相应的处理  
-	         	if(result=="success"){
-	         		layer.open({
-	        			type: 2,
-	        		    area: ['780px', '561px'],
-	        		    fix: false, //不固定
-	        		    title: "出队列表",
-	        		    maxmin: true,
-	        		    content: '/earthquake/ruleoutteam?id='+id+"&rid="+rid
-	        		}); 
-	         	}else{
-	         		alert("已确定出队单位，请在出队管理界面查看！");
-	         		window.location.href="/earthquake/list";
-	         	}
-	         }
-	     }); */
-	}
 	
-	// $("#earthquakeForm").submit();
+	$("#earthquakeForm").submit();
 }
 	
-	
-$(document).on("change",'select#area',function(){
-	var val = $(this).val();
-	if(val=="华北"){
-		$("#responddiv").hide();
-	}else{
-		$("#responddiv").show();
-	}
-});
-$(document).ready(function(){
-	var val = $("#area").val();
-	if(val=="华北"){
-		$("#responddiv").hide();
-	}else{
-		$("#responddiv").show();
-	}
-});
+
 </script>
 </@override> <@extends name="/base/base.ftl"/>

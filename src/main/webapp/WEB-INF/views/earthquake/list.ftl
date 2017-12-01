@@ -56,13 +56,9 @@ margin-bottom:1px !important;
                     <tr>
                        <th>地震唯一标识码</th>
                        <th>名称</th>
-                       <th>区域</th>
-                       <th>省份</th>
                        <th>位置</th>
                        <th>震级</th>
                        <th>日期</th>
-                       <th>响应等级</th>
-                       <th>事件来源</th>
                        <th>操作</th>
                     </tr>
                     
@@ -70,42 +66,19 @@ margin-bottom:1px !important;
                     <tr>
                        <td>${earthquake.eventid }</td>
                      <td>${earthquake.eqname }</td>
-                     <td>${earthquake.area }</td>
-                     <td>${earthquake.province }</td>
                      <td>${earthquake.location }</td>
                      <td>${earthquake.magnitude }</td>
-                     <td>${earthquake.eqdate }</td>
-                     <td>
-                     
-                     <#if earthquake.responseid==1>
-                     	一级响应
-                     <#elseif earthquake.responseid==2>
-                     	二级响应	
-                     	<#else>
-                     	华北响应
-                     </#if></td>
-                     <td>
-                     <#if earthquake.state==2>
-                     eqim触发
-                     <#else>
-                     	手动演练
-                     </#if>
-                    	</td>
+                     <td>${earthquake.eqtime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                    
                      <td>
                       <div class="btn-group">
                           <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="" title="Bootstrap 3 themes generator">
                           	操作<span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="/earthquake/info?id=${earthquake.id }" title="详情">详情</a></li>
-                            <#if sessionroleid==2>
-                            <li><a href="javascript:appoutteam('${earthquake.id }');" title="申请出队">申请出队</a></li>
-                           	</#if>
-                           <#if sessionroleid==1>
                             <li class="divider"></li>
                             <li><a href="/earthquake/goadd?id=${earthquake.id }" title="修改">修改</a></li>
-                            <!-- <li class="divider"></li>
-                            <li><a href="" title="Bootstrap 3 themes generator">结束</a></li> -->
-                            </#if>
+                            <li class="divider"></li>
+                            <li><a href="/earthquake/del?id=${earthquake.id }" title="删除">删除</a></li>
                           </ul>
                       </div>
                       </td>
