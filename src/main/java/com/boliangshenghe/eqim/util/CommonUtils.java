@@ -21,7 +21,10 @@ public class CommonUtils {
 	public static final String USERNAME = "sessionusername";
 	public static final String ISLOGIN = "islogin";
 	
-	public static final String SEARCH_TIME="20171113102821.00";
+	//public static final String SEARCH_TIME="20171113102821.00";
+	
+	public static final String SEARCH_TIME="20171203051017.00";
+	
 	
 	private static final String CACHE_CONTROL = "Cache-Control";
 	private static final String PRAGMA = "Pragma";

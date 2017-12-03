@@ -18,9 +18,11 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.boliangshenghe.eqim.common.PageBean;
 import com.boliangshenghe.eqim.entity.Company;
 import com.boliangshenghe.eqim.entity.Earthquake;
+import com.boliangshenghe.eqim.entity.MessageRecord;
 import com.boliangshenghe.eqim.entity.User;
 import com.boliangshenghe.eqim.service.CompanyService;
 import com.boliangshenghe.eqim.service.EarthquakeService;
+import com.boliangshenghe.eqim.service.MessageRecordService;
 import com.boliangshenghe.eqim.service.UserService;
 import com.boliangshenghe.eqim.util.CommonUtils;
 import com.boliangshenghe.eqim.util.DateUtils;
@@ -45,6 +47,9 @@ public class EarthquakeController{
 	
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	private MessageRecordService messageRecordService;
 	
 	@RequestMapping
 	public String defaultIndex(){
@@ -142,16 +147,16 @@ public class EarthquakeController{
 			if(!isSend( company,earthquake)){//不符合发短信的条件
 				return "redirect:/earthquake/list";
 			}
-			
-//			String phones = getPhones(earthquake.getCid());
-			String phones = getPhones(22);
-			
+
 			String content="";
 			if(earthquake.getLocation().equals("海外海洋")){
 				 content = haiwaihaiyang(earthquake);//海外模板
 			}else{
 				 content = land(company,earthquake);//国内模板
 			}
+//			String phones = getPhones(earthquake.getCid());
+			String phones = getPhones(22,content);
+			
 			//String parm = "{\"customer\":\"北京时间2017年11月23日17时43分.\"}";
 			
 			String parm1 = "{\"customer\":\"" +content + "\"}";
@@ -268,7 +273,7 @@ public class EarthquakeController{
 	 * @param cid
 	 * @return
 	 */
-	public String getPhones(Integer cid){
+	public String getPhones(Integer cid,String content){
 		User u = new User();
 		//u.setCid(earthquake.getCid());//查找该单位的人员信息
 		u.setCid(cid);//测试
@@ -278,6 +283,14 @@ public class EarthquakeController{
 		if(null!=userList && userList.size()>0){
 			for (User user : userList) {
 				phones= phones+ getDecryptValue(user.getPhone())+",";
+				
+				MessageRecord mr = new MessageRecord();
+				mr.setCid(cid);
+				mr.setUid(user.getId());
+				mr.setPhone(getDecryptValue(user.getPhone()));
+				mr.setConten(content);
+				mr.setCreatetime(new Date());
+				messageRecordService.insertSelective(mr);
 			}
 			if(!phones.equals("")){
 				phones =phones.substring(0, phones.length()-1);

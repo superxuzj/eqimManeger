@@ -55,6 +55,14 @@
 	</rule>
 	
 	<rule>
+		<namespace>com.boliangshenghe.eqim.repository.MessageRecordMapper
+		</namespace>
+		<shards>second_ds</shards>
+	</rule>
+	
+	
+	
+	<rule>
 		<namespace>com.boliangshenghe.eqim.repository.JdataMapper
 		</namespace>
 		<shards>third_ds</shards>

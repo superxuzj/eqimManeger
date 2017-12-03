@@ -70,7 +70,17 @@ public class Catalogcopy {
 
     private String locationCname;
     
-    private Integer start;
+    private String location;//是不是海洋海外
+    
+    public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	private Integer start;
     
     private Integer limit;
 
