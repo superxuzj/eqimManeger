@@ -31,7 +31,7 @@ public class ActivemqController {
 		String opt = "";
 		String message = "发送内容";
 		try {
-			topicSender.send("test.topic", message);
+			topicSender.send("eqimearthquake.topic", message);
 			opt = "suc";
 		} catch (Exception e) {
 			opt = e.getCause().toString();
