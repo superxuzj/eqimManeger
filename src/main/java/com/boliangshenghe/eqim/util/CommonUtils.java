@@ -12,7 +12,7 @@ public class CommonUtils {
 	//高德 key liang
 	public static final String GAODEKEY = "9380c464b9a4a9ecc686cd57ff994f0c";
 
-	
+	public static final String SMSKEY = "64b9a4a9ec";
 	public static final Integer PAGESIZE = 10;//分页 每页条数
 	
 	public static final String REQUEST_KEY_REQUEST = "request";// 当前请求

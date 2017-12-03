@@ -89,30 +89,34 @@ margin-bottom:8px !important;
      <strong>灾情信息</strong>
  </div>
                    <div class="form-group">
-                       <label class="col-lg-3 control-label">震中100公里近期及历史最大地震及伤亡</label>
+                       <label class="col-lg-3 control-label">震中100公里范围内</label>
                        <div class="col-lg-6">
                            <input type="text" class="form-control" name="hazardcount" 
+                           placeholder="发生5.0级以上地震共1次。最大地震是2004年11月21日在重庆市忠县发生的5.1级地震。"
                            value="${earthquake.hazardcount}" <#if earthquake??>readonly</#if> />
                        </div>
                    </div>
                    <div class="form-group">
-                       <label class="col-lg-3 control-label">震区未来3天天气</label>
+                       <label class="col-lg-3 control-label">震区未来3天气象信息</label>
                        <div class="col-lg-6">
                            <input type="text" class="form-control" name="weather" 
+                           placeholder="周五，阴，14 ~ 9℃，周六，多云，15 ~ 9℃，周日，多云，17 ~ 10℃。"
                            value="${earthquake.weather}" <#if earthquake??>readonly</#if> />
                        </div>
                    </div>
                    <div class="form-group">
-                       <label class="col-lg-3 control-label">震中20公里范围内乡镇及村庄个数</label>
+                       <label class="col-lg-3 control-label">震中20公里范围内</label>
                        <div class="col-lg-6">
                            <input type="text" class="form-control" name="towncount" 
+                           placeholder="有17个乡（镇、街道）,有0个村"
                            value="${earthquake.towncount}" <#if earthquake??>readonly</#if> />
                        </div>
                    </div>
                    <div class="form-group">
-                       <label class="col-lg-3 control-label">震中50公里范围内平均人口密度总数</label>
+                       <label class="col-lg-3 control-label">震中50公里范围内</label>
                        <div class="col-lg-6">
                            <input type="text" class="form-control" name="peoplesum" 
+                            placeholder="的人口密度约150人/平方公里,人口约120万人。"
                            value="${earthquake.peoplesum}" <#if earthquake??>readonly</#if> />
                        </div>
                    </div>
