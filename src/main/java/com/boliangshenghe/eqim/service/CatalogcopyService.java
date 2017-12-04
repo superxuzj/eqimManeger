@@ -113,7 +113,7 @@ public class CatalogcopyService {
     	System.out.println(eventid_temp+" eventid_temp");
     	record.setEventId(eventid_temp);//获取源数据
     	List<Catalog> listsource = catalogService.selectCatalogList(record);
-    	
+    	System.out.println(listsource.size() +" size" );
     	//Set<String> eventids = this.selectCatalogcopyEventIDList(new Catalogcopy());
     	if(null!= listsource&& listsource.size()>0){
     		for (Catalog catalog : listsource) {
@@ -141,8 +141,8 @@ public class CatalogcopyService {
     				catalogcopy.setLon(catalog.getLon());
     				catalogcopy.setM(catalog.getM());
     				catalogcopy.setMl(catalog.getMl());
-    				catalogcopy.setoTime(catalog.getoTime());
-    				catalogcopy.setoTimeNs(catalog.getoTimeNs());
+    				catalogcopy.setOTime(catalog.getoTime());
+    				catalogcopy.setOTimeNs(catalog.getoTimeNs());
     				catalogcopy.setSaveTime(catalog.getSaveTime());
     				catalogcopy.setCataId(catalog.getCataId());
     				catalogcopy.setOperator(catalog.getOperator());
@@ -156,11 +156,22 @@ public class CatalogcopyService {
     				}else{
     					catalogcopy.setJsonstate("2");//mei有json数据
     				}
-    				this.insertSelective(catalogcopy); //插入到复制表中
+    				try {
+    					this.insertSelective(catalogcopy); //插入到复制表中
+					} catch (Exception c) {
+						// TODO: handle exception
+						c.printStackTrace();
+					}
     				
     				//消息队列发布
     				String message = JsonUtils.objtoJSONString(catalogcopy);
     				topicSender.send("eqimearthquake.topic", message);
+    				/*try {
+						Thread.sleep(1000);
+					} catch (InterruptedException c1) {
+						// TODO Auto-generated catch block
+						c1.printStackTrace();
+					}*/
     				
     				//发短信 放在这就是有地震就会发送
     				
@@ -223,7 +234,7 @@ public class CatalogcopyService {
   //海洋短信
   	public String haiwaihaiyang(Catalogcopy catalogcopy){
   		String content = "北京时间"
-  				+ DateUtils.getStringDate(catalogcopy.getoTime()) + ",在"
+  				+ DateUtils.getStringDate(catalogcopy.getOTime()) + ",在"
   				+ catalogcopy.getLocationCname();
   		if(catalogcopy.getLat().toString().startsWith("-")){
   			content = content+"(南纬"+catalogcopy.getLat().toString().substring(1, catalogcopy.getLat().toString().length())+"度，";
@@ -244,7 +255,7 @@ public class CatalogcopyService {
   	//国内短信
   	public String land(Company company, Catalogcopy catalogcopy) {
   		String content = "北京时间"
-  				+ DateUtils.getStringDate(catalogcopy.getoTime()) + ",在"
+  				+ DateUtils.getStringDate(catalogcopy.getOTime()) + ",在"
   				+ catalogcopy.getLocationCname() + "(北纬" + catalogcopy.getLat()
   				+ "度，东经" + catalogcopy.getLon() + "度)发生"
   				+ catalogcopy.getM() + "级地震，震源深度约"

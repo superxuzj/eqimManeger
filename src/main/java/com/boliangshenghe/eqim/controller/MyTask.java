@@ -18,7 +18,7 @@ public class MyTask {
 	//0 0/10 * * * ?
 	// 0 0 0/2 * * ? *
 	//5分钟一次
-	@Scheduled(cron = "0 0/30 * * * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
 	public void taskCycle() {
 		// linksController.runTask();
 		System.out.println("MyTask start" +new Date());
