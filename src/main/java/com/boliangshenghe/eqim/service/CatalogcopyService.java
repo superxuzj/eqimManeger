@@ -18,6 +18,7 @@ import com.boliangshenghe.eqim.controller.activemq.TopicSender;
 import com.boliangshenghe.eqim.entity.Catalog;
 import com.boliangshenghe.eqim.entity.Catalogcopy;
 import com.boliangshenghe.eqim.entity.Company;
+import com.boliangshenghe.eqim.entity.Earthquake;
 import com.boliangshenghe.eqim.entity.Jdata;
 import com.boliangshenghe.eqim.entity.MessageRecord;
 import com.boliangshenghe.eqim.entity.User;
@@ -54,6 +55,8 @@ public class CatalogcopyService {
 	@Autowired
 	MessageRecordMapper messageRecordMapper;
 	
+	@Autowired
+	CommonService commonService;
 	
 	
 	@Resource
@@ -129,8 +132,10 @@ public class CatalogcopyService {
     					cl.setJsonstate("1");//有json数据
     					eventid_temp = catalog.getEventId();//重置查询条件，减少查询次数
         				this.updateByPrimaryKeySelective(cl);
+        				if(!cl.getLocation().equals("海外海洋")){
+        					sendMessage(cl, jlist.get(0));//不是海洋海外再次发送数据
+        				}
     				}
-    				
     			}else{
     				Catalogcopy catalogcopy = new Catalogcopy();
     				catalogcopy.setCataId(catalog.getCataId());
@@ -141,39 +146,12 @@ public class CatalogcopyService {
     				catalogcopy.setLon(catalog.getLon());
     				catalogcopy.setM(catalog.getM());
     				catalogcopy.setMl(catalog.getMl());
-    				catalogcopy.setOTime(catalog.getoTime());
-    				catalogcopy.setOTimeNs(catalog.getoTimeNs());
+    				catalogcopy.setOTime(catalog.getOTime());
+    				catalogcopy.setOTimeNs(catalog.getOTimeNs());
     				catalogcopy.setSaveTime(catalog.getSaveTime());
     				catalogcopy.setCataId(catalog.getCataId());
     				catalogcopy.setOperator(catalog.getOperator());
     				catalogcopy.setLocationCname(catalog.getLocationCname());
-    				Jdata jdata = new Jdata();
-    				jdata.setEventid(catalog.getEventId());
-					List<Jdata> jlist = jdataMapper.selectJdataList(jdata);
-    				if(null!=jlist && jlist.size()>0){
-    					catalogcopy.setJsonstate("1");//有json数据
-    					eventid_temp = catalog.getEventId();//重置查询条件，减少查询次数
-    				}else{
-    					catalogcopy.setJsonstate("2");//mei有json数据
-    				}
-    				try {
-    					this.insertSelective(catalogcopy); //插入到复制表中
-					} catch (Exception c) {
-						// TODO: handle exception
-						c.printStackTrace();
-					}
-    				
-    				//消息队列发布
-    				String message = JsonUtils.objtoJSONString(catalogcopy);
-    				topicSender.send("eqimearthquake.topic", message);
-    				/*try {
-						Thread.sleep(1000);
-					} catch (InterruptedException c1) {
-						// TODO Auto-generated catch block
-						c1.printStackTrace();
-					}*/
-    				
-    				//发短信 放在这就是有地震就会发送
     				
     				Map<String,String> map = new HashMap<String,String>();
     				map.put("key", CommonUtils.GAODEKEY);
@@ -191,104 +169,154 @@ public class CatalogcopyService {
     					catalogcopy.setLocation(catalogcopy.getLocationCname());
     				}
     				
-    				Company company = companyMapper.selectByPrimaryKey(22);//测试
-    				if( null!=company.getMessagecode()&& 
-    						!company.getMessagecode().trim().equals("")&&
-    						company.getMessagecode().trim().indexOf("6")!=-1
-    						){//	不接收定制信息
-    					return;
-    				}
-    				
-    				if(!isSend( company,catalogcopy)){//不符合发短信的条件
-    					return ;
-    				}
-
-    				String content="";
-    				if(catalogcopy.getLocation().equals("海外海洋")){
-    					 content = haiwaihaiyang(catalogcopy);//海外模板
-    				}else{
-    					 content = land(company,catalogcopy);//国内模板
-    				}
-//    				String phones = getPhones(earthquake.getCid());
-    				String phones = getPhones(22,content);
-    				
-    				//String parm = "{\"customer\":\"北京时间2017年11月23日17时43分.\"}";
-    				
-    				String parm1 = "{\"customer\":\"" +content + "\"}";
+    				catalogcopy.setJsonstate("2");//mei有json数据
     				try {
-    					SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, parm1);
-    			        System.out.println("短信接口返回的数据----------------");
-    			        System.out.println("Code=" + resp.getCode());
-    			        System.out.println("Message=" + resp.getMessage());
-    			        System.out.println("RequestId=" + resp.getRequestId());
-    			        System.out.println("BizId=" + resp.getBizId());
-    				} catch (Exception c) {
-    					// TODO Auto-generated catch block
-    					c.printStackTrace();
-    				}
+    					this.insertSelective(catalogcopy); //插入到复制表中
+					} catch (Exception c) {
+						// TODO: handle exception
+						c.printStackTrace();
+					}
+    				
+    				//消息队列发布
+    				String message = JsonUtils.objtoJSONString(catalog);
+    				topicSender.send("eqimearthquake.topic", message);
+    				try {
+						Thread.sleep(500);
+					} catch (InterruptedException c1) {
+						// TODO Auto-generated catch block
+						c1.printStackTrace();
+					}
+    				//发短信 放在这就是有地震就会发送
+    				sendMessage(catalogcopy,null);
+    				
     			}
     		}
     	}
     }
     
+    /**
+     * 发送短信
+     * @param catalog
+     * @param catalogcopy
+     */
+    public void sendMessage(Catalogcopy catalogcopy,Jdata jdate){
+		Company company = companyMapper.selectByPrimaryKey(22);//测试
+		String shortOrDetail = commonService.isShortDetail(company);
+		if(null !=jdate && shortOrDetail.equals("short")){//有灾情信息的情况下，就不要重复发速报信息
+			return ;
+		}
+		if(shortOrDetail.equals("none")){//不接受信息
+			return ;
+		}
+		
+		if(!isSend( company,catalogcopy)){//不符合发短信的条件
+			return ;
+		}
+
+		String content="";
+		String tempcode = "";
+		if(catalogcopy.getLocation().equals("海外海洋")){
+			 content = haiwaihaiyang(catalogcopy);//海外模板
+			 tempcode = CommonUtils.HAIWAI_DETAIL;
+		}else{
+			
+			if(shortOrDetail.equals("detail") && null!=jdate){
+				content = landDetail(company,catalogcopy,jdate);//国内详情模板
+				tempcode = CommonUtils.LAND_DETAIL;
+			}else{
+				content = land(company,catalogcopy);//国内模板
+				tempcode = CommonUtils.LAND_SHORT;
+			}
+		}
+//		String phones = getPhones(earthquake.getCid());
+		String phones = getPhones(22,content);
+		try {
+			SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content,tempcode);
+	        System.out.println("短信接口返回的数据----------------");
+	        System.out.println("Code=" + resp.getCode());
+	        System.out.println("Message=" + resp.getMessage());
+	        System.out.println("RequestId=" + resp.getRequestId());
+	        System.out.println("BizId=" + resp.getBizId());
+		} catch (Exception c) {
+			// TODO Auto-generated catch block
+			c.printStackTrace();
+		}
+    }
+    
   //海洋短信
   	public String haiwaihaiyang(Catalogcopy catalogcopy){
-  		String content = "北京时间"
-  				+ DateUtils.getStringDate(catalogcopy.getOTime()) + ",在"
-  				+ catalogcopy.getLocationCname();
-  		if(catalogcopy.getLat().toString().startsWith("-")){
-  			content = content+"(南纬"+catalogcopy.getLat().toString().substring(1, catalogcopy.getLat().toString().length())+"度，";
-		}else{
-			content = content+"北纬"+catalogcopy.getLat()+"度，";
+  		String nb = "北";
+		if(catalogcopy.getLat().toString().startsWith("-")){
+			nb = "南";
 		}
-  		
-  		if(catalogcopy.getLon().toString().startsWith("-")){
-  			content = content+"西经"+catalogcopy.getLon().toString().substring(1, catalogcopy.getLon().toString().length())+"度)发生";
-		}else{
-			content = content+"东经"+catalogcopy.getLon()+"度)发生";
+		String dx = "西";
+		if(catalogcopy.getLon().toString().startsWith("-")){
+			dx = "东";
 		}
-  		content = content+ catalogcopy.getM() + "级地震，震源深度约"
-  				+ catalogcopy.getDepth() + "公里。";
-  		return content;
+		String content = "{\"oTime\":\""+DateUtils.getStringDate(catalogcopy.getOTime())
+				+"\", \"locationCname\":\""+catalogcopy.getLocationCname()
+				+"\", \"nb\":\""+nb
+				+"\", \"lat\":\""+catalogcopy.getLat()
+				+"\", \"dx\":\""+dx
+				+"\", \"lon\":\""+catalogcopy.getLon()
+				+"\", \"m\":\""+catalogcopy.getM()
+				+"\", \"depth\":\""+catalogcopy.getDepth()
+				+"\"}";
+		return content;
   	}
   	
-  	//国内短信
-  	public String land(Company company, Catalogcopy catalogcopy) {
-  		String content = "北京时间"
-  				+ DateUtils.getStringDate(catalogcopy.getOTime()) + ",在"
-  				+ catalogcopy.getLocationCname() + "(北纬" + catalogcopy.getLat()
-  				+ "度，东经" + catalogcopy.getLon() + "度)发生"
-  				+ catalogcopy.getM() + "级地震，震源深度约"
-  				+ catalogcopy.getDepth() + "公里。";
-  		/*
-  		 * if( null!=company.getQuickcode()&&
-  		 * !company.getQuickcode().trim().equals("")){//接受速报信息
-  		 * 
-  		 * }
-  		 */
-  		/*if (null != company.getMessagecode()
+  //国内短信灾情
+  	public String landDetail(Company company, Catalogcopy catalogcopy,Jdata jdate) {
+  		String content = "{\"oTime\":\""+DateUtils.getStringDate(catalogcopy.getOTime())
+  				+"\", \"locationCname\":\""+catalogcopy.getLocationCname()
+  				+"\", \"lat\":\""+catalogcopy.getLat()
+  				+"\", \"lon\":\""+catalogcopy.getLon()
+  				+"\", \"m\":\""+catalogcopy.getM()
+  				+"\", \"depth\":\""+catalogcopy.getDepth()
+  				+"\", \"zaiqing\":\"";
+  				
+  		String detail = jdate.getDemaver();
+  		if (null != company.getMessagecode()
   				&& !company.getMessagecode().trim().equals("")
   				&& company.getMessagecode().trim().indexOf("1") != -1) {// 震中50公里范围平均人口密度、总人口数
-  			content = content + "震中50公里范围内" + earthquake.getPeoplesum() + "。";
+  			//content = content + "\"peoplesum\":\""+earthquake.getPeoplesum()+"\",";
+  			detail = detail + jdate.getPeoplesum();
   		}
-  		content = content + "震中10公里范围内平均海拔约" + earthquake.getDemaver() + "米。";
+  		
   		if (null != company.getMessagecode()
   				&& !company.getMessagecode().trim().equals("")
   				&& company.getMessagecode().trim().indexOf("2") != -1) {// 震中20公里范围内乡镇及村庄个数
-  			content = content + "震中20公里范围内" + earthquake.getTowncount() + "。";
+  			//content = content + "\"towncount\":\""+earthquake.getTowncount()+"\",";
+  			detail = detail + jdate.getTowncount();
   		}
 
   		if (null != company.getMessagecode()
   				&& !company.getMessagecode().trim().equals("")
   				&& company.getMessagecode().trim().indexOf("3") != -1) {// 震区未来3天气象信息
-  			content = content + "震区未来3天气象信息" + earthquake.getWeather() + "。";
+  			//content = content + "\"weather\":\""+earthquake.getWeather()+"\",";
+  			detail = detail + jdate.getWeather();
   		}
 
   		if (null != company.getMessagecode()
   				&& !company.getMessagecode().trim().equals("")
   				&& company.getMessagecode().trim().indexOf("4") != -1) {// 震中50公里范围近期及历史最大地震及伤亡
-  			content = content + "震中100公里范围内" + earthquake.getHazardcount()+ "。";
-  		}*/
+//  			content = content + "\"hazardcount\":\""+earthquake.getHazardcount()+"\",";
+  			detail = detail + jdate.getHazardcount();
+  		}
+  		content = content+detail;
+  		content = content +"\"}";
+  		return content;
+  	}
+  	
+  	//国内短信
+  	public String land(Company company, Catalogcopy catalogcopy) {
+  		String content = "{\"oTime\":\""+DateUtils.getStringDate(catalogcopy.getOTime())
+  				+"\", \"locationCname\":\""+catalogcopy.getLocationCname()
+  				+"\", \"lat\":\""+catalogcopy.getLat()
+  				+"\", \"lon\":\""+catalogcopy.getLon()
+  				+"\", \"m\":\""+catalogcopy.getM()
+  				+"\", \"depth\":\""+catalogcopy.getDepth()
+  				+"\"}";
   		return content;
   	}
     

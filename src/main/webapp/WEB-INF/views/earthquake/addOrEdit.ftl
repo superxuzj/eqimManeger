@@ -135,7 +135,7 @@ margin-bottom:8px !important;
                        <div class="col-lg-6">
                           <select class="form-control m-bot15" name="cid" id="cid">
                        		<#list companylist as company>
-                       			 <option value="${company.id }"  >${company.name }</option>
+                       			 <option value="${company.id }"  <#if company.id==22>selected</#if>>${company.name }</option>
                        		</#list>
                             </select>
                        </div>

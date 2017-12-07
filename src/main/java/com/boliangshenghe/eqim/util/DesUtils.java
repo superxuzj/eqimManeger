@@ -174,7 +174,7 @@ public class DesUtils {
 	      DesUtils des = new DesUtils();//自定义密钥   
 	      System.out.println("加密前的字符：" + test);
 	      System.out.println("加密后的字符：" + des.encrypt(test));
-	      System.out.println("解密后的字符：" + des.decrypt(des.encrypt(test)));
+	      System.out.println("解密后的字符：" + des.decrypt("30d46a8ca0ed38be"));
 	      
 	      //System.out.println("解密后的字符：" + des.decrypt("202cb962ac59075b964b07152d234b70"));
 	    }

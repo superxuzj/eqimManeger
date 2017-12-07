@@ -20,7 +20,7 @@ public class CatalogService {
 	
 	@Autowired
 	CatalogMapper catalogMapper;
-		
+	
 	
 	public int insertSelective(Catalog Catalog) {
         return catalogMapper.insertSelective(Catalog);

@@ -113,19 +113,19 @@ public class Catalog {
         this.eqType = eqType == null ? null : eqType.trim();
     }
 
-    public Date getoTime() {
+    public Date getOTime() {
         return oTime;
     }
 
-    public void setoTime(Date oTime) {
+    public void setOTime(Date oTime) {
         this.oTime = oTime;
     }
 
-    public Integer getoTimeNs() {
+    public Integer getOTimeNs() {
         return oTimeNs;
     }
 
-    public void setoTimeNs(Integer oTimeNs) {
+    public void setOTimeNs(Integer oTimeNs) {
         this.oTimeNs = oTimeNs;
     }
 

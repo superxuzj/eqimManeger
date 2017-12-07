@@ -146,9 +146,27 @@ public class CompanyController extends BaseCommonController{
 		}
 		
 		if(company.getId()!=null){
+			if(null == company.getMessagecode()){
+				company.setMessagecode("");
+			}
+			if(null == company.getQuickcode()){
+				company.setQuickcode("");
+			}
+			if(null == company.getSmscode()){
+				company.setSmscode("");
+			}
 			companyService.updateByPrimaryKeySelective(company);
 		}else{
 			company.setState("1");
+			if(null == company.getMessagecode()){
+				company.setMessagecode("");
+			}
+			if(null == company.getQuickcode()){
+				company.setQuickcode("");
+			}
+			if(null == company.getSmscode()){
+				company.setSmscode("");
+			}
 			companyService.insertSelective(company);
 		}
 		

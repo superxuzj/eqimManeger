@@ -35,12 +35,14 @@
     <result column="Epic_id" property="epicId" jdbcType="VARCHAR" />
     <result column="jsonstate" property="jsonstate" jdbcType="VARCHAR" />
     <result column="Source_id" property="sourceId" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
     <result column="Location_cname" property="locationCname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     Cata_id, Event_id, Operator, Save_time, Eq_type, O_time, O_time_ns, Lat, Lon, Depth, 
     Ml, Ms, Md, Mb, mmB, Mw, M, Dmin, Gap_azi, Rms, Erh, Erz, Qloc, Qnet, Qcom, Sum_stn, 
-    Used_stn, Sum_pha, Used_pha, Explosion_flag, Epic_id, jsonstate, Source_id, Location_cname
+    Used_stn, Sum_pha, Used_pha, Explosion_flag, Epic_id, jsonstate, Source_id, location, 
+    Location_cname
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -62,7 +64,8 @@
       Qloc, Qnet, Qcom, Sum_stn, 
       Used_stn, Sum_pha, Used_pha, 
       Explosion_flag, Epic_id, jsonstate, 
-      Source_id, Location_cname)
+      Source_id, location, Location_cname
+      )
     values (#{cataId,jdbcType=VARCHAR}, #{eventId,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
       #{saveTime,jdbcType=TIMESTAMP}, #{eqType,jdbcType=CHAR}, #{oTime,jdbcType=TIMESTAMP}, 
       #{oTimeNs,jdbcType=INTEGER}, #{lat,jdbcType=DOUBLE}, #{lon,jdbcType=DOUBLE}, #{depth,jdbcType=DOUBLE}, 
@@ -72,7 +75,8 @@
       #{qloc,jdbcType=VARCHAR}, #{qnet,jdbcType=VARCHAR}, #{qcom,jdbcType=VARCHAR}, #{sumStn,jdbcType=INTEGER}, 
       #{usedStn,jdbcType=INTEGER}, #{sumPha,jdbcType=INTEGER}, #{usedPha,jdbcType=INTEGER}, 
       #{explosionFlag,jdbcType=VARCHAR}, #{epicId,jdbcType=VARCHAR}, #{jsonstate,jdbcType=VARCHAR}, 
-      #{sourceId,jdbcType=VARCHAR}, #{locationCname,jdbcType=VARCHAR})
+      #{sourceId,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{locationCname,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.boliangshenghe.eqim.entity.Catalogcopy" >
     insert into catalogcopy
@@ -175,6 +179,9 @@
       </if>
       <if test="sourceId != null" >
         Source_id,
+      </if>
+      <if test="location != null" >
+        location,
       </if>
       <if test="locationCname != null" >
         Location_cname,
@@ -280,6 +287,9 @@
       <if test="sourceId != null" >
         #{sourceId,jdbcType=VARCHAR},
       </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
       <if test="locationCname != null" >
         #{locationCname,jdbcType=VARCHAR},
       </if>
@@ -384,6 +394,9 @@
       <if test="sourceId != null" >
         Source_id = #{sourceId,jdbcType=VARCHAR},
       </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
       <if test="locationCname != null" >
         Location_cname = #{locationCname,jdbcType=VARCHAR},
       </if>
@@ -424,11 +437,12 @@
       Epic_id = #{epicId,jdbcType=VARCHAR},
       jsonstate = #{jsonstate,jdbcType=VARCHAR},
       Source_id = #{sourceId,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
       Location_cname = #{locationCname,jdbcType=VARCHAR}
     where Cata_id = #{cataId,jdbcType=VARCHAR}
   </update>
   
-   <!-- 新加   -->
+  <!-- 新加   -->
    <select id="selectCatalogcopyList" resultMap="BaseResultMap"  parameterType="com.boliangshenghe.eqim.entity.Catalogcopy">
    	    select 
     <include refid="Base_Column_List" />

@@ -20,6 +20,7 @@ import com.boliangshenghe.eqim.entity.Company;
 import com.boliangshenghe.eqim.entity.Earthquake;
 import com.boliangshenghe.eqim.entity.MessageRecord;
 import com.boliangshenghe.eqim.entity.User;
+import com.boliangshenghe.eqim.service.CommonService;
 import com.boliangshenghe.eqim.service.CompanyService;
 import com.boliangshenghe.eqim.service.EarthquakeService;
 import com.boliangshenghe.eqim.service.MessageRecordService;
@@ -50,6 +51,9 @@ public class EarthquakeController{
 	
 	@Autowired
 	private MessageRecordService messageRecordService;
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@RequestMapping
 	public String defaultIndex(){
@@ -137,31 +141,40 @@ public class EarthquakeController{
 		if(null != earthquake.getCid() && earthquake.getCid()>0){
 			//Company company = companyService.selectByPrimaryKey(earthquake.getCid());//获取单位对应的配置规则
 			Company company = companyService.selectByPrimaryKey(22);//测试
-			if( null!=company.getMessagecode()&& 
-					!company.getMessagecode().trim().equals("")&&
-					company.getMessagecode().trim().indexOf("6")!=-1
-					){//	不接收定制信息
-				return "redirect:/earthquake/list";
-			}
 			
 			if(!isSend( company,earthquake)){//不符合发短信的条件
 				return "redirect:/earthquake/list";
 			}
 
+			String shortOrDetail = commonService.isShortDetail(company);
+			
+			if(shortOrDetail.equals("none")){//不接受信息
+				return "redirect:/earthquake/list";
+			}
 			String content="";
+			String tempcode = "";
 			if(earthquake.getLocation().equals("海外海洋")){
 				 content = haiwaihaiyang(earthquake);//海外模板
+				 tempcode = CommonUtils.HAIWAI_DETAIL;
 			}else{
-				 content = land(company,earthquake);//国内模板
+				if(shortOrDetail.equals("detail")){
+					content = landDetail(company,earthquake);//国内详情模板
+					tempcode = CommonUtils.LAND_DETAIL;
+				}else{
+					content = land(company,earthquake);//国内模板
+					tempcode = CommonUtils.LAND_SHORT;
+				}
+				 
 			}
+			System.out.println(content+"  ---content");
 //			String phones = getPhones(earthquake.getCid());
-			String phones = getPhones(22,content);
+			//String phones = getPhones(22,content);
 			
-			//String parm = "{\"customer\":\"北京时间2017年11月23日17时43分.\"}";
-			
-			String parm1 = "{\"customer\":\"" +content + "\"}";
+			//String param = "{\"oTime\":\"2017-17-10 12\", \"locationCname\":\"北京西站前面\", \"lat\":\"12\", \"lon\":\"32\", \"m\":\"6\", \"depth\":\"23\", \"peoplesum\":\"人口多\", \"demaver\":\"23\", \"peoplesum\":\"人口多。\", \"towncount\":\"城镇多。\", \"weather\":\"天气好。\", \"hazardcount\":\"没有地震。\"}";
+		       
 			try {
-				SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, parm1);
+				//SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content);
+				SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,"18611453795", content,tempcode);
 		        System.out.println("短信接口返回的数据----------------");
 		        System.out.println("Code=" + resp.getCode());
 		        System.out.println("Message=" + resp.getMessage());
@@ -177,52 +190,104 @@ public class EarthquakeController{
 	
 	//海洋短信
 	public String haiwaihaiyang(Earthquake earthquake){
-		String content = "北京时间"
+		/*String content = "北京时间"
 				+ DateUtils.getStringDate(earthquake.getEqtime()) + ",在"
 				+ earthquake.getLocation() + "(北纬" + earthquake.getLatitude()
 				+ "度，东经" + earthquake.getLongitude() + "度)发生"
 				+ earthquake.getMagnitude() + "级地震，震源深度约"
-				+ earthquake.getDepth() + "公里。";
+				+ earthquake.getDepth() + "公里。";*/
+
+		String nb = "北";
+		if(earthquake.getLatitude().startsWith("-")){
+			nb = "南";
+		}
+		String dx = "西";
+		if(earthquake.getLongitude().startsWith("-")){
+			dx = "东";
+		}
+		
+		String content = "{\"oTime\":\""+DateUtils.getStringDate(earthquake.getEqtime())
+				+"\", \"locationCname\":\""+earthquake.getLocation()
+				+"\", \"nb\":\""+nb
+				+"\", \"lat\":\""+earthquake.getLatitude()
+				+"\", \"dx\":\""+dx
+				+"\", \"lon\":\""+earthquake.getLongitude()
+				+"\", \"m\":\""+earthquake.getMagnitude()
+				+"\", \"depth\":\""+earthquake.getDepth()
+				+"\"}";
+		
+		return content;
+	}
+	/**
+	 * 国内短信速报
+	 * @param company
+	 * @param earthquake
+	 * @return
+	 */
+	public String land(Company company, Earthquake earthquake) {
+		String content = "{\"oTime\":\""+DateUtils.getStringDate(earthquake.getEqtime())
+				+"\", \"locationCname\":\""+earthquake.getLocation()
+				+"\", \"lat\":\""+earthquake.getLatitude()
+				+"\", \"lon\":\""+earthquake.getLongitude()
+				+"\", \"m\":\""+earthquake.getMagnitude()
+				+"\", \"depth\":\""+earthquake.getDepth()
+				+"\"}";
 		return content;
 	}
 	
-	//国内短信
-	public String land(Company company, Earthquake earthquake) {
-		String content = "北京时间"
+	//国内短信灾情
+	public String landDetail(Company company, Earthquake earthquake) {
+		String content = "{\"oTime\":\""+DateUtils.getStringDate(earthquake.getEqtime())
+				+"\", \"locationCname\":\""+earthquake.getLocation()
+				+"\", \"lat\":\""+earthquake.getLatitude()
+				+"\", \"lon\":\""+earthquake.getLongitude()
+				+"\", \"m\":\""+earthquake.getMagnitude()
+				+"\", \"depth\":\""+earthquake.getDepth()
+				+"\", \"zaiqing\":\"";
+				//\"peoplesum\":\"人口多。\", \"towncount\":\"城镇多。\", \"weather\":\"天气好。\", \"hazardcount\":\"没有地震。\"}";
+	       
+		/*String content = "北京时间"
 				+ DateUtils.getStringDate(earthquake.getEqtime()) + ",在"
 				+ earthquake.getLocation() + "(北纬" + earthquake.getLatitude()
 				+ "度，东经" + earthquake.getLongitude() + "度)发生"
 				+ earthquake.getMagnitude() + "级地震，震源深度约"
-				+ earthquake.getDepth() + "公里。";
+				+ earthquake.getDepth() + "公里。";*/
 		/*
 		 * if( null!=company.getQuickcode()&&
 		 * !company.getQuickcode().trim().equals("")){//接受速报信息
 		 * 
 		 * }
 		 */
+		String detail = "10公里范围内平均海拔约" + earthquake.getDemaver() + "米。";
 		if (null != company.getMessagecode()
 				&& !company.getMessagecode().trim().equals("")
 				&& company.getMessagecode().trim().indexOf("1") != -1) {// 震中50公里范围平均人口密度、总人口数
-			content = content + "震中50公里范围内" + earthquake.getPeoplesum() + "。";
+			//content = content + "\"peoplesum\":\""+earthquake.getPeoplesum()+"\",";
+			detail = detail + "震中50公里范围内" + earthquake.getPeoplesum() + "。";
 		}
-		content = content + "震中10公里范围内平均海拔约" + earthquake.getDemaver() + "米。";
+		
 		if (null != company.getMessagecode()
 				&& !company.getMessagecode().trim().equals("")
 				&& company.getMessagecode().trim().indexOf("2") != -1) {// 震中20公里范围内乡镇及村庄个数
-			content = content + "震中20公里范围内" + earthquake.getTowncount() + "。";
+			//content = content + "\"towncount\":\""+earthquake.getTowncount()+"\",";
+			detail = detail + "震中20公里范围内" + earthquake.getTowncount() + "。";
 		}
 
 		if (null != company.getMessagecode()
 				&& !company.getMessagecode().trim().equals("")
 				&& company.getMessagecode().trim().indexOf("3") != -1) {// 震区未来3天气象信息
-			content = content + "震区未来3天气象信息" + earthquake.getWeather() + "。";
+			//content = content + "\"weather\":\""+earthquake.getWeather()+"\",";
+			detail = detail + "震区未来3天气象信息:" + earthquake.getWeather() + "。";
 		}
 
 		if (null != company.getMessagecode()
 				&& !company.getMessagecode().trim().equals("")
 				&& company.getMessagecode().trim().indexOf("4") != -1) {// 震中50公里范围近期及历史最大地震及伤亡
-			content = content + "震中100公里范围内" + earthquake.getHazardcount()+ "。";
+//			content = content + "\"hazardcount\":\""+earthquake.getHazardcount()+"\",";
+			detail = detail + "震中100公里范围内" + earthquake.getHazardcount()+ "。";
 		}
+		content = content+detail;
+		content = content +"\"}";
 		return content;
 	}
 	

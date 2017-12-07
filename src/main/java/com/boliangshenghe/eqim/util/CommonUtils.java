@@ -15,6 +15,12 @@ public class CommonUtils {
 	public static final String SMSKEY = "64b9a4a9ec";
 	public static final Integer PAGESIZE = 10;//分页 每页条数
 	
+	public static final String LAND_DETAIL = "SMS_115930835";
+	
+	public static final String LAND_SHORT = "SMS_115925735";
+	
+	public static final String HAIWAI_DETAIL = "SMS_115925738";
+	
 	public static final String REQUEST_KEY_REQUEST = "request";// 当前请求
 	
 	public static final String USERID = "sessionuserid";
@@ -23,7 +29,7 @@ public class CommonUtils {
 	
 	//public static final String SEARCH_TIME="20171113102821.00";
 	
-	public static final String SEARCH_TIME="20171203051017.00";
+	public static final String SEARCH_TIME="20171204165941.00";
 	
 	
 	private static final String CACHE_CONTROL = "Cache-Control";
