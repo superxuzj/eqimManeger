@@ -18,7 +18,6 @@ import com.boliangshenghe.eqim.controller.activemq.TopicSender;
 import com.boliangshenghe.eqim.entity.Catalog;
 import com.boliangshenghe.eqim.entity.Catalogcopy;
 import com.boliangshenghe.eqim.entity.Company;
-import com.boliangshenghe.eqim.entity.Earthquake;
 import com.boliangshenghe.eqim.entity.Jdata;
 import com.boliangshenghe.eqim.entity.MessageRecord;
 import com.boliangshenghe.eqim.entity.User;
@@ -299,7 +298,7 @@ public class CatalogcopyService {
 
   		if (null != company.getMessagecode()
   				&& !company.getMessagecode().trim().equals("")
-  				&& company.getMessagecode().trim().indexOf("4") != -1) {// 震中50公里范围近期及历史最大地震及伤亡
+  				&& company.getMessagecode().trim().indexOf("4") != -1) {// 震中100公里范围近期及历史最大地震及伤亡
 //  			content = content + "\"hazardcount\":\""+earthquake.getHazardcount()+"\",";
   			detail = detail + jdate.getHazardcount();
   		}
