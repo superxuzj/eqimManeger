@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.boliangshenghe.eqim.common.PageBean;
@@ -136,54 +137,6 @@ public class EarthquakeController{
 			earthquake.setCreatetime(new Date());
 			earthquake.setCreator("admin");
 			earthquakeService.insertSelective(earthquake);//插入
-		}
-		
-		if(null != earthquake.getCid() && earthquake.getCid()>0){
-			//Company company = companyService.selectByPrimaryKey(earthquake.getCid());//获取单位对应的配置规则
-			Company company = companyService.selectByPrimaryKey(22);//测试
-			
-			if(!isSend( company,earthquake)){//不符合发短信的条件
-				return "redirect:/earthquake/list";
-			}
-
-			String shortOrDetail = commonService.isShortDetail(company);
-			
-			if(shortOrDetail.equals("none")){//不接受信息
-				return "redirect:/earthquake/list";
-			}
-			String content="";
-			String tempcode = "";
-			if(earthquake.getLocation().equals("海外海洋")){
-				 content = haiwaihaiyang(earthquake);//海外模板
-				 tempcode = CommonUtils.HAIWAI_DETAIL;
-			}else{
-				if(shortOrDetail.equals("detail")|| shortOrDetail.equals("onlydetail")){
-					content = landDetail(company,earthquake);//国内详情模板
-					tempcode = CommonUtils.LAND_DETAIL;
-				}else{
-					content = land(company,earthquake);//国内模板
-					tempcode = CommonUtils.LAND_SHORT;
-				}
-				 
-			}
-			System.out.println(content+"  ---content");
-//			String phones = getPhones(earthquake.getCid());
-			String phones = getPhones(22,content);
-			
-			//String param = "{\"oTime\":\"2017-17-10 12\", \"locationCname\":\"北京西站前面\", \"lat\":\"12\", \"lon\":\"32\", \"m\":\"6\", \"depth\":\"23\", \"peoplesum\":\"人口多\", \"demaver\":\"23\", \"peoplesum\":\"人口多。\", \"towncount\":\"城镇多。\", \"weather\":\"天气好。\", \"hazardcount\":\"没有地震。\"}";
-		       
-			try {
-				SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content,tempcode);
-				//SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,"18611453795", content,tempcode);
-		        System.out.println("短信接口返回的数据----------------");
-		        System.out.println("Code=" + resp.getCode());
-		        System.out.println("Message=" + resp.getMessage());
-		        System.out.println("RequestId=" + resp.getRequestId());
-		        System.out.println("BizId=" + resp.getBizId());
-			} catch (Exception c) {
-				// TODO Auto-generated catch block
-				c.printStackTrace();
-			}
 		}
 		return "redirect:/earthquake/list";
 	}
@@ -364,7 +317,70 @@ public class EarthquakeController{
 		}
 		return phones;
 	}
-	
+	/**
+	 * 发送短信
+	 * @param request
+	 * @param response
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("send")
+	@ResponseBody
+	public String send(HttpServletRequest request, 
+  			HttpServletResponse response,Integer id,Model model){
+		if(id!=null){
+			Earthquake earthquake = earthquakeService.selectByPrimaryKey(id);
+			//if(null != earthquake.getCid() && earthquake.getCid()>0){
+				//Company company = companyService.selectByPrimaryKey(earthquake.getCid());//获取单位对应的配置规则
+				Company company = companyService.selectByPrimaryKey(25);//测试
+				
+				if(!isSend( company,earthquake)){//不符合发短信的条件
+					return "fail";
+				}
+
+				String shortOrDetail = commonService.isShortDetail(company);
+				
+				if(shortOrDetail.equals("none")){//不接受信息
+					return "fail";
+				}
+				String content="";
+				String tempcode = "";
+				if(earthquake.getLocation().equals("海外海洋")){
+					 content = haiwaihaiyang(earthquake);//海外模板
+					 tempcode = CommonUtils.HAIWAI_DETAIL;
+				}else{
+					if(shortOrDetail.equals("detail")|| shortOrDetail.equals("onlydetail")){
+						content = landDetail(company,earthquake);//国内详情模板
+						tempcode = CommonUtils.LAND_DETAIL;
+					}else{
+						content = land(company,earthquake);//国内模板
+						tempcode = CommonUtils.LAND_SHORT;
+					}
+					 
+				}
+				System.out.println(content+"  ---content");
+//				String phones = getPhones(earthquake.getCid());
+				String phones = getPhones(25,content);
+				
+				//String param = "{\"oTime\":\"2017-17-10 12\", \"locationCname\":\"北京西站前面\", \"lat\":\"12\", \"lon\":\"32\", \"m\":\"6\", \"depth\":\"23\", \"peoplesum\":\"人口多\", \"demaver\":\"23\", \"peoplesum\":\"人口多。\", \"towncount\":\"城镇多。\", \"weather\":\"天气好。\", \"hazardcount\":\"没有地震。\"}";
+			       
+				try {
+					SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content,tempcode);
+					//SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,"18611453795", content,tempcode);
+			        System.out.println("短信接口返回的数据----------------");
+			        System.out.println("Code=" + resp.getCode());
+			        System.out.println("Message=" + resp.getMessage());
+			        System.out.println("RequestId=" + resp.getRequestId());
+			        System.out.println("BizId=" + resp.getBizId());
+				} catch (Exception c) {
+					// TODO Auto-generated catch block
+					c.printStackTrace();
+				}
+			}
+		//}
+		return "success";
+	}
 	// 解密数据
 	private String getDecryptValue(String value) {
 		String returnString = "";

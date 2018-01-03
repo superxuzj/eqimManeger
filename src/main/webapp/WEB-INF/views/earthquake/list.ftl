@@ -75,8 +75,9 @@ margin-bottom:1px !important;
                           <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="" title="Bootstrap 3 themes generator">
                           	操作<span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li class="divider"></li>
                             <li><a href="/earthquake/goadd?id=${earthquake.id }" title="修改">修改</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="send(${earthquake.id })" title="发送短信">发送短信</a></li>
                             <li class="divider"></li>
                             <li><a href="/earthquake/del?id=${earthquake.id }" title="删除">删除</a></li>
                           </ul>
@@ -96,6 +97,28 @@ margin-bottom:1px !important;
 </div>
 
 <script type="text/javascript">
+function send(id){
+	if(window.confirm('你确定要发送短信吗？')){
+		$.ajax({ 
+	        type: "POST",
+	        url:"/earthquake/send",
+	        data:{  
+	            "id" : id
+	        },
+	        scriptCharset: 'utf-8',
+	        success: function(data) {
+	        	if(data=="success"){
+	        		alert("短信发送成功！");
+	        	}else{
+	        		alert("短信发送失败，不符合发送短信条件！");
+	        	}
+	        }
+		});
+     }else{
+        //alert("取消");
+        return false;
+    }
+}
 function appoutteam(eqid){
 	$.ajax({ 
         type: "POST",

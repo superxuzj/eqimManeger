@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boliangshenghe.eqim.common.PageBean;
 import com.boliangshenghe.eqim.controller.base.BaseCommonController;
@@ -177,11 +178,29 @@ public class CompanyController extends BaseCommonController{
 	public String del(HttpServletRequest request, 
   			HttpServletResponse response,Integer id,Model model){
 		if(id!=null){
-			Company company = companyService.selectByPrimaryKey(id);
+			/*Company company = companyService.selectByPrimaryKey(id);
 			company.setState("2");
-			companyService.updateByPrimaryKeySelective(company);
+			companyService.updateByPrimaryKeySelective(company);*/
+			
+			companyService.deleteByPrimaryKey(id);
 		}
 		return "redirect:/company/list";
+	}
+	
+	@RequestMapping("valcompany")
+	@ResponseBody
+	public String valuser(HttpServletRequest request, 
+  			HttpServletResponse response,Integer id,Model model){
+		if(id!=null){
+			//Company company = companyService.selectByPrimaryKey(id);
+			User user = new User();
+			user.setCid(id);
+			List<User> userlist = userService.selectUserList(user);
+			if(null!=userlist&& userlist.size()>0){
+				return "fail";
+			}
+		}
+		return "success";
 	}
 	
 	// 解密数据

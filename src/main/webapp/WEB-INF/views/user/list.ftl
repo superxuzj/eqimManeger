@@ -128,7 +128,7 @@ function del(id){
 	        scriptCharset: 'utf-8',
 	        success: function(data) {
 	        	if(data=="success"){
-	        		window.location.href = "/outteam/addapplyoutteam?eqid="+eqid;
+	        		window.location.href = "/user/del?id="+id;
 	        	}else{
 	        		alert("该成员在"+data+"被设置为联络人或联系人，请修改再删除！");
 	        		return ;

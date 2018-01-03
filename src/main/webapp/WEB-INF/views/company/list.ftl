@@ -62,7 +62,7 @@ margin-bottom:1px !important;
                          <li class="divider"></li>
                          <li><a href="/company/goadd?id=${company.id }" title="修改">修改</a></li>
                          <li class="divider"></li>
-                         <li><a href="/company/del?id=${company.id }" title="Bootstrap 3 themes generator">注销</a></li>
+                         <li><a href="javascript:void(0)" onclick="del(${company.id })" title="删除">删除</a></li>
                             </ul>
                         </div>
                         </td>
@@ -81,6 +81,30 @@ margin-bottom:1px !important;
 <script type="text/javascript">
 function add(){
 	window.location.href = "/company/goadd";
+}
+function del(id){
+	if(window.confirm('你确定要删除吗？')){
+		
+		$.ajax({ 
+	        type: "POST",
+	        url:"/company/valcompany",
+	        data:{  
+	            "id" : id
+	        },
+	        scriptCharset: 'utf-8',
+	        success: function(data) {
+	        	if(data=="success"){
+	        		window.location.href = "/company/del?id="+id;
+	        	}else{
+	        		alert("该单位下有员工信息，不能删除！");
+	        		return ;
+	        	}
+	        }
+		});
+     }else{
+        //alert("取消");
+        return false;
+    }
 }
 </script>
 </@override> <@extends name="/base/base.ftl"/>

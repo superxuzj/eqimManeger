@@ -17,6 +17,9 @@ public class CompanyService {
 	@Autowired
 	CompanyMapper companyMapper;
 		
+	public int deleteByPrimaryKey(Integer id){
+		 return companyMapper.deleteByPrimaryKey(id);
+	}
 	
 	public int insertSelective(Company Company) {
         return companyMapper.insertSelective(Company);

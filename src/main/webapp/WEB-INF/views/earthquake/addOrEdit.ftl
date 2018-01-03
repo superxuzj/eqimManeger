@@ -127,15 +127,16 @@ margin-bottom:8px !important;
                            value="${earthquake.demaver}" <#if earthquake??>readonly</#if> />
                        </div>
                    </div>
-<div class="alert alert-warning fade in divheng">
-     <strong>单位信息</strong>
- </div>
+                   
+					<div class="alert alert-warning fade in divheng">
+					     <strong>单位信息</strong>
+					 </div>
 					<div class="form-group">
                        <label class="col-lg-2 control-label">选择单位</label>
                        <div class="col-lg-6">
                           <select class="form-control m-bot15" name="cid" id="cid">
                        		<#list companylist as company>
-                       			 <option value="${company.id }"  <#if company.id==22>selected</#if>>${company.name }</option>
+                       			 <option value="${company.id }"  <#if company.id==25>selected</#if>>${company.name }</option>
                        		</#list>
                             </select>
                        </div>
@@ -189,7 +190,10 @@ function save(){
    		alert("震级只能填数字");
    	    return false;
    	}
-	
+	if($("#eqtime").val()==""){
+		alert("请输入发震时刻！");
+		return false;
+	}
 	$("#earthquakeForm").submit();
 }
 	
