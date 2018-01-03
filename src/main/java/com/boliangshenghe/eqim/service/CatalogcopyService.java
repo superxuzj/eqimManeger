@@ -199,47 +199,56 @@ public class CatalogcopyService {
      * @param catalogcopy
      */
     public void sendMessage(Catalogcopy catalogcopy,Jdata jdate){
-		Company company = companyMapper.selectByPrimaryKey(22);//测试
-		String shortOrDetail = commonService.isShortDetail(company);
-		if(null !=jdate && shortOrDetail.equals("short")){//有灾情信息的情况下，就不要重复发速报信息
-			return ;
-		}
-		if(shortOrDetail.equals("none")){//不接受信息
-			return ;
+    	Integer[] companys =new Integer[]{22,23,24};
+    	for (Integer integer : companys) {
+    		Company company = companyMapper.selectByPrimaryKey(integer);//测试
+    		String shortOrDetail = commonService.isShortDetail(company);
+    		if(null !=jdate && shortOrDetail.equals("short")){//有灾情信息的情况下，就不要重复发速报信息
+    			/*return ;*/
+    			continue;
+    		}
+    		if(shortOrDetail.equals("none")){//不接受信息
+    			continue;
+    		}
+    		
+    		if(shortOrDetail.equals("onlydetail")&&null==jdate){
+    			continue;
+    		}
+    		
+    		if(!isSend( company,catalogcopy)){//不符合发短信的条件
+    			continue;
+    		}
+    		
+    		String content="";
+    		String tempcode = "";
+    		if(catalogcopy.getLocation().equals("海外海洋")){
+    			 content = haiwaihaiyang(catalogcopy);//海外模板
+    			 tempcode = CommonUtils.HAIWAI_DETAIL;
+    		}else{
+    			if((shortOrDetail.equals("detail") ||shortOrDetail.equals("onlydetail")) && null!=jdate){
+    				content = landDetail(company,catalogcopy,jdate);//国内详情模板
+    				tempcode = CommonUtils.LAND_DETAIL;
+    			}else{
+    				content = land(company,catalogcopy);//国内模板
+    				tempcode = CommonUtils.LAND_SHORT;
+    			}
+    		}
+//    		String phones = getPhones(earthquake.getCid());
+    		String phones = getPhones(integer,content);
+//    		System.out.println(phones+" phone");
+    		try {
+    			SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content,tempcode);
+    	        System.out.println("短信接口返回的数据----------------");
+    	        System.out.println("Code=" + resp.getCode());
+    	        System.out.println("Message=" + resp.getMessage());
+    	        System.out.println("RequestId=" + resp.getRequestId());
+    	        System.out.println("BizId=" + resp.getBizId());
+    		} catch (Exception c) {
+    			// TODO Auto-generated catch block
+    			c.printStackTrace();
+    		}
 		}
 		
-		if(!isSend( company,catalogcopy)){//不符合发短信的条件
-			return ;
-		}
-
-		String content="";
-		String tempcode = "";
-		if(catalogcopy.getLocation().equals("海外海洋")){
-			 content = haiwaihaiyang(catalogcopy);//海外模板
-			 tempcode = CommonUtils.HAIWAI_DETAIL;
-		}else{
-			
-			if(shortOrDetail.equals("detail") && null!=jdate){
-				content = landDetail(company,catalogcopy,jdate);//国内详情模板
-				tempcode = CommonUtils.LAND_DETAIL;
-			}else{
-				content = land(company,catalogcopy);//国内模板
-				tempcode = CommonUtils.LAND_SHORT;
-			}
-		}
-//		String phones = getPhones(earthquake.getCid());
-		String phones = getPhones(22,content);
-		try {
-			SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content,tempcode);
-	        System.out.println("短信接口返回的数据----------------");
-	        System.out.println("Code=" + resp.getCode());
-	        System.out.println("Message=" + resp.getMessage());
-	        System.out.println("RequestId=" + resp.getRequestId());
-	        System.out.println("BizId=" + resp.getBizId());
-		} catch (Exception c) {
-			// TODO Auto-generated catch block
-			c.printStackTrace();
-		}
     }
     
   //海洋短信

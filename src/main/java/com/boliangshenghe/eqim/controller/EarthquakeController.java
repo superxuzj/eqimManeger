@@ -157,7 +157,7 @@ public class EarthquakeController{
 				 content = haiwaihaiyang(earthquake);//海外模板
 				 tempcode = CommonUtils.HAIWAI_DETAIL;
 			}else{
-				if(shortOrDetail.equals("detail")){
+				if(shortOrDetail.equals("detail")|| shortOrDetail.equals("onlydetail")){
 					content = landDetail(company,earthquake);//国内详情模板
 					tempcode = CommonUtils.LAND_DETAIL;
 				}else{
@@ -168,13 +168,13 @@ public class EarthquakeController{
 			}
 			System.out.println(content+"  ---content");
 //			String phones = getPhones(earthquake.getCid());
-			//String phones = getPhones(22,content);
+			String phones = getPhones(22,content);
 			
 			//String param = "{\"oTime\":\"2017-17-10 12\", \"locationCname\":\"北京西站前面\", \"lat\":\"12\", \"lon\":\"32\", \"m\":\"6\", \"depth\":\"23\", \"peoplesum\":\"人口多\", \"demaver\":\"23\", \"peoplesum\":\"人口多。\", \"towncount\":\"城镇多。\", \"weather\":\"天气好。\", \"hazardcount\":\"没有地震。\"}";
 		       
 			try {
-				//SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content);
-				SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,"18611453795", content,tempcode);
+				SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content,tempcode);
+				//SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,"18611453795", content,tempcode);
 		        System.out.println("短信接口返回的数据----------------");
 		        System.out.println("Code=" + resp.getCode());
 		        System.out.println("Message=" + resp.getMessage());

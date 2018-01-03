@@ -31,7 +31,7 @@ public class CommonService {
 		}else if(company.getQuickcode().trim().equals("")
 				&&!company.getMessagecode().trim().equals("") 
 				&& company.getMessagecode().trim().indexOf("6")==-1){//不接受速报 有一项灾情
-			return "detail";
+			return "onlydetail";
 		}else if(!company.getQuickcode().trim().equals("")
 				&&company.getMessagecode().trim().equals("")){//接受速报 没有一项灾情
 			return "short";
