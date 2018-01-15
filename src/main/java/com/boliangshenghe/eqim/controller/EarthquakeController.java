@@ -151,20 +151,23 @@ public class EarthquakeController{
 				+ earthquake.getDepth() + "公里。";*/
 
 		String nb = "北";
+  		String lat = earthquake.getLatitude().toString();
 		if(earthquake.getLatitude().startsWith("-")){
+			lat= lat.substring(1, lat.length());
 			nb = "南";
 		}
 		String dx = "西";
+		String lon = earthquake.getLongitude().toString();
 		if(earthquake.getLongitude().startsWith("-")){
+			lon= lon.substring(1, lon.length());
 			dx = "东";
 		}
-		
 		String content = "{\"oTime\":\""+DateUtils.getStringDate(earthquake.getEqtime())
 				+"\", \"locationCname\":\""+earthquake.getLocation()
 				+"\", \"nb\":\""+nb
-				+"\", \"lat\":\""+earthquake.getLatitude()
+				+"\", \"lat\":\""+lat
 				+"\", \"dx\":\""+dx
-				+"\", \"lon\":\""+earthquake.getLongitude()
+				+"\", \"lon\":\""+lon
 				+"\", \"m\":\""+earthquake.getMagnitude()
 				+"\", \"depth\":\""+earthquake.getDepth()
 				+"\"}";

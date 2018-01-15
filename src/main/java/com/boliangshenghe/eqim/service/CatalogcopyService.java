@@ -235,6 +235,7 @@ public class CatalogcopyService {
     		}
 //    		String phones = getPhones(earthquake.getCid());
     		String phones = getPhones(integer,content);
+    		//System.out.println(content+"  ----content");
 //    		System.out.println(phones+" phone");
     		try {
     			SendSmsResponse resp = SmsUtils.sendSms(CommonUtils.SMSKEY,phones, content,tempcode);
@@ -254,19 +255,23 @@ public class CatalogcopyService {
   //海洋短信
   	public String haiwaihaiyang(Catalogcopy catalogcopy){
   		String nb = "北";
+  		String lat = catalogcopy.getLat().toString();
 		if(catalogcopy.getLat().toString().startsWith("-")){
+			lat= lat.substring(1, lat.length());
 			nb = "南";
 		}
 		String dx = "西";
+		String lon = catalogcopy.getLon().toString();
 		if(catalogcopy.getLon().toString().startsWith("-")){
+			lon= lon.substring(1, lon.length());
 			dx = "东";
 		}
 		String content = "{\"oTime\":\""+DateUtils.getStringDate(catalogcopy.getOTime())
 				+"\", \"locationCname\":\""+catalogcopy.getLocationCname()
 				+"\", \"nb\":\""+nb
-				+"\", \"lat\":\""+catalogcopy.getLat()
+				+"\", \"lat\":\""+lat
 				+"\", \"dx\":\""+dx
-				+"\", \"lon\":\""+catalogcopy.getLon()
+				+"\", \"lon\":\""+lon
 				+"\", \"m\":\""+catalogcopy.getM()
 				+"\", \"depth\":\""+catalogcopy.getDepth()
 				+"\"}";
