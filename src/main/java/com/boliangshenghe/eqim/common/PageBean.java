@@ -5,6 +5,12 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 
+/**
+ * pageBean
+ * @author xuzj
+ *
+ * @param <T>
+ */
 public class PageBean<T> implements Serializable {
     private static final long serialVersionUID = 8656597559014685635L;
     private long total;        //总记录数
