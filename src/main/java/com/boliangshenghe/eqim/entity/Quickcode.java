@@ -1,5 +1,11 @@
 package com.boliangshenghe.eqim.entity;
 
+/**
+ * 速报CODE管理
+ * 1 发震时刻、震中、震级和震源深度
+ * @author xuzj
+ *
+ */
 public class Quickcode {
     private Integer id;
 

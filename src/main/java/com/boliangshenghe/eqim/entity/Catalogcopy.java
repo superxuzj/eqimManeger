@@ -66,6 +66,8 @@ public class Catalogcopy {
     private String epicId;
 
     private String sourceId;
+    
+    //是否有json数据，默认为2没有，1是有
     private String jsonstate;
 
     private String locationCname;

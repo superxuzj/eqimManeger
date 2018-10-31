@@ -29,7 +29,7 @@ import com.boliangshenghe.eqim.service.UserService;
 import com.boliangshenghe.eqim.util.CommonUtils;
 import com.boliangshenghe.eqim.util.DateUtils;
 import com.boliangshenghe.eqim.util.DesUtils;
-import com.boliangshenghe.eqim.util.HttpClientUtil;
+import com.boliangshenghe.eqim.util.HttpClientUtils;
 import com.boliangshenghe.eqim.util.SmsUtils;
 /**
  * 地震事件管理
@@ -121,7 +121,7 @@ public class EarthquakeController{
 		map.put("extensions","all");
 		map.put("batch","false");
 		map.put("roadlevel","0");
-		String retu = HttpClientUtil.doGet("http://restapi.amap.com/v3/geocode/regeo",map);
+		String retu = HttpClientUtils.doGet("http://restapi.amap.com/v3/geocode/regeo",map);
 		String provice = retu.substring(retu.indexOf("_address")+11, retu.indexOf("addressComponent")-3);
 		if(null == provice|| provice.equals("")){
 			provice = "海外海洋";

@@ -1,5 +1,11 @@
 package com.boliangshenghe.eqim.entity;
-
+/**
+ * 灾情信息CODE管理
+ * 1,2,3,4 有灾情
+ * 6没有灾情
+ * @author xuzj
+ *
+ */
 public class Messagecode {
     private Integer id;
 

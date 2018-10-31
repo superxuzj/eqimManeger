@@ -1,5 +1,8 @@
 package com.boliangshenghe.eqim.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -29,7 +32,7 @@ public class CommonUtils {
 	
 	//public static final String SEARCH_TIME="20171113102821.00";
 	
-	public static final String SEARCH_TIME="20171204165941.00";
+	public static final String SEARCH_TIME="20181031162956.00";
 	
 	
 	private static final String CACHE_CONTROL = "Cache-Control";
@@ -43,4 +46,15 @@ public class CommonUtils {
 		response.addHeader(CACHE_CONTROL, IE_HTTP_NO_CACHE); 
 		response.setHeader(PRAGMA, STANDARD_HTTP_NO_CACHE); 
     }
+    
+    public static String formatDate(Date date, String format) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+		if (date != null && !"".equals(date))
+			return simpleDateFormat.format(date);
+		return null;
+	}
+
+	public static String formatDate(Date date) {
+		return formatDate(date, "yyyy-MM-dd HH:mm:ss");
+	}
 }

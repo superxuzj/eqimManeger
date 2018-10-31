@@ -1,9 +1,6 @@
 package com.boliangshenghe.eqim.service;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +9,6 @@ import com.boliangshenghe.eqim.common.PageBean;
 import com.boliangshenghe.eqim.entity.Earthquake;
 import com.boliangshenghe.eqim.repository.EarthquakeMapper;
 import com.boliangshenghe.eqim.util.CommonUtils;
-import com.boliangshenghe.eqim.util.HttpClientUtil;
 import com.github.pagehelper.PageHelper;
 
 /**

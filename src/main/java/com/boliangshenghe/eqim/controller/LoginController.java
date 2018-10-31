@@ -34,6 +34,14 @@ public class LoginController extends BaseCommonController{
 	
 	@RequestMapping("/index")
 	public String index1(){
+		/*System.out.println(CommonUtils.formatDate(new Date()));
+	    	String url = "http://10.9.150.91:8888/getBriefing";
+	    	Map<String, String> params = new HashMap<String, String>();
+	    	params.put("lon", "95.3");
+	    	params.put("lat", "39.49");
+	    	String retu = HttpClientUtils.doGet(url, params);
+	    	System.out.println("getZaiqing= "+retu);
+	    	System.out.println(CommonUtils.formatDate(new Date()));*/
 		return "index";
 	}
 
