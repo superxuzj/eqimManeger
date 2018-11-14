@@ -195,7 +195,8 @@
 	</tx:advice>
     <aop:config>
 		<aop:pointcut id="pc"
-			expression="execution(public * com.boliangshenghe.eqim.service.*.*(..))" /><!-- 把事务控制在Service层 --> 
+			expression="execution(public * com.boliangshenghe.eqim.service.*.*(..)) and 
+			!execution(public * com.boliangshenghe.eqim.service.CatalogcopyService.*(..))" /><!-- 把事务控制在Service层 --> 
 		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
 	</aop:config> 
 </beans>
