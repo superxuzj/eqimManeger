@@ -374,14 +374,22 @@ public class CatalogcopyService {
 		if(null!=userList && userList.size()>0){
 			for (User user : userList) {
 				phones= phones+ getDecryptValue(user.getPhone())+",";
-				
-				MessageRecord mr = new MessageRecord();
-				mr.setCid(cid);
-				mr.setUid(user.getId());
-				mr.setPhone(getDecryptValue(user.getPhone()));
-				mr.setConten(content);
-				mr.setCreatetime(new Date());
-				messageRecordMapper.insertSelective(mr);
+				try {
+					MessageRecord mr = new MessageRecord();
+					mr.setCid(cid);
+					mr.setUid(user.getId());
+					mr.setPhone(getDecryptValue(user.getPhone()));
+					if(StringUtils.isNotBlank(content)&& content.length()<600) {
+						mr.setConten(content);
+					}else {
+						mr.setConten(content.substring(0, 600));
+					}
+					mr.setCreatetime(new Date());
+					messageRecordMapper.insertSelective(mr);
+				} catch (Exception e) {
+					e.printStackTrace();
+					// TODO: handle exception
+				}
 			}
 			if(!phones.equals("")){
 				phones =phones.substring(0, phones.length()-1);

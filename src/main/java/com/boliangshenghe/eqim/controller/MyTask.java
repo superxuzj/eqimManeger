@@ -19,10 +19,11 @@ public class MyTask {
 	// 0 0 0/2 * * ? *
 	//5分钟一次
 	/*@Scheduled(cron = "0 0/10 * * * ?")*/
-	@Scheduled(cron = "0 0/10 * * * ?")
+	@Scheduled(cron = "0 0/1 * * * ?")
+	//@Scheduled(cron="0/40 * *  * * ? ")   //每10秒执行一次 
 	public void taskCycle() {
 		// linksController.runTask();
-		System.out.println("MyTask start" +new Date());
+		//System.out.println("MyTask start" +new Date());
 		
 		catalogcopyService.insertrecordByTask();
 		
