@@ -38,7 +38,7 @@ margin-bottom:1px !important;
                  <tr>
                     <td>${catalog.cataId }</td>
                   <td>${catalog.eventId }</td>
-                  <td>${catalog.oTime?string("yyyy-MM-dd HH:mm")}</td>
+                  <td>${catalog.otimeS}</td>
                   <td>${catalog.depth }</td>
                   <td>${catalog.m }</td>
                   <td>${catalog.locationCname }</td>

@@ -364,7 +364,8 @@ public class EarthquakeController{
 				}
 				System.out.println(content+"  ---content");
 //				String phones = getPhones(earthquake.getCid());
-				String phones = getPhones(25,content);
+				//25 改为 22 eqim测试组
+				String phones = getPhones(22,content);
 				
 				//String param = "{\"oTime\":\"2017-17-10 12\", \"locationCname\":\"北京西站前面\", \"lat\":\"12\", \"lon\":\"32\", \"m\":\"6\", \"depth\":\"23\", \"peoplesum\":\"人口多\", \"demaver\":\"23\", \"peoplesum\":\"人口多。\", \"towncount\":\"城镇多。\", \"weather\":\"天气好。\", \"hazardcount\":\"没有地震。\"}";
 			       
