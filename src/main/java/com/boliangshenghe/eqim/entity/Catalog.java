@@ -72,8 +72,18 @@ public class Catalog {
     private Integer start;
     
     private Integer limit;
+    
+    private String otimeS;
 
-    public String getCataId() {
+    public String getOtimeS() {
+		return otimeS;
+	}
+
+	public void setOtimeS(String otimeS) {
+		this.otimeS = otimeS;
+	}
+
+	public String getCataId() {
         return cataId;
     }
 

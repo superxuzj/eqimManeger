@@ -325,7 +325,7 @@ public class CatalogcopyService {
 				company.getSmscode().trim().indexOf("1")!=-1
 				){//国内3.0级以上
 			if(Double.valueOf(catalogcopy.getM())>=3.0 
-					&& Double.valueOf(catalogcopy.getM())<4.0
+					//&& Double.valueOf(catalogcopy.getM())<4.0
 					&& !catalogcopy.getLocation().equals("海外海洋")){
 				sendMes = true;
 			}

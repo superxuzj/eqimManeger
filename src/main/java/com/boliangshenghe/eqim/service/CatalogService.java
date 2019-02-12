@@ -10,6 +10,7 @@ import com.boliangshenghe.eqim.common.PageBean;
 import com.boliangshenghe.eqim.entity.Catalog;
 import com.boliangshenghe.eqim.repository.CatalogMapper;
 import com.boliangshenghe.eqim.util.CommonUtils;
+import com.boliangshenghe.eqim.util.DateUtils;
 import com.github.pagehelper.PageHelper;
 
 @Service
@@ -51,7 +52,8 @@ public class CatalogService {
 					System.out.println(company);
 				}
 				System.out.println(provice+"  provice");*/
-				
+				System.out.println(catalog.getOTime());
+				catalog.setOtimeS(DateUtils.getStringDate(catalog.getOTime()));
 				catalog.setLocationCname(new String(catalog.getLocationCname().getBytes("ISO-8859-1"), "gbk"));
 			} catch (UnsupportedEncodingException c) {
 				// TODO Auto-generated catch block
