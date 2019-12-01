@@ -17,9 +17,10 @@
 	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
-    
+    <!-- 变量信息 -->
     <bean id="propertyConfigurer"  
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="ignoreUnresolvablePlaceholders" value="true"></property>
         <property name="location" value="classpath:config/jdbc.properties" />  
     </bean>
     
@@ -179,6 +180,7 @@
 		class="com.boliangshenghe.eqim.common.datasource.MultiDataSourceTransactionManager">
 		<property name="cobarDataSourceService" ref="dataSources"></property>
 	</bean>
+	<!-- 有这一句就可以了，不要再下面的了 -->
     <tx:annotation-driven transaction-manager="transactionManager" />
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>

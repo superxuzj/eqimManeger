@@ -40,6 +40,15 @@ public class SmsUtils {
     static final String accessKeyId = "LTAIsaeYrEsGyjvK";
     static final String accessKeySecret = "FjiQfWuWiJacSM2SbK0MEInNp7cfLx";
 
+    /**
+     * send message
+     * @param method
+     * @param phones
+     * @param param
+     * @param code
+     * @return
+     * @throws ClientException
+     */
     public static SendSmsResponse sendSms(String method, String phones,String param,String code) throws ClientException {
     	if(method.equals(CommonUtils.SMSKEY)){
     		 //可自助调整超时时间
@@ -118,8 +127,8 @@ public class SmsUtils {
         //发短信
 //        SendSmsResponse response = sendSms("18910523755,18611453795");
     	//String parm = "{\"customer\":\"北京时间2017年11月23日17时43分，在重庆武隆县(北纬29.40度，东经107.94度)发生5.0级地震，震源深度约10公里，震中50公里范围内的人口密度约150人/平方公里,人口约120万人。震中20公里范围内有17个乡（镇、街道）,有0个村。震区未来3天气象信息：周五，阴，14 ~ 9℃，周六，多云，15 ~ 9℃，周日，多云，17 ~ 10℃。震中100公里范围内发生5.0级以上地震共1次。最大地震是2004年11月21日在重庆市忠县发生的5.1级地震。\"}";
-    	String parm = "{\"customer\":\"北京时间2017年11月23日17时43分.\"}";
-    	SendSmsResponse response = sendSms(CommonUtils.SMSKEY,"18611453795",parm,"SMS_115930555");
+    	String parm = "{\"oTime\":\"2019年02月01日12时12分\", \"locationCname\":\"西藏昌都市江达县\", \"lat\":\"31.37\", \"lon\":\"98.47\", \"m\":\"3.8\", \"depth\":\"7.0\", \"zaiqing\":\"50公里范围内平均海拔约5059.7米。人口密度约4人/平方公里，人口约3万人。有6个乡（镇、街道），有355个村。近50年来，发生5.0级以上地震共0次，6.0级以上地震共0次。震区未来3天气象信息：2019年02月01日：多云，温度：-10℃到13℃；2019年02月02日：多云，温度：-12℃到8℃；2019年02月03日：多云，温度：-12℃到10℃。（内测短信）\"}";
+    	SendSmsResponse response = sendSms(CommonUtils.SMSKEY,"18611453795",parm,"SMS_115930835");
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());

@@ -6,7 +6,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import org.springframework.stereotype.Component;
 /**
- * test
+ * TopicReceiver
  * @author xuzj
  *
  */

@@ -175,7 +175,7 @@ public class CatalogcopyService {
     				}else{
     					catalogcopy.setLocation(catalogcopy.getLocationCname());
     				}
-    				catalogcopy.setJsonstate("2");//没有json数据
+    				//catalogcopy.setJsonstate("2");//没有json数据
     				try {
     					this.insertSelective(catalogcopy); //插入到复制表中
 					} catch (Exception c) {

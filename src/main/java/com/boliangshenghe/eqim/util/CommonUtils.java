@@ -32,8 +32,9 @@ public class CommonUtils {
 	
 	//public static final String SEARCH_TIME="20171113102821.00";
 	
-	public static final String SEARCH_TIME="20181113191735.00";
+	//public static final String SEARCH_TIME="20181113191735.00";
 	
+	public static final String SEARCH_TIME="20190212224708.00";
 	
 	private static final String CACHE_CONTROL = "Cache-Control";
 	private static final String PRAGMA = "Pragma";

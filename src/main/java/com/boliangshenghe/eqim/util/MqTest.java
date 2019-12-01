@@ -22,7 +22,7 @@ public class MqTest {
 	/**
 	 * 10.33.47.176:61618和openapi.vss.topic可通过openapi【事件订阅接口】获得
 	 */
-    public static final String BROKER_URL = "failover:(tcp://192.168.1.201:61616)?timeout=2000";
+    public static final String BROKER_URL = "failover:(tcp://192.168.1.201:61618)?timeout=2000";
 	//public static final String BROKER_URL = "failover:(tcp://221.219.243.82:61618)?timeout=2000";
 	//public static final String BROKER_URL = "failover:(tcp://10.115.5.117:61618)?timeout=2000";
     
@@ -61,11 +61,13 @@ public class MqTest {
                             bytesMessage.readBytes(bt);
                           // System.out.println(bytesMessage);
                            EventDis.CommEventLog parseFrom = EventDis.CommEventLog.parseFrom(bt);
+                           System.out.println(parseFrom.toString()+"  ---------commEventLog-------------    ");
                         // 输出壳文件字段
-                           if(parseFrom.getEventType()==131668) {
+                          /* if(parseFrom.getEventType()==131668) {
                         	   System.out.println(parseFrom.toString()+"  ---------commEventLog-------------    ");
                         	   System.out.println(parseFrom.getExtInfo().toStringUtf8()+" ----------ExtInfo------");
-                           }
+                           }*/
+                           
                           
                            /*System.out.println(parseFrom.getEventType()+"22222222222");
                             System.out.println(parseFrom.getEventTypeName()+"33333333333333");*/

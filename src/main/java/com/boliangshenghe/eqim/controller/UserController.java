@@ -155,7 +155,7 @@ public class UserController extends BaseCommonController{
 	}
 
 	// 加密数据
-	private String getEncryptValue(String value) {
+	private static String getEncryptValue(String value) {
 		String returnString = "";
 		try {
 			DesUtils des = new DesUtils();
@@ -165,6 +165,11 @@ public class UserController extends BaseCommonController{
 			c.printStackTrace();
 		}
 		return returnString;
+	}
+	
+	public static void main(String[] args) {
+		String s = "领导测试组";
+		System.out.println(getEncryptValue(s));
 	}
 	
 	// 解密数据
